@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science — Nk Study Lab</title>
+<script>
+  (function(){
+    var saved = localStorage.getItem('nkStudyLabTheme');
+    if(saved === 'dark'){
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --surface:#F7F8FA;
+    --border:#E5E8EE;
+    --text:#1A1F2B;
+    --text-dim:#6B7280;
+    --navbar-bg:rgba(255,255,255,0.92);
+    --topic:#DC2626;
+    --topic-dark:#B91C1C;
+  }
+  [data-theme="dark"]{
+    --bg:#0A0E14;
+    --surface:#131A28;
+    --border:#232B3D;
+    --text:#E4E9F2;
+    --text-dim:#8B96AC;
+    --navbar-bg:rgba(10,14,20,0.92);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    transition:background .25s ease, color .25s ease;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  .loader-screen{
+    position:fixed;inset:0;z-index:9999;
+    background:var(--bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:16px;
+    transition:opacity .4s ease, visibility .4s ease;
+  }
+  .loader-screen.hidden{ opacity:0;visibility:hidden;pointer-events:none; }
+  .loader-logo{
+    width:56px;height:56px;border-radius:50%;
+    position:relative;display:flex;align-items:center;justify-content:center;
+    font-size:24px;background:var(--surface);
+  }
+  .loader-logo::before{
+    content:'';position:absolute;inset:-3px;border-radius:50%;
+    background:conic-gradient(from 0deg,#0D9488,#F5A623,#9333EA,#16A34A,#DC2626,#0D9488);
+    animation:spin 1.1s linear infinite;
+  }
+  .loader-logo::after{
+    content:'';position:absolute;inset:0;border-radius:50%;background:var(--surface);
+  }
+  .loader-logo span{position:relative;z-index:1;}
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .loader-text{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--text-dim);
+  }
+
+  .theme-toggle{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    font-size:15px;cursor:pointer;
+    margin-left:auto;
+  }
+  .theme-toggle:active{ transform:scale(0.92); }
+
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--navbar-bg);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    padding:14px 18px;
+    display:flex;align-items:center;gap:14px;
+    transition:background .25s ease, border-color .25s ease;
+  }
+  .back-btn{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);
+    font-size:16px;flex-shrink:0;
+  }
+  .topbar-title{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:800;font-size:16px;
+  }
+
+  .topic-banner{
+    background:linear-gradient(135deg,var(--topic),var(--topic-dark));
+    padding:32px 20px;
+    text-align:center;
+    color:#fff;
+  }
+  .topic-emoji{font-size:40px;margin-bottom:10px;}
+  .topic-title{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:800;font-size:24px;margin-bottom:6px;
+  }
+  .topic-sub{font-size:13px;opacity:0.9;}
+
+  /* SUB-CATEGORY GRID */
+  .cat-wrap{
+    max-width:640px;margin:0 auto;
+    padding:20px 18px 6px;
+  }
+  .cat-heading{
+    font-size:13px;font-weight:700;color:var(--text-dim);
+    text-transform:uppercase;letter-spacing:0.5px;
+    margin-bottom:12px;
+  }
+  .cat-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+    margin-bottom:10px;
+  }
+  .cat-card{
+    display:block;border-radius:14px;padding:18px 14px;
+    position:relative;overflow:hidden;cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .15s ease;
+  }
+  .cat-card:active{ transform:scale(0.96); }
+  .cat-card.active{ border-color:#fff; box-shadow:0 0 0 2px var(--topic); }
+  .cat-emoji{font-size:26px;display:block;margin-bottom:8px;}
+  .cat-name{font-size:14px;font-weight:800;color:#fff;display:block;}
+  .cat-sub{font-size:10.5px;color:rgba(255,255,255,0.8);margin-top:3px;display:block;}
+
+  .c-basics{ background:linear-gradient(135deg,#2563EB,#1D4ED8); }
+  .c-advanced{ background:linear-gradient(135deg,#9333EA,#7E22CE); }
+  .c-programming{ background:linear-gradient(135deg,#0D9488,#0F766E); }
+  .c-quiz{ background:linear-gradient(135deg,#F5A623,#D9840F); }
+
+  /* POSTS */
+  .posts-wrap{
+    max-width:640px;margin:0 auto;
+    padding:16px 18px 60px;
+  }
+  .posts-heading{
+    font-size:14px;font-weight:700;color:var(--text-dim);
+    text-transform:uppercase;letter-spacing:0.5px;
+    margin-bottom:14px;
+  }
+  .post-cards{display:flex;flex-direction:column;gap:16px;}
+  .loading-text{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0;}
+
+  .post-card{
+    display:block;background:var(--surface);
+    border:1px solid var(--border);border-radius:14px;overflow:hidden;
+    transition:transform .18s, box-shadow .18s;
+  }
+  .post-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 28px -14px rgba(220,38,38,0.3);
+  }
+  .post-card-img{
+    width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    background:linear-gradient(135deg,var(--topic),var(--topic-dark));
+  }
+  .post-card-body{padding:14px 16px;}
+  .post-card-title{
+    font-size:15px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:6px;
+  }
+  .post-card-date{font-size:11px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+  .post-card-arrow{
+    display:inline-flex;align-items:center;gap:4px;
+    color:var(--topic);font-size:12px;font-weight:700;margin-top:8px;
+  }
+
+  /* QUIZ */
+  .quiz-wrap{ display:none; }
+  .quiz-wrap.active{ display:block; }
+  .quiz-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:16px;padding:22px;
+  }
+  .quiz-progress{
+    font-size:12px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;
+    margin-bottom:10px;
+  }
+  .quiz-bar{
+    height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:20px;
+  }
+  .quiz-bar-fill{
+    height:100%;background:#F5A623;transition:width .3s ease;
+  }
+  .quiz-question{
+    font-size:16px;font-weight:800;margin-bottom:16px;line-height:1.5;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-option{
+    background:var(--bg);border:1.5px solid var(--border);
+    border-radius:10px;padding:13px 14px;font-size:13.5px;
+    cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  .quiz-option.selected{ border-color:#F5A623;background:rgba(245,166,35,0.08); }
+  .quiz-option.correct{ border-color:#16A34A;background:rgba(22,163,74,0.1); }
+  .quiz-option.wrong{ border-color:#DC2626;background:rgba(220,38,38,0.1); }
+  .quiz-btn{
+    width:100%;background:#F5A623;color:#3A2400;border:none;
+    border-radius:10px;padding:13px;font-size:14px;font-weight:800;cursor:pointer;
+  }
+  .quiz-btn:disabled{ opacity:0.5;cursor:not-allowed; }
+  .quiz-result{ text-align:center;display:none; }
+  .quiz-result.active{ display:block; }
+  .quiz-result-score{
+    font-size:46px;font-weight:800;color:#F5A623;margin-bottom:10px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .quiz-result-text{ color:var(--text-dim);font-size:14px;margin-bottom:20px; }
+</style>
+</head>
+<body>
+
+<div class="loader-screen" id="loaderScreen">
+  <div class="loader-logo"><span>📚</span></div>
+  <div class="loader-text">Load Ho Raha Hai...</div>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="back-btn">←</a>
+  <div class="topbar-title">Nk Study Lab</div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button>
+</div>
+
+<div class="topic-banner">
+  <div class="topic-emoji">🖥️</div>
+  <div class="topic-title">Computer Science</div>
+  <div class="topic-sub">Basics to Advanced</div>
+</div>
+
+<div class="cat-wrap">
+  <div class="cat-heading">📂 Category Chuno</div>
+  <div class="cat-grid">
+    <div class="cat-card c-basics active" data-cat="CS-Basics">
+      <span class="cat-emoji">💻</span>
+      <span class="cat-name">Computer Basics</span>
+      <span class="cat-sub">Shuru yahan se karo</span>
+    </div>
+    <div class="cat-card c-advanced" data-cat="CS-Advanced">
+      <span class="cat-emoji">🚀</span>
+      <span class="cat-name">Advanced CS</span>
+      <span class="cat-sub">Deep concepts</span>
+    </div>
+    <a href="Programming.html"
+      <div class="cat-card c-programming" data-cat="CS-Programming">
+      <span class="cat-emoji">👨‍💻</span>
+      <span class="cat-name">Programming</span>
+      <span class="cat-sub">learn coding</span>
+    </div>
+      </a>
+    <div class="cat-card c-quiz" data-cat="quiz">
+      <span class="cat-emoji">📝</span>
+      <span class="cat-name">Quiz</span>
+      <span class="cat-sub">test your knowledge</span>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS SECTION -->
+<div class="posts-wrap" id="postsSection">
+  <div class="posts-heading" id="postsHeading">💻 Computer Basics Posts</div>
+  <div class="post-cards" id="postCards">
+    <div class="loading-text">Loading posts...</div>
+  </div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div class="posts-wrap quiz-wrap" id="quizSection">
+  <div class="posts-heading">📝 Programming Quiz</div>
+
+  <div class="quiz-card">
+    <div id="quizBody">
+      <div class="quiz-progress" id="quizProgress">Question 1 / 5</div>
+      <div class="quiz-bar"><div class="quiz-bar-fill" id="quizBarFill" style="width:20%"></div></div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <button class="quiz-btn" id="quizNextBtn" disabled>Agla Sawaal →</button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="quiz-result-score" id="quizScore">0/5</div>
+      <div class="quiz-result-text" id="quizResultText"></div>
+      <button class="quiz-btn" id="quizRestartBtn">🔄 Dubara Try Karo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ POSTS FETCHING ============ */
+(function(){
+  var BLOG_URL = "https://codeshieldnk.blogspot.com";
+  var MAX_POSTS = 20;
+  var currentLabel = "CS-Basics";
+
+  var headingMap = {
+    "CS-Basics": "💻 Computer Basics Posts",
+    "CS-Advanced": "🚀 Advanced CS Posts",
+    "CS-Programming": "👨‍💻 Programming Posts"
+  };
+
+  function loadPosts(label){
+    currentLabel = label;
+    document.getElementById('postsHeading').textContent = headingMap[label] || "Posts";
+    var container = document.getElementById('postCards');
+    container.innerHTML = '<div class="loading-text">Loading posts...</div>';
+    var url = BLOG_URL + "/feeds/posts/default/-/" + encodeURIComponent(label) + "?redirect=false&alt=json-in-script&max-results=" + MAX_POSTS + "&callback=csRenderPosts";
+    var script = document.createElement('script');
+    script.src = url;
+    script.onerror = function(){
+      container.innerHTML = '<div class="loading-text">Posts load nahi ho paaye.</div>';
+    };
+    document.body.appendChild(script);
+  }
+
+  function getPostImage(entry){
+    if(entry.media$thumbnail && entry.media$thumbnail.url){
+      return entry.media$thumbnail.url.replace(/\/s72-c\//, '/s600/').replace(/\/w72-h72-/, '/w600-');
+    }
+    var content = (entry.content && entry.content.$t) || (entry.summary && entry.summary.$t) || '';
+    var match = content.match(/<img[^>]+src="([^">]+)"/i);
+    if(match && match[1]) return match[1];
+    return null;
+  }
+
+  window.csRenderPosts = function(json){
+    var container = document.getElementById('postCards');
+    if(!json || !json.feed || !json.feed.entry || json.feed.entry.length === 0){
+      container.innerHTML = '<div class="loading-text">Abhi koi post nahi mila. Jald aayega!</div>';
+      return;
+    }
+    var html = '';
+    json.feed.entry.forEach(function(entry){
+      var title = entry.title.$t;
+      var link = '#';
+      for(var i=0;i<entry.link.length;i++){
+        if(entry.link[i].rel === 'alternate'){ link = entry.link[i].href; break; }
+      }
+      var date = new Date(entry.published.$t).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
+      var img = getPostImage(entry);
+      var imgHtml = img
+        ? '<img class="post-card-img" src="'+img+'" alt="'+title.replace(/"/g,'&quot;')+'" loading="lazy">'
+        : '<div class="post-card-img"></div>';
+
+      html += '<a class="post-card" href="'+link+'" target="_blank" rel="noopener">'
+            +   imgHtml
+            +   '<div class="post-card-body">'
+            +     '<div class="post-card-title">'+title+'</div>'
+            +     '<div class="post-card-date">'+date+'</div>'
+            +     '<div class="post-card-arrow">Padho &rarr;</div>'
+            +   '</div>'
+            + '</a>';
+    });
+    container.innerHTML = html;
+  };
+
+  loadPosts('CS-Basics');
+
+  /* ============ CATEGORY SWITCHING ============ */
+  var catCards = document.querySelectorAll('.cat-card');
+  var postsSection = document.getElementById('postsSection');
+  var quizSection = document.getElementById('quizSection');
+
+  catCards.forEach(function(card){
+    card.addEventListener('click', function(){
+      catCards.forEach(function(c){ c.classList.remove('active'); });
+      card.classList.add('active');
+
+      var cat = card.getAttribute('data-cat');
+      if(cat === 'quiz'){
+        postsSection.style.display = 'none';
+        quizSection.classList.add('active');
+      } else {
+        quizSection.classList.remove('active');
+        postsSection.style.display = 'block';
+        loadPosts(cat);
+      }
+    });
+  });
+})();
+
+/* ============ QUIZ LOGIC ============ */
+(function(){
+  var questions = [
+    {
+      q: "CPU ka pura naam kya hai?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Program Utility", "Core Processing Unix"],
+      correct: 0
+    },
+    {
+      q: "RAM ka kya kaam hota hai?",
+      options: ["Permanent data store karna", "Temporary data store karna (jab tak power ho)", "Internet connect karna", "Print karna"],
+      correct: 1
+    },
+    {
+      q: "Binary number system mein sirf kaunse 2 digits hote hain?",
+      options: ["1 aur 2", "A aur B", "0 aur 1", "True aur False"],
+      correct: 2
+    },
+    {
+      q: "In mein se kaunsi ek Programming Language hai?",
+      options: ["HTTP", "Python", "HTML tag", "USB"],
+      correct: 1
+    },
+    {
+      q: "Operating System ka ek example batao.",
+      options: ["Microsoft Word", "Windows", "Google Chrome", "WhatsApp"],
+      correct: 1
+    }
+  ];
+
+  var currentQ = 0;
+  var score = 0;
+  var selectedAnswer = null;
+
+  var quizQuestion = document.getElementById('quizQuestion');
+  var quizOptions = document.getElementById('quizOptions');
+  var quizProgress = document.getElementById('quizProgress');
+  var quizBarFill = document.getElementById('quizBarFill');
+  var quizNextBtn = document.getElementById('quizNextBtn');
+  var quizBody = document.getElementById('quizBody');
+  var quizResult = document.getElementById('quizResult');
+  var quizScore = document.getElementById('quizScore');
+  var quizResultText = document.getElementById('quizResultText');
+
+  function renderQuestion(){
+    var q = questions[currentQ];
+    selectedAnswer = null;
+    quizNextBtn.disabled = true;
+    quizNextBtn.textContent = currentQ === questions.length - 1 ? 'Result Dekho →' : 'Agla Sawaal →';
+    quizProgress.textContent = 'Question ' + (currentQ + 1) + ' / ' + questions.length;
+    quizBarFill.style.width = (((currentQ + 1) / questions.length) * 100) + '%';
+    quizQuestion.textContent = q.q;
+    quizOptions.innerHTML = '';
+
+    q.options.forEach(function(opt, idx){
+      var div = document.createElement('div');
+      div.className = 'quiz-option';
+      div.textContent = String.fromCharCode(65 + idx) + '. ' + opt;
+      div.addEventListener('click', function(){
+        if(selectedAnswer !== null) return; // already answered
+        selectedAnswer = idx;
+        var allOptions = quizOptions.querySelectorAll('.quiz-option');
+        allOptions.forEach(function(o, i){
+          if(i === q.correct) o.classList.add('correct');
+          else if(i === idx) o.classList.add('wrong');
+        });
+        if(idx === q.correct) score++;
+        quizNextBtn.disabled = false;
+      });
+      quizOptions.appendChild(div);
+    });
+  }
+
+  quizNextBtn.addEventListener('click', function(){
+    currentQ++;
+    if(currentQ < questions.length){
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult(){
+    quizBody.style.display = 'none';
+    quizResult.classList.add('active');
+    quizScore.textContent = score + '/' + questions.length;
+    var pct = (score / questions.length) * 100;
+    if(pct >= 80) quizResultText.textContent = '🎉 Zabardast! Aapko CS ka accha gyan hai.';
+    else if(pct >= 50) quizResultText.textContent = '👍 Accha kiya! Thoda aur practice karo.';
+    else quizResultText.textContent = '💪 Koi baat nahi, dubara try karo!';
+  }
+
+  document.getElementById('quizRestartBtn').addEventListener('click', function(){
+    currentQ = 0;
+    score = 0;
+    quizBody.style.display = 'block';
+    quizResult.classList.remove('active');
+    renderQuestion();
+  });
+
+  renderQuestion();
+})();
+
+/* ============ LOADER + THEME TOGGLE ============ */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    document.getElementById('loaderScreen').classList.add('hidden');
+  }, 400);
+});
+
+var themeToggle = document.getElementById('themeToggle');
+var htmlEl = document.documentElement;
+
+function updateToggleIcon(){
+  var isDark = htmlEl.getAttribute('data-theme') === 'dark';
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+}
+updateToggleIcon();
+
+themeToggle.addEventListener('click', function(){
+  var isDark = htmlEl.getAttribute('data-theme') === 'dark';
+  if(isDark){
+    htmlEl.removeAttribute('data-theme');
+    localStorage.setItem('nkStudyLabTheme', 'light');
+  } else {
+    htmlEl.setAttribute('data-theme', 'dark');
+    localStorage.setItem('nkStudyLabTheme', 'dark');
+  }
+  updateToggleIcon();
+});
+</script>
+
+</body>
+</html>
