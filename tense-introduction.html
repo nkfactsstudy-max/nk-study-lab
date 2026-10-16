@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>टेंस का परिचय (Tense Introduction) | Nk Study Lab</title>
+  <meta name="description" content="Tense introduction in pure and easy Hindi with real-life examples at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --blue-card: #2563EB;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --blue-card: #3B82F6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--blue-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-card); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--blue-card);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--blue-card); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #2563EB; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #3B82F6; }
+
+    /* Types Cards */
+    .type-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+    }
+    .type-title { font-weight: 700; color: var(--blue-card); font-size: 1.05rem; margin-bottom: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="tense.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">⏳</div>
+    <main-title><h1 class="hero-title">0. टेंस का परिचय (Tense Introduction)</h1></main-title>
+    <p class="hero-sub">समय और काल के बिना अंग्रेजी अधूरी है!</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Tense Kya Hai -->
+    <div class="content-box">
+      <div class="box-title">💡 एकदम आसान भाषा में समझें</div>
+      <p class="para-text">
+        हम अपनी ज़िंदगी में जो भी बातें करते हैं, उनका संबंध किसी न किसी 'समय' से जरूर होता है। जैसे—हम कल क्या कर रहे थे, आज क्या कर रहे हैं, या कल क्या करेंगे।
+      </p>
+      <p class="para-text">
+        अंग्रेज़ी में इसी 'समय' (Time) को दिखाने के लिए जिस व्याकरण का इस्तेमाल होता है, उसे ही हम <b>टेंस (Tense - काल)</b> कहते हैं।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 सीधी बात:</div>
+        <b>टेंस हमें यह बताता है कि कोई काम किस समय (वर्तमान, भूत या भविष्य में) हुआ है या हो रहा है।</b> बिना टेंस के हम सही समय पर सही वाक्य नहीं बना सकते।
+      </div>
+    </div>
+
+    <!-- Card 2: 3 Main Types -->
+    <div class="content-box">
+      <div class="box-title">🎯 टेंस के 3 मुख्य रूप (Main Types of Tense)</div>
+      <p class="para-text">समय को मुख्य रूप से तीन भागों में बांटा गया है:</p>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. वर्तमान काल (Present Tense): जो समय अभी चल रहा है</div>
+          <div class="ex-hi">उदाहरण: मैं अभी पढ़ रहा हूँ। (I am studying now.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. भूतकाल (Past Tense): जो समय बीत चुका है</div>
+          <div class="ex-hi">उदाहरण: मैंने कल किताब पढ़ी थी। (I read a book yesterday.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. भविष्य काल (Future Tense): जो समय आने वाला है</div>
+          <div class="ex-hi">उदाहरण: मैं कल स्कूल जाऊँगा। (I will go to school tomorrow.)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Card 3: 4 Sub-types -->
+    <div class="content-box">
+      <div class="box-title">📚 हर टेंस के 4 उप-प्रकार (Sub-types)</div>
+      <p class="para-text">ऊपर दिए गए तीनों कालों के आगे 4-4 हिस्से और होते हैं, जिससे कुल मिलाकर 12 टेंस बनते हैं:</p>
+
+      <div class="type-card">
+        <div class="type-title">1. इन्डेफिनेट (Indefinite / Simple)</div>
+        <p class="para-text">इसमें काम के होने की अनिश्चितता होती है (जैसे आदत या रोज का नियम)।</p>
+      </div>
+
+      <div class="type-card">
+        <div class="type-title">2. कंटीन्यूअस (Continuous / Progressive)</div>
+        <p class="para-text">इसमें काम लगातार जारी रहता है (रहा है, रहा था, रहा होगा)।</p>
+      </div>
+
+      <div class="type-card">
+        <div class="type-title">3. परफेक्ट (Perfect)</div>
+        <p class="para-text">इसमें काम पूरी तरह से समाप्त (सफल) हो चुका होता है (चुका है, चुका था)।</p>
+      </div>
+
+      <div class="type-card">
+        <div class="type-title">4. परफेक्ट कंटीन्यूअस (Perfect Continuous)</div>
+        <p class="para-text">इसमें काम कुछ समय से जारी रहता है और साथ में समय भी दिया होता है।</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

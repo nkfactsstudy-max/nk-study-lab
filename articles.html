@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles (A, An, The) - Nk Study Lab</title>
+  <meta name="description" content="Articles A, An, The menu at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --article-a: #D97706;
+      --article-the: #2563EB;
+      --article-zero: #DC2626;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --article-a: #F59E0B;
+      --article-the: #3B82F6;
+      --article-zero: #EF4444;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #0d34cb, #2125f2); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Intro Content Box */
+    .intro-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--text); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* Category Cards List */
+    .articles-grid { display: flex; flex-direction: column; gap: 1.2rem; }
+    
+    .article-card {
+      display: block; text-decoration: none; border-radius: 16px;
+      padding: 1.5rem; color: #FFFFFF; position: relative; overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.050980392156862744); transition: transform 0.2s ease;
+    }
+    .article-card:active { transform: scale(0.98); }
+
+    /* Card Styles */
+    .card-a-an {
+      background: linear-gradient(135deg, #D97706, #fd7f20);
+    }
+    .card-the {
+      background: linear-gradient(135deg, #2563eb, #1D4ED8);
+    }
+    .card-zero {
+      background: linear-gradient(135deg, #a40404, #ab0606);
+    }
+
+    .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; }
+    .card-icon { font-size: 2rem; }
+    .card-badge {
+      background: rgba(255,255,255,0.2); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+      padding: 3px 10px; border-radius: 20px; font-weight: 700; backdrop-filter: blur(4px);
+    }
+    .card-title { font-size: 1.4rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+    .card-arrow { font-weight: 700; font-size: 0.9rem; margin-top: 0.8rem; display: inline-block; opacity: 0.9; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="Grammar.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">🔤</div>
+    <h1 class="hero-title">Articles (A, An, The)</h1>
+    <p class="hero-sub">अंग्रेजी में संज्ञा (Noun) के सही प्रयोग की पूरी जानकारी</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Overview Box (केवल मुख्य Articles का परिचय) -->
+    <div class="intro-box">
+      <div class="box-title">💡 Articles क्या होते हैं?</div>
+      <p class="para-text">
+        अंग्रेजी में <b>A, An</b> और <b>The</b> को Articles कहा जाता है। ये किसी संज्ञा (Noun) के ठीक पहले आकर यह बताते हैं कि वह संज्ञा निश्चित (Specific) है या अनिश्चित (General)।
+      </p>
+    </div>
+
+    <!-- Clean Category Cards without description -->
+    <div class="articles-grid">
+
+      <!-- Card 1: A and An -->
+      <a href="articles-a-an.html" class="article-card card-a-an">
+        <div class="card-head">
+          <span class="card-icon">✏️</span>
+          <span class="card-badge">PART 1</span>
+        </div>
+        <div class="card-title">1. Indefinite Article (A / An)</div>
+        </span>
+      </a>
+
+      <!-- Card 2: The -->
+      <a href="articles-the.html" class="article-card card-the">
+        <div class="card-head">
+          <span class="card-icon">👑</span>
+          <span class="card-badge">PART 2</span>
+        </div>
+        <div class="card-title">2. Definite Article (The)</div>
+        </span>
+      </a>
+
+      <!-- Card 3: Zero Article -->
+      <a href="articles-zero.html" class="article-card card-zero">
+        <div class="card-head">
+          <span class="card-icon">🚫</span>
+          <span class="card-badge">PART 3</span>
+        </div>
+        <div class="card-title">3. Omission of Articles (Zero Article)</div>
+        </span>
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary (1000+ Word Meanings) - Nk Study Lab</title>
+  <meta name="description" content="Learn 1000+ Daily Use, Books, Newspapers and Spoken English Vocabulary Word Meanings from Basic to Advanced level with Hindi meaning.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --purple: #9333EA;
+      --purple-card: #9333EA;
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --purple: #A855F7;
+      --purple-card: #A855F7;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+    
+    /* Top Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner Section */
+    .hero-banner {
+      background: var(--purple); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Content Area */
+    .main-container { max-width: 800px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+    .section-tag {
+      font-size: 0.85rem; font-weight: 700; color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
+      margin-bottom: 1.2rem; text-transform: uppercase; display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* Vocabulary Category Cards (आयताकार डिब्बे) */
+    .rect-card-list {
+      display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;
+    }
+
+    .rect-card {
+      border-radius: 14px; padding: 1.2rem 1.4rem; color: #FFFFFF;
+      text-decoration: none; transition: transform 0.2s ease;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--purple-card);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .rect-card:active { transform: scale(0.98); }
+    
+    .card-left { display: flex; align-items: center; gap: 1rem; }
+    .card-icon { font-size: 2rem; }
+    .card-info { display: flex; flex-direction: column; }
+    .card-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .card-desc { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
+
+    /* Vocabulary Table Style */
+    .vocab-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .vocab-section h2 { font-size: 1.3rem; color: var(--purple); margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace; }
+    
+    .vocab-table { width: 100%; border-collapse: collapse; }
+    .vocab-table th, .vocab-table td {
+      padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .vocab-table th { font-size: 0.85rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+    .vocab-table td.word { font-weight: 600; color: var(--text); }
+    .vocab-table td.meaning { color: var(--text-dim); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="spoken-english.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero-banner">
+    <div class="hero-icon">📚</div>
+    <h1 class="hero-title">Vocabulary 1000+</h1>
+    <p class="hero-sub">Daily Use, Books & Newspapers Word Meanings</p>
+  </div>
+
+  <div class="main-container">
+    
+    <div class="section-tag">📁 CATEGORY CHUNO</div>
+
+    <!-- Rectangular Cards List -->
+    <div class="rect-card-list">
+      <div class="rect-card">
+        <div class="card-left">
+          <div class="card-icon">⚡</div>
+          <div class="card-info">
+            <span class="card-title">Level 1: Daily Use Basics</span>
+            <span class="card-desc">Rozmarra ki zindgi me kaam aane wale aasan shabd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rect-card" style="background: #7C3AED;">
+        <div class="card-left">
+          <div class="card-icon">📰</div>
+          <div class="card-info">
+            <span class="card-title">Level 2: Books & Newspapers</span>
+            <span class="card-desc">Papers aur padhai me use hone wale standard words</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rect-card" style="background: #6D28D9;">
+        <div class="card-left">
+          <div class="card-icon">🚀</div>
+          <div class="card-info">
+            <span class="card-title">Level 3: Advanced & Exams</span>
+            <span class="card-desc">Competitive exams aur high-level spoken words</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vocabulary List Section -->
+    <div class="vocab-section">
+      <h2>🔥 Important Vocabulary Master List (A to Z)</h2>
+      
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Pronunciation</th>
+            <th>Hindi Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="word">Abandon</td><td>अबैंडन</td><td class="meaning">त्याग देना / छोड़ना</td></tr>
+          <tr><td class="word">Ability</td><td>एबिलिटी</td><td class="meaning">योग्यता / क्षमता</td></tr>
+          <tr><td class="word">Abolish</td><td>अबोलिश</td><td class="meaning">समाप्त करना (कानून आदि)</td></tr>
+          <tr><td class="word">Absolute</td><td>एब्सोल्यूट</td><td class="meaning">पूरी तरह से / बिल्कुल</td></tr>
+          <tr><td class="word">Absorbed</td><td>एब्जॉर्बड</td><td class="meaning">लीन / डूबा हुआ</td></tr>
+          <tr><td class="word">Abundant</td><td>अबंडेंट</td><td class="meaning">प्रचुर मात्रा में / बहुत अधिक</td></tr>
+          <tr><td class="word">Accelerate</td><td>एक्सीलरेट</td><td class="meaning">गति तेज करना</td></tr>
+          <tr><td class="word">Accomplish</td><td>अकम्पलिश</td><td class="meaning">पूरा करना / सफलता प्राप्त करना</td></tr>
+          <tr><td class="word">Accumulate</td><td>एक्युमुलेट</td><td class="meaning">इकट्ठा करना / संचय करना</td></tr>
+          <tr><td class="word">Accurate</td><td>एक्यूरेट</td><td class="meaning">सटीक / सही</td></tr>
+          <tr><td class="word">Acknowledge</td><td>एकनॉलेज</td><td class="meaning">स्वीकार करना / मानना</td></tr>
+          <tr><td class="word">Acquire</td><td>अक्वायर</td><td class="meaning">प्राप्त करना / हासिल करना</td></tr>
+          <tr><td class="word">Adequate</td><td>अडेक्वेट</td><td class="meaning">पर्याप्त / जरूरत भर</td></tr>
+          <tr><td class="word">Adjacent</td><td>एडजेसेंट</td><td class="meaning">सटा हुआ / पास का</td></tr>
+          <tr><td class="word">Advocate</td><td>एडवोकेट</td><td class="meaning">समर्थन करना / वकालत करना</td></tr>
+          <tr><td class="word">Affection</td><td>अफेक्शन</td><td class="meaning">स्नेह / प्यार</td></tr>
+          <tr><td class="word">Aggressive</td><td>अग्रेसिव</td><td class="meaning">आक्रामक / उग्र</td></tr>
+          <tr><td class="word">Alleviate</td><td>अलेविएट</td><td class="meaning">कम करना (दर्द या समस्या)</td></tr>
+          <tr><td class="word">Ambiguous</td><td>एम्बिग्यूअस</td><td class="meaning">अस्पष्ट / जिसके दो मतलब निकलें</td></tr>
+          <tr><td class="word">Ambitious</td><td>एम्बिशियस</td><td class="meaning">महत्वाकांक्षी (बड़ा लक्ष्य रखने वाला)</td></tr>
+          <tr><td class="word">Analyze</td><td>एनालाइज</td><td class="meaning">विश्लेषण करना / जाँच करना</td></tr>
+          <tr><td class="word">Anonymous</td>:<td>अनामस</td><td class="meaning">गुमनाम / जिसकी पहचान छिपी हो</td></tr>
+          <tr><td class="word">Anxious</td><td>एंशियस</td><td class="meaning">चिंतित / बेचैन</td></tr>
+          <tr><td class="word">Appreciate</td><td>अप्रीसिएट</td><td class="meaning">तारीफ करना / सराहना करना</td></tr>
+          <tr><td class="word">Approaching</td><td>अप्रोचिंग</td><td class="meaning">आने वाला / नज़दीक आ रहा</td></tr>
+          <tr><td class="word">Arrogant</td><td>एरोगेंट</td><td class="meaning">घमंडी / अभिमानी</td></tr>
+          <tr><td class="word">Artificial</td><td>आर्टिफिशियल</td><td class="meaning">कृत्रिम / बनावटी</td></tr>
+          <tr><td class="word">Astonished</td><td>अस्टनिशड</td><td class="meaning">चकित / हैरान</td></tr>
+          <tr><td class="word">Atmosphere</td><td>एटमॉस्फियर</td><td class="meaning">वातावरण / माहौल</td></tr>
+          <tr><td class="word">Authentic</td><td>ऑथेंटिक</td><td class="meaning">प्रामाणिक / असली</td></tr>
+          <tr><td class="word">Available</td><td>अवेलेबल</td><td class="meaning">उपलब्ध / जो मिल सके</td></tr>
+          <tr><td class="word">Awareness</td><td>अवेयरनेस</td><td class="meaning">जागरूकता</td></tr>
+          <tr><td class="word">Barrier</td><td>बैरियर</td><td class="meaning">रुकावट / बाधा</td></tr>
+          <tr><td class="word">Beneficial</td><td>बेनिफिशियल</td><td class="meaning">लाभदायक / फायदेमंद</td></tr>
+          <tr><td class="word">Benevolent</td><td>बेनेवोलेंट</td><td class="meaning">परोपकारी / दयालु</td></tr>
+          <tr><td class="word">Bewilder</td><td>बिविल्डर</td><td class="meaning">भ्रमित कर देना / उलझन में डालना</td></tr>
+          <tr><td class="word">Bizarre</td><td>बिज़ार</td><td class="meaning">अजीब / अनोखा</td></tr>
+          <tr><td class="word">Blossom</td><td>ब्लॉसम</td><td class="meaning">खिलना (फूल आदि)</td></tr>
+          <tr><td class="word">Brave</td><td>ब्रेव</td><td class="meaning">बहादुर / साहसी</td></tr>
+          <tr><td class="word">Brilliant</td><td>ब्रिलिएंट</td><td class="meaning">तेजस्वी / अत्यंत बुद्धिमान</td></tr>
+          <tr><td class="word">Brutal</td><td>ब्रूटल</td><td class="meaning">क्रूर / बर्बर</td></tr>
+          <tr><td class="word">Caculate</td><td>कैलकुलेट</td><td class="meaning">गणना करना / हिसाब लगाना</td></tr>
+          <tr><td class="word">Candid</td><td>कैंडिड</td><td class="meaning">स्पष्टवादी / मुँहफट</td></tr>
+          <tr><td class="word">Capable</td><td>केपेबल</td><td class="meaning">सक्षम / योग्य</td></tr>
+          <tr><td class="word">Capture</td><td>कैप्चर</td><td class="meaning">पकड़ना / क़ैद करना</td></tr>
+          <tr><td class="word">Category</td><td>कैटेगिरी</td><td class="meaning">श्रेणी / वर्ग</td></tr>
+          <tr><td class="word">Cautious</td><td>कॉशियस</td><td class="meaning">सावधान / सतर्क</td></tr>
+          <tr><td class="word">Cease</td><td>सीस</td><td class="meaning">बंद करना / रोक देना</td></tr>
+          <tr><td class="word">Challenge</td><td>चैलेंज</td><td class="meaning">चुनौती</td></tr>
+          <tr><td class="word">Chaos</td><td>केऑस</td><td class="meaning">अराजकता / अफरा-तफरी</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

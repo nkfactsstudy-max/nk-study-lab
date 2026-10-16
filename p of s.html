@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parts of Speech - Nk Study Lab</title>
+  <meta name="description" content="Parts of Speech topics list at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --blue: #2563EB;
+      --blue-card: #2563EB;
+      --red-card: #DC2626;
+      --purple-card: #9333EA;
+      --green-card: #16A34A;
+      --yellow-card: #D97706;
+      --pink-card: #E11D48;
+      --teal-card: #0D9488;
+      --indigo-card: #4F46E5;
+      --orange-card: #EA580C;
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --blue: #3B82F6;
+      --blue-card: #3B82F6;
+      --red-card: #EF4444;
+      --purple-card: #A855F7;
+      --green-card: #22C55E;
+      --yellow-card: #F59E0B;
+      --pink-card: #F43F5E;
+      --teal-card: #14B8A6;
+      --indigo-card: #6366F1;
+      --orange-card: #FB923C;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--blue); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+    .section-tag {
+      font-size: 0.85rem; font-weight: 700; color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
+      margin-bottom: 1.2rem; text-transform: uppercase; display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* Rectangular Cards List */
+    .rect-card-list {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .rect-card {
+      border-radius: 14px; padding: 1.2rem 1.4rem; color: #FFFFFF;
+      text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex; align-items: center; justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .rect-card:active { transform: scale(0.98); }
+    
+    .card-left { display: flex; align-items: center; gap: 1rem; }
+    .card-num-badge {
+      background: rgba(255,255,255,0.25); border-radius: 8px;
+      width: 32px; height: 32px; display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+    }
+    .card-info { display: flex; flex-direction: column; }
+    .card-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .card-desc { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
+    
+    .card-arrow { font-size: 1.4rem; font-weight: bold; opacity: 0.8; }
+
+    /* Card Colors */
+    .rect-card.blue { background: var(--blue-card); }
+    .rect-card.red { background: var(--red-card); }
+    .rect-card.purple { background: var(--purple-card); }
+    .rect-card.green { background: var(--green-card); }
+    .rect-card.yellow { background: var(--yellow-card); }
+    .rect-card.pink { background: var(--pink-card); }
+    .rect-card.teal { background: var(--teal-card); }
+    .rect-card.indigo { background: var(--indigo-card); }
+    .rect-card.orange { background: var(--orange-card); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <a href="grammar.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero-banner">
+    <div class="hero-icon">📦</div>
+    <h1 class="hero-title">Parts of Speech</h1>
+    <p class="hero-sub">Topic chuno aur vistar se padho</p>
+  </div>
+
+  <div class="main-container">
+    
+    <div class="section-tag">📁 TOPICS LIST (1-9)</div>
+
+    <!-- 1 SE 9 TAK KE CARDS -->
+    <div class="rect-card-list">
+      
+      <!-- 1. Introduction -->
+      <a href="intro p.html" class="rect-card blue">
+        <div class="card-left">
+          <div class="card-num-badge">1</div>
+          <div class="card-info">
+            <span class="card-title">Introduction (परिचय)</span>
+            <span class="card-desc">Parts of Speech kya hai aur kyun zaroori hai</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 2. Noun -->
+      <a href="pos-noun.html" class="rect-card red">
+        <div class="card-left">
+          <div class="card-num-badge">2</div>
+          <div class="card-info">
+            <span class="card-title">Noun (संज्ञा)</span>
+            <span class="card-desc">Naam wale shabd, bhed aur udaharan</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 3. Pronoun -->
+      <a href="pos-pronoun.html" class="rect-card purple">
+        <div class="card-left">
+          <div class="card-num-badge">3</div>
+          <div class="card-info">
+            <span class="card-title">Pronoun (सर्वनाम)</span>
+            <span class="card-desc">Naam ki jagah aane wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 4. Verb -->
+      <a href="pos-verb.html" class="rect-card green">
+        <div class="card-left">
+          <div class="card-num-badge">4</div>
+          <div class="card-info">
+            <span class="card-title">Verb (क्रिया)</span>
+            <span class="card-desc">Kaam batane wale shabd aur unke prakar</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 5. Adjective -->
+      <a href="pos-adjective.html" class="rect-card yellow">
+        <div class="card-left">
+          <div class="card-num-badge">5</div>
+          <div class="card-info">
+            <span class="card-title">Adjective (विशेषण)</span>
+            <span class="card-desc">Guna aur visheshata batane wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 6. Adverb -->
+      <a href="pos-adverb.html" class="rect-card pink">
+        <div class="card-left">
+          <div class="card-num-badge">6</div>
+          <div class="card-info">
+            <span class="card-title">Adverb (क्रिया विशेषण)</span>
+            <span class="card-desc">Kaam karne ka tarika batane wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 7. Preposition -->
+      <a href="pos-preposition.html" class="rect-card teal">
+        <div class="card-left">
+          <div class="card-num-badge">7</div>
+          <div class="card-info">
+            <span class="card-title">Preposition (संबंध सूचक)</span>
+            <span class="card-desc">Position aur sthiti batane wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 8. Conjunction -->
+      <a href="pos-conjunction.html" class="rect-card indigo">
+        <div class="card-left">
+          <div class="card-num-badge">8</div>
+          <div class="card-info">
+            <span class="card-title">Conjunction (समुच्चयबोधक)</span>
+            <span class="card-desc">Vakyon ko jodne wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <!-- 9. Interjection -->
+      <a href="pos-interjection.html" class="rect-card orange">
+        <div class="card-left">
+          <div class="card-num-badge">9</div>
+          <div class="card-info">
+            <span class="card-title">Interjection (विस्मयादिबोधक)</span>
+            <span class="card-desc">Bhavnaayein jatane wale shabd</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

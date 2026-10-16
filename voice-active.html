@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Voice - Nk Study Lab</title>
+  <meta name="description" content="Active Voice ki puri jankari aasan hindi me udaharan ke sath at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --active-color: #2563EB;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --active-color: #3B82F6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--active-color); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--active-color); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--active-color);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--active-color); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Rule Box Design */
+    .formula-card {
+      background: var(--bg);
+      border: 2px dashed var(--active-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--active-color);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+    .formula-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      background: var(--surface);
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 0.8rem;
+    }
+    .formula-step {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--active-color);
+    }
+    .formula-symbol { color: var(--text-dim); }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #2563EB; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #3B82F6; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="voice.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">⚡</div>
+    <h1 class="hero-title">Active Voice</h1>
+    <p class="hero-sub">कर्तृवाच्य - जब कर्ता खुद काम करता है</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Simple Explanation -->
+    <div class="content-box">
+      <div class="box-title">💡 सरल शब्दों में समझिए (What is Active Voice?)</div>
+      <p class="para-text">
+        भाई, सीधी सी बात है—जब हम आम बोलचाल में कोई वाक्य बोलते हैं और उसमें काम करने वाला इंसान (यानी Subject) सबसे आगे और मुख्य होता है, तो उसे हम <b>Active Voice</b> कहते हैं। 
+      </p>
+      <p class="para-text">
+        मतलब साफ़ है कि इसमें कर्ता खुद आगे बढ़कर बताता है कि उसने क्या किया या वो क्या कर रहा है। आज तक हम जितने भी Tenses बनाते आए हैं, वे सब के सब असल में Active Voice ही होते हैं!
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 पहचान कैसे करें?</div>
+        वाक्य की शुरुआत सीधे काम करने वाले (Subject) से होती है। जैसे: <i>"राम आम खाता है।"</i> इसमें राम मुख्य है।
+      </div>
+    </div>
+
+    <!-- Card 2: Structure / Rules -->
+    <div class="content-box">
+      <div class="box-title">📐 वाक्य बनाने का ढांचा (Structure)</div>
+      <p class="para-text">
+        इसमें हमें कोई नया नियम नहीं सीखना, जो हमारे पुराने Tense के नियम हैं, वही यहाँ काम आते हैं:
+      </p>
+
+      <div class="formula-card">
+        <span class="formula-badge">साधारण नियम (General Flow)</span>
+        <div class="formula-flow">
+          <span class="formula-step">Subject (काम करने वाला)</span>
+          <span class="formula-symbol">+</span>
+          <span class="formula-step">Verb (क्रिया / काम)</span>
+          <span class="formula-symbol">+</span>
+          <span class="formula-step">Object (जिस पर असर पड़े)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: 5 Detailed Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 5 बेहतरीन उदाहरण (Real Life Examples)</div>
+      <p class="para-text" style="font-size: 0.92rem; margin-bottom: 1rem;">
+        इन पाँचों उदाहरणों को ध्यान से देखिए, इनमें काम करने वाला व्यक्ति (Subject) हमेशा सबसे आगे है:
+      </p>
+
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. मैं एक पत्र लिखता हूँ।</div>
+          <div class="ex-hi">English: I <span class="hl">write</span> a letter. (यहाँ 'I' यानी मैं खुद लिखने का काम कर रहा हूँ)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. सोहन क्रिकेट खेल रहा है।</div>
+          <div class="ex-hi">English: Sohan <span class="hl">is playing</span> cricket. (खेलने वाला मुख्य व्यक्ति Sohan है)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. उसने कल एक नई कार खरीदी।</div>
+          <div class="ex-hi">English: He <span class="hl">bought</span> a new car yesterday. (खरीदने का काम 'He' ने किया)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. अध्यापक हमें अंग्रेजी पढ़ाते हैं।</div>
+          <div class="ex-hi">English: The teacher <span class="hl">teaches</span> us English. (पढ़ाने वाले Teacher हैं)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">5. पक्षी आसमान में उड़ रहे हैं।</div>
+          <div class="ex-hi">English: Birds <span class="hl">are flying</span> in the sky. (उड़ने का काम Birds कर रहे हैं)</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>एडजेक्टिव (Adjective) - विशेषण | Nk Study Lab</title>
+  <meta name="description" content="एडजेक्टिव (विशेषण) की पूरी जानकारी सरल हिंदी में - परिभाषा, प्रकार और वास्तविक उदाहरण Nk Study Lab पर।">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --yellow-card: #D97706;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --yellow-card: #F59E0B;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--yellow-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--yellow-card); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--yellow-card);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--yellow-card); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #D97706; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #F59E0B; }
+
+    /* Types Cards */
+    .type-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+    }
+    .type-title { font-weight: 700; color: var(--yellow-card); font-size: 1.05rem; margin-bottom: 0.3rem; }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem;
+    }
+    .nav-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      text-decoration: none; padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; transition: transform 0.2s;
+    }
+    .nav-btn.next { background: var(--yellow-card); color: #FFFFFF; border: none; }
+    .nav-btn:active { transform: scale(0.96); }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="parts-of-speech.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">🎨</div>
+    <h1 class="hero-title">4. एडजेक्टिव (Adjective) - विशेषण</h1>
+    <p class="hero-sub">गुण, दोष, रंग और विशेषता बताने वाला शब्द!</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Adjective Kya Hai -->
+    <div class="content-box">
+      <div class="box-title">💡 एकदम आसान भाषा में समझें</div>
+      <p class="para-text">
+        मान लीजिए आप बाजार से कोई सेब (Apple) खरीदकर लाए। अगर कोई आपसे पूछे कि "सेब कैसा है?", तो आप कहेंगे: <br>
+        <i>"सेब <b>मीठा</b> है", "सेब <b>लाल</b> है", या "सेब <b>बड़ा</b> है।"</i>
+      </p>
+      <p class="para-text">
+        यहाँ 'मीठा', 'लाल' और 'बड़ा' ये तीनों शब्द सेब की खूबी (विशेषता) बता रहे हैं।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 सीधी बात:</div>
+        <b>जो शब्द किसी नाउन (Noun) या प्रोनाउन (Pronoun) की खूबी, गुण, दोष, रंग, आकार या संख्या (विशेषता) बताते हैं, उन्हें एडजेक्टिव (Adjective - विशेषण) कहते हैं।</b>
+      </div>
+    </div>
+
+    <!-- Card 2: Daily Use Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 आसान उदाहरण (Real Life Examples)</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. गुण बताने वाले: <span class="hl">होशियार</span> (Smart), <span class="hl">ईमानदार</span> (Honest)</div>
+          <div class="ex-hi">उदाहरण: राहुल एक <span class="hl">होशियार</span> लड़का है। (Rahul is a <span class="hl">smart</span> boy.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. रंग और रूप बताने वाले: <span class="hl">लाल</span> (Red), <span class="hl">सुंदर</span> (Beautiful)</div>
+          <div class="ex-hi">उदाहरण: उसके पास एक <span class="hl">लाल</span> कार है। (She has a <span class="hl">red</span> car.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. स्वाद और स्थिति बताने वाले: <span class="hl">गरम</span> (Hot), <span class="hl">मीठा</span> (Sweet)</div>
+          <div class="ex-hi">उदाहरण: चाय बहुत <span class="hl">गरम</span> है। (The tea is very <span class="hl">hot</span>.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. संख्या बताने वाले: <span class="hl">चार</span> (Four), <span class="hl">कुछ</span> (Some)</div>
+          <div class="ex-hi">उदाहरण: मेरे पास <span class="hl">चार</span> पेन हैं। (I have <span class="hl">four</span> pens.)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Card 3: Types of Adjective -->
+    <div class="content-box">
+      <div class="box-title">📚 एडजेक्टिव के मुख्य भेद (Types of Adjective)</div>
+
+      <!-- Type 1 -->
+      <div class="type-card">
+        <div class="type-title">1. एडजेक्टिव ऑफ क्वालिटी (Adjective of Quality - गुणवाचक विशेषण)</div>
+        <p class="para-text">यह किसी चीज़ का गुण, दोष, आकार या रूप (कैसा है?) बताता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Good (अच्छा), Tall (लंबा), Heavy (भारी), Black (काला)</div>
+      </div>
+
+      <!-- Type 2 -->
+      <div class="type-card">
+        <div class="type-title">2. एडजेक्टिव ऑफ क्वांटिटी (Adjective of Quantity - परिमाणवाचक विशेषण)</div>
+        <p class="para-text">यह किसी चीज़ की मात्रा या नाप-तौल (कितना?) बताता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Some (कुछ), Much (अधिक), Little (थोड़ा)</div>
+      </div>
+
+      <!-- Type 3 -->
+      <div class="type-card">
+        <div class="type-title">3. एडजेक्टिव ऑफ नंबर (Adjective of Number - संख्यावाचक विशेषण)</div>
+        <p class="para-text">यह किसी चीज़ या व्यक्ति की सही संख्या (कितने?) बताता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> One, Two, Three, Many (कई), Few (कुछ)</div>
+      </div>
+
+      <!-- Type 4 -->
+      <div class="type-card">
+        <div class="type-title">4. डेमोन्स्ट्रेटिव एडजेक्टिव (Demonstrative Adjective - संकेतवाचक विशेषण)</div>
+        <p class="para-text">जब कोई शब्द किसी नाउन की तरफ इशारा करता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> <span class="hl">This</span> book (यह किताब), <span class="hl">That</span> house (वह घर)</div>
+      </div>
+
+      <!-- Type 5 -->
+      <div class="type-card">
+        <div class="type-title">5. पज़ेसिव एडजेक्टिव (Possessive Adjective - संबंधवाचक विशेषण)</div>
+        <p class="para-text">यह शब्द दिखाता है कि कोई चीज़ किसकी है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> <span class="hl">My</span> car (मेरी कार), <span class="hl">Your</span> mobile (तुम्हारा मोबाइल)</div>
+      </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <a href="pos-pronoun.html" class="nav-btn">← पिछला: प्रोनाउन (Pronoun)</a>
+      <a href="pos-verb.html" class="nav-btn next">अगला: वर्ब (Verb) →</a>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

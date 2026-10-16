@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Science — Nk Study Lab</title>
+  <meta name="description" content="Complete Computer Science guide in simple Hindi with diagrams, images, types, invention, and networking at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --cs-color: #b01ff8;
+      --cs-dark: #9827f8;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --cs-color: #14B8A6;
+      --cs-dark: #0D9488;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--cs-color), var(--cs-dark)); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Box */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--cs-color); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--cs-color);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--cs-color); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Formula/Rule Box Design */
+    .formula-card {
+      background: var(--bg);
+      border: 2px dashed var(--cs-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--cs-color);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Device Grid / Cards with Images */
+    .device-grid { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1rem; }
+    
+    .device-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .device-img {
+      width: 100%; height: 200px; object-fit: cover; display: block;
+      background: var(--surface);
+    }
+    .device-body { padding: 1.1rem; }
+    .device-title {
+      font-size: 1.15rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--text); margin-bottom: 0.4rem;
+    }
+    .device-desc { font-size: 0.92rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* Highlight badge */
+    .badge {
+      display: inline-block; background: var(--cs-color); color: #FFF;
+      font-size: 0.75rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px; border-radius: 6px; margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="index.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">💻</div>
+    <h1 class="hero-title">Computer Science</h1>
+    <p class="hero-sub">इतिहास, घटक, प्रकार और नेटवर्किंग की पूरी जानकारी</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Section 1: Introduction -->
+    <div class="content-box">
+      <div class="box-title">💡 कंप्यूटर क्या है? (What is Computer?)</div>
+      <p class="para-text">
+      आसान भाषा में कहें तो **कंप्यूटर (Computer)** एक इलेक्ट्रॉनिक मशीन है, जो यूज़र द्वारा दिए गए कच्चे आँकड़ों (Input) को ग्रहण करती है, उस पर प्रोसेसिंग करती है और सही परिणाम (Output) दिखाती है।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 IPO Cycle (इनपुट-प्रोसेस-आउटपुट चक्र):</div>
+        <b>Input</b> ➔ <b>Process (CPU)</b> ➔ <b>Output</b><br>
+        उदाहरण: कीबोर्ड से 2 + 2 टाइप करना (Input) ➔ CPU द्वारा जोड़ना (Process) ➔ मॉनिटर पर 4 दिखना (Output)।
+      </div>
+    </div>
+
+    <!-- Section 2: History & Invention -->
+    <div class="content-box">
+      <div class="box-title">📜 कंप्यूटर की खोज और इतिहास (Invention & History)</div>
+      <p class="para-text">
+        कंप्यूटर का इतिहास बहुत पुराना है। सबसे पहला गणना यंत्र **अबैकस (Abacus)** था। इसके बाद समय-समय पर बड़े बदलाव हुए:
+      </p>
+
+      <div class="formula-card">
+        <span class="formula-badge">कंप्यूटर के पिता (Father of Computer)</span>
+        <p class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          <b>चार्लस बैबेज (Charles Babbage)</b> को कंप्यूटर का जनक कहा जाता है। उन्होंने 1837 में <b>Analytical Engine</b> की रूपरेखा तैयार की थी, जो आधुनिक कंप्यूटर का आधार बनी।
+        </p>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">भारत का पहला कंप्यूटर</span>
+        <p class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • भारत का पहला सुपरकंप्यूटर: <b>PARAM 8000</b> (जिसे C-DAC द्वारा 1991 में विकसित किया गया)।<br>
+          • भारत में निर्मित पहला कंप्यूटर: <b>सिद्धार्थ (Siddharth)</b>।
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Types of Computers -->
+    <div class="content-box">
+      <div class="box-title">🖥️ कंप्यूटर के प्रकार (Types of Computers)</div>
+      <p class="para-text">
+        कार्यक्षमता और आकार के आधार पर कंप्यूटर को मुख्य रूप से इन श्रेणियों में बाँटा जाता है:
+      </p>
+
+      <div class="device-grid">
+        <!-- Supercomputer -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Supercomputer" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">High Performance</span>
+            <div class="device-title">1. सुपरकंप्यूटर (Supercomputer)</div>
+            <div class="device-desc">
+              ये दुनिया के सबसे तेज और शक्तिशाली कंप्यूटर होते हैं। इनका उपयोग मौसम की भविष्यवाणी, अंतरिक्ष अनुसंधान, और परमाणु परीक्षणों में किया जाता है।
+            </div>
+          </div>
+        </div>
+
+        <!-- Mainframe Computer -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Mainframe Computer" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Enterprise Storage</span>
+            <div class="device-title">2. मेनफ्रेम कंप्यूटर (Mainframe Computer)</div>
+            <div class="device-desc">
+              इनका उपयोग बड़ी-बड़ी कंपनियों, बैंकों और रेलवे रिज़र्वेशन में होता है, जहाँ लाखों लोग एक साथ डाटा प्रोसेस करते हैं।
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Computer (PC) / Laptop -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80" alt="Personal Computer / Laptop" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Personal Use</span>
+            <div class="device-title">3. माइक्रो कंप्यूटर / पीसी (Microcomputer / PC)</div>
+            <div class="device-desc">
+              हमारे घरों, स्कूलों और ऑफिसों में इस्तेमाल होने वाले कंप्यूटर जैसे Desktop, Laptop, Tablet आदि माइक्रो कंप्यूटर कहलाते हैं।
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Input Devices -->
+    <div class="content-box">
+      <div class="box-title">⌨️ इनपुट डिवाइसेस (Input Devices)</div>
+      <p class="para-text">
+        वे उपकरण जिनकी मदद से हम कंप्यूटर को निर्देश या डाटा भेजते हैं:
+      </p>
+
+      <div class="device-grid">
+        <!-- Keyboard -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" alt="Keyboard" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Input Device</span>
+            <div class="device-title">कीबोर्ड (Keyboard)</div>
+            <div class="device-desc">
+              यह सबसे मुख्य इनपुट डिवाइस है। इसमें टेक्स्ट, नंबर और कमांड टाइप करने के लिए बटन होते हैं।
+            </div>
+          </div>
+        </div>
+
+        <!-- Mouse -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=800&q=80" alt="Mouse" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Pointing Device</span>
+            <div class="device-title">माउस (Mouse)</div>
+            <div class="device-desc">
+              इसे Pointing Device कहते हैं। स्क्रीन पर कर्सर हिलाने और फाइलों को सेलेक्ट करने के लिए इसका उपयोग होता है।
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: CPU & Memory -->
+    <div class="content-box">
+      <div class="box-title">🧠 प्रोसेस एवं मेमोरी (CPU & Memory)</div>
+      
+      <div class="device-grid">
+        <!-- CPU -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=800&q=80" alt="CPU Processor" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Processing Unit</span>
+            <div class="device-title">CPU (Central Processing Unit)</div>
+            <div class="device-desc">
+              CPU को कंप्यूटर का **दिमाग (Brain)** कहते हैं। सारे गणितीय जोड़-घटाव और कंट्रोल का काम यही करता है।
+            </div>
+          </div>
+        </div>
+
+        <!-- RAM -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=800&q=80" alt="RAM Memory" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Primary Memory</span>
+            <div class="device-title">RAM (Random Access Memory)</div>
+            <div class="device-desc">
+              यह **अस्थायी (Volatile) मेमोरी** होती है। वर्तमान में जो काम चल रहा होता है, वह RAM में रहता है। कंप्यूटर बंद होते ही डाटा मिट जाता है।
+            </div>
+          </div>
+        </div>
+
+        <!-- Hard Disk / SSD -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=800&q=80" alt="SSD Hard Drive" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Secondary Storage</span>
+            <div class="device-title">Hard Disk / SSD</div>
+            <div class="device-desc">
+              यह **स्थायी (Non-Volatile) मेमोरी** है। इसमें आपकी फोटो, वीडियो और विंडोज हमेशा के लिए सुरक्षित रहते हैं।
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Computer Networking -->
+    <div class="content-box">
+      <div class="box-title">🌐 कंप्यूटर नेटवर्किंग (Computer Networking)</div>
+      <p class="para-text">
+        जब दो या दो से अधिक कंप्यूटर आपस में जुड़कर सूचनाओं और संसाधनों का आदान-प्रदान करते हैं, तो उसे **कंप्यूटर नेटवर्क** कहते हैं।
+      </p>
+
+      <div class="formula-card">
+        <span class="formula-badge">नेटवर्क के प्रमुख प्रकार (Types of Network)</span>
+        <p class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • <b>LAN (Local Area Network):</b> छोटे क्षेत्र जैसे एक कमरे, घर या स्कूल के लिए (उदा. Wi-Fi).<br>
+          • <b>MAN (Metropolitan Area Network):</b> पूरे शहर को जोड़ने वाला नेटवर्क (उदा. केबल टीवी नेटवर्क).<br>
+          • <b>WAN (Wide Area Network):</b> पूरे देश या दुनिया को जोड़ने वाला नेटवर्क (उदा. इंटरनेट).
+        </p>
+      </div>
+
+      <div class="device-grid">
+        <!-- Router / Networking Device -->
+        <div class="device-card">
+          <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Network Router" class="device-img" loading="lazy">
+          <div class="device-body">
+            <span class="badge">Networking Hardware</span>
+            <div class="device-title">राउटर (Router) और IP एड्रेस</div>
+            <div class="device-desc">
+              <b>Router:</b> वह डिवाइस जो इंटरनेट के डाटा पैकैट्स को सही डिवाइस तक पहुँचाती है।<br>
+              <b>IP Address:</b> इंटरनेट पर हर कंप्यूटर/मोबाइल का एक अनूठा पता (Unique ID) होता है, जैसे: <i>192.168.1.1</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

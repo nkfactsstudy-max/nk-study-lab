@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Perfect Continuous Tense - Nk Study Lab</title>
+  <meta name="description" content="Present Perfect Continuous Tense ke niyam, pehchan aur diagram rules in pure Hindi at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --green-card: #16A34A;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --green-card: #22C55E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--green-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--green-card); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--green-card);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--green-card); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Diagram / Formula Box Design */
+    .formula-diagram-card {
+      background: var(--bg);
+      border: 2px dashed var(--green-card);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--green-card);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+    .diagram-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      background: var(--surface);
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 0.8rem;
+    }
+    .diagram-step {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--green-card);
+    }
+    .diagram-arrow { color: var(--text-dim); }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #16A34A; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #22C55E; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="tense.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">⏱️</div>
+    <h1 class="hero-title">4. Present Perfect Continuous</h1>
+    <p class="hero-sub">समय के साथ जारी रहने वाला काम - पहचान, नियम और उदाहरण</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Pehchan -->
+    <div class="content-box">
+      <div class="box-title">💡 पहचान (Identification)</div>
+      <p class="para-text">
+        जिस हिंदी वाक्य की क्रिया के अंत में <b>रहा है, रही है, रहे हैं, रहा हूँ</b> आता है और साथ में <b>काम शुरू होने का समय (Time)</b> दिया रहता है, वह वाक्य Present Perfect Continuous Tense का होता है।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 Since और For का प्रयोग:</div>
+        • <b>Since (निश्चित समय):</b> Since 2 o'clock, Since Monday, Since 2020, Since Morning.<br>
+        • <b>For (अनिश्चित समय/अवधि):</b> For 2 hours, For 5 days, For 3 months, For many years.
+      </div>
+    </div>
+
+    <!-- Card 2: Diagram Style Rules -->
+    <div class="content-box">
+      <div class="box-title">📐 वाक्य बनाने के नियम।</div>
+
+      <!-- Formula Diagram 1 -->
+      <div class="formula-diagram-card">
+        <span class="formula-badge">1. साधारण वाक्य (Affirmative)</span>
+        <div class="diagram-flow">
+          <span class="diagram-step">Subject</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Has / Have been</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Verb + ing</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Object</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Since / For + Time</span>
+        </div>
+        <div class="para-text" style="font-size:0.88rem; margin-bottom:0;">
+          • <b>He, She, It, Singular</b> ➔ <b>Has been</b><br>
+          • <b>I, We, You, They, Plural</b> ➔ <b>Have been</b>
+        </div>
+      </div>
+
+      <!-- Formula Diagram 2 -->
+      <div class="formula-diagram-card">
+        <span class="formula-badge">2. नकारात्मक वाक्य (Negative)</span>
+        <div class="diagram-flow">
+          <span class="diagram-step">Subject</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Has/Have</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step" style="color:#DC2626;">Not</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">been</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Verb+ing</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Object</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Since/For</span>
+        </div>
+      </div>
+
+      <!-- Formula Diagram 3 -->
+      <div class="formula-diagram-card">
+        <span class="formula-badge">3. प्रश्नवाचक वाक्य (Interrogative)</span>
+        <div class="diagram-flow">
+          <span class="diagram-step">Has / Have</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Subject</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">been</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Verb+ing</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Object</span>
+          <span class="diagram-arrow">+</span>
+          <span class="diagram-step">Since/For ?</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Card 3: Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 आसान उदाहरण (Real Life Examples)</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. वह दो घंटे से पढ़ रहा है।</div>
+          <div class="ex-hi">English: He <span class="hl">has been studying</span> for two hours.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. मैं सुबह से खेल रहा हूँ।</div>
+          <div class="ex-hi">English: I <span class="hl">have been playing</span> since morning.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. बारिश दो दिनों से नहीं हो रही है।</div>
+          <div class="ex-hi">English: It <span class="hl">has not been raining</span> for two days.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. क्या वे 2020 से यहाँ रह रहे हैं?</div>
+          <div class="ex-hi">English: <span class="hl">Have</span> they <span class="hl">been living</span> here since 2020?</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

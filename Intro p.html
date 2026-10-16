@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>परिचय - पार्ट्स ऑफ़ स्पीच | Nk Study Lab</title>
+  <meta name="description" content="पार्ट्स ऑफ़ स्पीच का परिचय सरल हिंदी भाषा और वास्तविक जीवन के उदाहरणों के साथ Nk Study Lab पर।">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --blue: #2563EB;
+      --blue-card: #2563EB;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --blue: #3B82F6;
+      --blue-card: #3B82F6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--blue-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--blue); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--blue);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Example List */
+    .example-heading { font-size: 0.9rem; font-weight: 700; color: var(--text-dim); margin: 1.2rem 0 0.6rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+    .ex-break { background: var(--surface); padding: 8px 10px; border-radius: 6px; margin-top: 6px; font-size: 0.85rem; color: var(--text); border: 1px dashed var(--border); }
+
+    .hl { color: #E11D48; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #F43F5E; }
+
+    /* List Bullets */
+    .list-bullets { margin-left: 1.2rem; margin-top: 0.5rem; font-size: 0.95rem; }
+    .list-bullets li { margin-bottom: 0.6rem; }
+
+    /* Next Navigation Button */
+    .next-nav {
+      display: flex; justify-content: flex-end; margin-top: 1.5rem;
+    }
+    .next-btn {
+      background: var(--blue-card); color: #FFFFFF; text-decoration: none;
+      padding: 0.8rem 1.4rem; border-radius: 12px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+      display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s;
+    }
+    .next-btn:active { transform: scale(0.96); }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="parts-of-speech.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">✨</div>
+    <h1 class="hero-title">1. परिचय (Introduction)</h1>
+    <p class="hero-sub">पार्ट्स ऑफ़ स्पीच आख़िर क्या हैं और इनकी ज़रूरत क्यों होती है?</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Aasan Bhasha Mein Samjhein -->
+    <div class="content-box">
+      <div class="box-title">💡 एकदम आसान भाषा में समझें</div>
+      <p class="para-text">
+        मान लीजिए आपके पास एक साइकिल है। उस साइकिल में चेन, पैडल, सीट, पहिया और हैंडल होता है। अगर हम साइकिल से सीट या पैडल निकाल दें, तो क्या साइकिल ठीक से चल पाएगी? बिल्कुल नहीं! क्योंकि साइकिल के हर छोटे-बड़े पुर्जे का अपना एक खास काम होता है।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">🚲 वास्तविक जीवन का उदाहरण (Real Life Example):</div>
+        ठीक वैसे ही, जब हम अंग्रेज़ी में कोई वाक्य (Sentence) बोलते या लिखते हैं, तो उसमें बहुत सारे अलग-अलग शब्द (Words) मिलकर एक पूरा अर्थ बनाते हैं। इन्हीं अलग-अलग शब्दों को उनके काम के आधार पर अलग-अलग श्रेणियों में बांटा गया है। इसी को हम <b>पार्ट्स ऑफ़ स्पीच (Parts of Speech)</b> कहते हैं!
+      </div>
+    </div>
+
+    <!-- Card 2: Parts of Speech Kya Hota Hai? -->
+    <div class="content-box">
+      <div class="box-title">📦 पार्ट्स ऑफ़ स्पीच क्या होता है?</div>
+      <p class="para-text">
+        अंग्रेज़ी भाषा में जितने भी शब्द (Words) हैं, उन सबको उनके काम और प्रकार के हिसाब से कुल <b>8 अलग-अलग परिवारों (Categories)</b> में बांटा गया है। ये 8 परिवार मिलकर पूरी अंग्रेज़ी व्याकरण बनाते हैं:
+      </p>
+      <ul class="list-bullets">
+        <li><b>1. नाउन (Noun - संज्ञा):</b> किसी भी व्यक्ति, वस्तु, जगह या नाम को बताने वाला शब्द।</li>
+        <li><b>2. प्रोनाउन (Pronoun - सर्वनाम):</b> नाम की जगह पर इस्तेमाल होने वाला शब्द।</li>
+        <li><b>3. वर्ब (Verb - क्रिया):</b> किसी काम के करने या होने को बताने वाला शब्द।</li>
+        <li><b>4. एडजेक्टिव (Adjective - विशेषण):</b> किसी चीज़ की खूबी, बुराई या विशेषता बताने वाला शब्द।</li>
+        <li><b>5. एडवर्ब (Adverb - क्रिया विशेषण):</b> काम कैसे हुआ, कब हुआ, यह बताने वाला शब्द।</li>
+        <li><b>6. प्रीपोजिशन (Preposition - संबंध सूचक):</b> किसी चीज़ की सही स्थिति या जगह बताने वाला शब्द।</li>
+        <li><b>7. कंजंक्शन (Conjunction - समुच्चयबोधक):</b> दो शब्दों या वाक्यों को आपस में जोड़ने वाला शब्द (फेविकोल की तरह)।</li>
+        <li><b>8. इंटेरजेक्शन (Interjection - विस्मयादिबोधक):</b> मन की अचानक उठने वाली भावनाओं (खुशी, दुःख, हैरानी) को व्यक्त करने वाला शब्द।</li>
+      </ul>
+    </div>
+
+    <!-- Card 3: 6 Practical Examples -->
+    < class="content-box">
+      <div class="box-title">🎯 6 वास्तविक उदाहरण और उनका विश्लेषण</div>
+      <p class="para-text">
+        आइए देखते हैं कि एक साधारण वाक्य के अंदर ये सभी अलग-अलग भाग मिलकर कैसे काम करते हैं:
+      </p>
+
+      < class="example-list">
+
+        <!-- Example 1 -->
+        <div class="example-item">
+          <div class="ex-en">1. <span class="hl">राहुल</span> <span class="hl">सेब</span> <span class="hl">खाता है</span>। (Rahul <span class="hl">eats</span> an <span class="hl">apple</span>.)</div>
+          <div class="ex-hi">अर्थ: राहुल एक फल खाता है।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> राहुल (Noun - नाम) + खाता है (Verb - काम) + सेब (Noun - वस्तु)
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example-item">
+          <div class="ex-en">2. <span class="hl">वह</span> तेज़ <span class="hl>दौड़ता है</span>। (<span class="hl">He</span> <span class="hl">runs</span> <span class="hl">fast</span>.)</div>
+          <div class="ex-hi">अर्थ: कोई लड़का बहुत तेज़ भागता है।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> वह (Pronoun) + दौड़ता है (Verb - काम) + तेज़ (Adverb -ौड़ने का तरीका)
+          </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example-item">
+          <div class="ex-en">3. उसके पास एक <span class="hl">लाल</span> <span class="hl>कलम</span> है। (She has a <span class="hl">red</span> <span class="hl">pen</span>.)</div>
+          <div class="ex-hi">अर्थ: लड़की के पास एक लाल रंग की पेन है।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> लाल (Adjective - रंग की विशेषता) + कलम (Noun - वस्तु)
+          </div>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example-item">
+          <div class="ex-en">4. बिल्ली मेज <span class="hl">के नीचे</span> है। (The cat is <span class="hl">under</span> the table.)</div>
+          <div class="ex-hi">अर्थ: बिल्ली की बैठने की जगह मेज के नीचे है।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> बिल्ली/मेज (Noun) + के नीचे (Preposition - स्थिति बताने वाला शब्द)
+          </div>
+        </div>
+
+        <!-- Example 5 -->
+        <div class="example-item">
+          <div class="ex-en">5. अमन <span class="hl">और</span> रोहित दोस्त हैं। (Aman <span class="hl">and</span> Rohit are friends.)</div>
+          <div class="ex-hi">अर्थ: अमन और रोहित दोनों पक्के मित्र हैं।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> अमन/रोहित (Noun) + और (Conjunction - दो नामों को जोड़ने वाला शब्द)
+          </div>
+        </div>
+
+        <!-- Example 6 -->
+        <div class="example-item">
+          <div class="ex-en">6. <span class="hl">वाह!</span> यह एक <span class="hl">सुंदर</span> घर है। (<span class="hl">Wow!</span> This is a <span class="hl">beautiful</span> house.)</div>
+          <div class="ex-hi">अर्थ: घर देखकर मन में ख़ुशी और हैरानी हुई।</div>
+          <div class="ex-break">
+            🔍 <b>विश्लेषण (Breakdown):</b> वाह! (Interjection - मन का भाव) + सुंदर (Adjective) + घर (Noun)
+          </div>
+        </div>
+
+       </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

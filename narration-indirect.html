@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indirect Speech - Nk Study Lab</title>
+  <meta name="description" content="Indirect Speech ki puri jankari aasan hindi me udaharan ke sath at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --indirect-color: #7C3AED;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --indirect-color: #8B5CF6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--indirect-color); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--indirect-color); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--indirect-color);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--indirect-color); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Rule Box Design */
+    .formula-card {
+      background: var(--bg);
+      border: 2px dashed var(--indirect-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--indirect-color);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #7C3AED; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #8B5CF6; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="narration.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">🔄</div>
+    <h1 class="hero-title">Indirect Speech</h1>
+    <p class="hero-sub">अप्रत्यक्ष कथन - वक्ता की बात को अपने शब्दों में कहना</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Simple Explanation -->
+    <div class="content-box">
+      <div class="box-title">💡 सरल शब्दों में समझिए (What is Indirect Speech?)</div>
+      <p class="para-text">
+        आसान भाषा में समझें तो—जब हम किसी इंसान की कही बात को बिल्कुल वैसा ही न बोलकर, **अपने शब्दों में** किसी तीसरे व्यक्ति को बताते हैं, तो उसे **Indirect Speech** कहते हैं।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 इसकी सबसे मुख्य पहचान:</div>
+        इसमें **Inverted Commas ("...")** को हटा दिया जाता है और उसकी जगह प्रायः **`that`** शब्द जोड़ दिया जाता है।
+      </div>
+    </div>
+
+    <!-- Card 2: Changes / Rules -->
+    <div class="content-box">
+      <div class="box-title">📐 बदलते समय 3 मुख्य नियम (Basic Rules)</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">1. Commas हटाना</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • Comma और Inverted Commas को हटाकर जोड़ने के लिए <b>that</b> का प्रयोग करते हैं।
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">2. Reporting Verb में बदलाव</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • <b>said</b> ➔ <b>said</b> ही रहता है।<br>
+          • <b>said to</b> ➔ <b>told</b> बन जाता है।
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">3. Tense में बदलाव</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • Present Tense बदलकर Past Tense में चला जाता है।<br>
+          • जैसे: <i>is/am/are</i> ➔ <i>was/were</i> | <i>has/have</i> ➔ <i>had</i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: 5 Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 5 आसान उदाहरण (Real Life Examples)</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. राम ने कहा कि वह घर जा रहा था।</div>
+          <div class="ex-hi">English: Ram said <span class="hl">that he was going home</span>.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. उसने मुझे बताया कि मैं उसका अच्छा दोस्त था।</div>
+          <div class="ex-hi">English: He told me <span class="hl">that I was his good friend</span>.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. सीता ने कहा कि वह खाना बना रही थी।</div>
+          <div class="ex-hi">English: Sita said <span class="hl">that she was cooking food</span>.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. रोहन ने कहा कि उसने अपना काम पूरा कर लिया था।</div>
+          <div class="ex-hi">English: Rohan said <span class="hl">that he had completed his work</span>.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">5. शिक्षक ने कहा कि सूर्य पूर्व में उगता है।</div>
+          <div class="ex-hi">English: The teacher said <span class="hl">that the sun rises in the east</span>. *(सत्य बात/Universal Truth का Tense नहीं बदलता)*</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>प्रोनाउन (Pronoun) - सर्वनाम | Nk Study Lab</title>
+  <meta name="description" content="प्रोनाउन (सर्वनाम) की पूरी जानकारी सरल हिंदी में - परिभाषा, भेद और वास्तविक उदाहरण Nk Study Lab पर।">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --purple-card: #9333EA;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --purple-card: #A855F7;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--purple-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--purple-card); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--purple-card);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--purple-card); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #9333EA; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #A855F7; }
+
+    /* Pronoun Types Cards */
+    .type-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+    }
+    .type-title { font-weight: 700; color: var(--purple-card); font-size: 1.05rem; margin-bottom: 0.3rem; }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem;
+    }
+    .nav-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      text-decoration: none; padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; transition: transform 0.2s;
+    }
+    .nav-btn.next { background: var(--purple-card); color: #FFFFFF; border: none; }
+    .nav-btn:active { transform: scale(0.96); }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="parts-of-speech.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">🔄</div>
+    <h1 class="hero-title">3. प्रोनाउन (Pronoun) - सर्वनाम</h1>
+    <p class="hero-sub">बार-बार नाम लेने की झंझट से मुक्ति देने वाला शब्द!</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Pronoun Kya Hai -->
+    <div class="content-box">
+      <div class="box-title">💡 एकदम आसान भाषा में समझें</div>
+      <p class="para-text">
+        जरा इस वाक्य को पढ़िए: <br>
+        <i>"अमन एक अच्छा लड़का है। अमन रोज़ स्कूल जाता है। अमन के पास एक साइकिल है।"</i>
+      </p>
+      <p class="para-text">
+        बार-बार 'अमन' बोलने में थोड़ा अजीब लग रहा है न? अब इसे इस तरह पढ़िए: <br>
+        <i>"अमन एक अच्छा लड़का है। <b>वह</b> रोज़ स्कूल जाता है। <b>उसके</b> पास एक साइकिल है।"</i>
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 सीधी बात:</div>
+        <b>नाउन (नाम) की जगह पर इस्तेमाल होने वाले शब्दों को ही प्रोनाउन (Pronoun - सर्वनाम) कहते हैं।</b> यह भाषा को सुंदर और आसान बनाता है ताकि एक ही नाम बार-बार न दोहराना पड़े।
+      </div>
+    </div>
+
+    <!-- Card 2: Daily Use Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 रोज़मर्रा के जीवन में इस्तेमाल होने वाले प्रोनाउन</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. अपने लिए: <span class="hl">मैं</span> (I), <span class="hl">हम</span> (We)</div>
+          <div class="ex-hi">उदाहरण: <span class="hl">मैं</span> पढ़ रहा हूँ। (<span class="hl">I</span> am studying.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. सामने वाले के लिए: <span class="hl">तुम / आप</span> (You)</div>
+          <div class="ex-hi">उदाहरण: <span class="hl">तुम</span> कहाँ जा रहे हो? (Where are <span class="hl">you</span> going?)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. किसी लड़के के लिए: <span class="hl">वह</span> (He), <span class="hl">उसका</span> (His)</div>
+          <div class="ex-hi">उदाहरण: <span class="hl">वह</span> बीमार है। (<span class="hl">He</span> is sick.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. किसी लड़की के लिए: <span class="hl">वह</span> (She), <span class="hl">उसका</span> (Her)</div>
+          <div class="ex-hi">उदाहरण: <span class="hl">वह</span> खाना बना रही है। (<span class="hl">She</span> is cooking.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">5. एक से ज़्यादा लोगों के लिए: <span class="hl">वे</span> (They)</div>
+          <div class="ex-hi">उदाहरण: <span class="hl">वे</span> खेल रहे हैं। (<span class="hl">They</span> are playing.)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Card 3: Types of Pronoun -->
+    <div class="content-box">
+      <div class="box-title">📚 प्रोनाउन के मुख्य भेद (Types of Pronoun)</div>
+
+      <!-- Type 1 -->
+      <div class="type-card">
+        <div class="type-title">1. पर्सनल प्रोनाउन (Personal Pronoun - पुरुषवाचक सर्वनाम)</div>
+        <p class="para-text">किसी व्यक्ति या वस्तु के नाम की जगह आने वाले शब्द।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> I, We, You, He, She, They, It</div>
+      </div>
+
+      <!-- Type 2 -->
+      <div class="type-card">
+        <div class="type-title">2. पज़ेसिव प्रोनाउन (Possessive Pronoun - अधिकारवाचक सर्वनाम)</div>
+        <p class="para-text">जो शब्द किसी चीज़ पर अपना अधिकार या कब्ज़ा दिखाते हैं।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Mine (मेरा), Yours (तुम्हारा), His (उसका), Hers (उसकी)</div>
+      </div>
+
+      <!-- Type 3 -->
+      <div class="type-card">
+        <div class="type-title">3. डेमोन्स्ट्रेटिव प्रोनाउन (Demonstrative Pronoun - संकेतवाचक सर्वनाम)</div>
+        <p class="para-text">जो शब्द किसी चीज़ की तरफ इशारा करने के लिए इस्तेमाल होते हैं।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> This (यह), That (वह), These (ये सब), Those (वे सब)</div>
+      </div>
+
+      <!-- Type 4 -->
+      <div class="type-card">
+        <div class="type-title">4. इन्टोगेटिव प्रोनाउन (Interrogative Pronoun - प्रश्नवाचक सर्वनाम)</div>
+        <p class="para-text">प्रश्न (सवाल) पूछने के लिए इस्तेमाल होने वाले प्रोनाउन।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Who (कौन), What (क्या), Which (कौन सा)</div>
+      </div>
+
+      <!-- Type 5 -->
+      <div class="type-card">
+        <div class="type-title">5. रिफ्लेक्सिव प्रोनाउन (Reflexive Pronoun - निजवाचक सर्वनाम)</div>
+        <p class="para-text">जब काम करने वाला खुद अपने लिए शब्द इस्तेमाल करता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Myself (खुद), Himself (वह खुद), Yourself (तुम खुद)</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

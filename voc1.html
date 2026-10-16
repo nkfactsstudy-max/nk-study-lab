@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Vocabulary — Nk Study Lab</title>
+<script>
+  (function(){
+    var saved = localStorage.getItem('nkStudyLabTheme');
+    if(saved === 'dark'){
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --surface:#F7F8FA;
+    --border:#E5E8EE;
+    --text:#1A1F2B;
+    --text-dim:#6B7280;
+    --navbar-bg:rgba(255,255,255,0.92);
+    --topic:#6b13d3;
+    --topic-dark:#6216dd;
+  }
+  [data-theme="dark"]{
+    --bg:#0A0E14;
+    --surface:#131A28;
+    --border:#232B3D;
+    --text:#E4E9F2;
+    --text-dim:#8B96AC;
+    --navbar-bg:rgba(10,14,20,0.92);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    transition:background .25s ease, color .25s ease;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  .loader-screen{
+    position:fixed;inset:0;z-index:9999;
+    background:var(--bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:16px;
+    transition:opacity .4s ease, visibility .4s ease;
+  }
+  .loader-screen.hidden{ opacity:0;visibility:hidden;pointer-events:none; }
+  .loader-logo{
+    width:56px;height:56px;border-radius:50%;
+    position:relative;display:flex;align-items:center;justify-content:center;
+    font-size:24px;background:var(--surface);
+  }
+  .loader-logo::before{
+    content:'';position:absolute;inset:-3px;border-radius:50%;
+    background:conic-gradient(from 0deg,#0D9488,#F5A623,#9333EA,#16A34A,#DC2626,#0D9488);
+    animation:spin 1.1s linear infinite;
+  }
+  .loader-logo::after{
+    content:'';position:absolute;inset:0;border-radius:50%;background:var(--surface);
+  }
+  .loader-logo span{position:relative;z-index:1;}
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .loader-text{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--text-dim);
+  }
+
+  .theme-toggle{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    font-size:15px;cursor:pointer;
+    margin-left:auto;
+  }
+  .theme-toggle:active{ transform:scale(0.92); }
+
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--navbar-bg);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    padding:14px 18px;
+    display:flex;align-items:center;gap:14px;
+    transition:background .25s ease, border-color .25s ease;
+  }
+  .back-btn{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);
+    font-size:16px;flex-shrink:0;
+  }
+  .topbar-title{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:800;font-size:16px;
+  }
+
+  .topic-banner{
+    background:linear-gradient(135deg,var(--topic),var(--topic-dark));
+    padding:32px 20px;
+    text-align:center;
+    color:#fff;
+  }
+  .topic-emoji{font-size:40px;margin-bottom:10px;}
+  .topic-title{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:800;font-size:24px;margin-bottom:6px;
+  }
+  .topic-sub{font-size:13px;opacity:0.9;}
+
+  /* SEARCH BAR */
+  .search-wrap{
+    max-width:680px;margin:16px auto 0;
+    padding:0 18px;
+  }
+  .search-box{
+    width:100%;
+    padding:12px 16px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-size:14px;
+    outline:none;
+    font-family:'Inter',sans-serif;
+  }
+
+  /* SECTION TABS */
+  .section-wrap{
+    max-width:680px;margin:0 auto;
+    padding:16px 18px 6px;
+  }
+  .section-heading{
+    font-size:13px;font-weight:700;color:var(--text-dim);
+    text-transform:uppercase;letter-spacing:0.5px;
+    margin-bottom:12px;
+  }
+  .section-tabs{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    margin-bottom:6px;
+  }
+  .section-tab{
+    display:block;border-radius:12px;padding:12px 8px;
+    text-align:center;cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .15s ease;
+  }
+  .section-tab:active{ transform:scale(0.96); }
+  .section-tab.active{ border-color:#fff; box-shadow:0 0 0 2px var(--topic); }
+  .tab-emoji{font-size:20px;display:block;margin-bottom:2px;}
+  .tab-name{font-size:12px;font-weight:800;color:#fff;display:block;}
+
+  .tab-daily{ background:linear-gradient(135deg,#0D9488,#0F766E); }
+  .tab-books{ background:linear-gradient(135deg,#2563EB,#1D4ED8); }
+  .tab-advanced{ background:linear-gradient(135deg,#9333EA,#7E22CE); }
+  .tab-emotions{ background:linear-gradient(135deg,#F5A623,#D97706); }
+  .tab-verbs{ background:linear-gradient(135deg,#16A34A,#15803D); }
+
+  /* WORD CARDS */
+  .sentence-wrap{
+    max-width:680px;margin:0 auto;
+    padding:4px 18px 60px;
+  }
+  .sentence-group{ display:none; }
+  .sentence-group.active{ display:block; }
+  .group-heading{
+    font-size:14px;font-weight:800;color:var(--text);
+    margin:22px 0 12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .word-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:10px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .word-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;font-weight:700;color:var(--topic);
+    background:rgba(13,148,136,0.1);
+    width:26px;height:26px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .word-content{ flex:1; }
+  .word-en{ font-size:15px;font-weight:800;color:var(--text); }
+  .word-pos{ font-size:11px;color:var(--topic);font-weight:600;margin-left:6px; }
+  .word-hi{ font-size:13px;color:var(--text-dim);margin-top:2px; }
+
+  .source-note{
+    margin-top:24px;padding:16px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;font-size:12.5px;color:var(--text-dim);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="loader-screen" id="loaderScreen">
+  <div class="loader-logo"><span>📖</span></div>
+  <div class="loader-text">Loading Words...</div>
+</div>
+
+<div class="topbar">
+  <a href="english.html" class="back-btn">←</a>
+  <div class="topbar-title">Nk Study Lab</div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button>
+</div>
+
+<div class="topic-banner">
+  <div class="topic-emoji">📗</div>
+  <div class="topic-title">English Vocabulary</div>
+  <div class="topic-sub">500+ Daily Use & Book Word Meanings with Hindi Meaning</div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" class="search-box" id="searchInput" placeholder="🔍 search any word ...">
+</div>
+
+<div class="section-wrap">
+  <div class="section-heading">🗂️ Category Chuno</div>
+  <div class="section-tabs">
+    <div class="section-tab tab-daily active" data-section="daily">
+      <span class="tab-emoji">🌟</span>
+      <span class="tab-name">Daily Use</span>
+    </div>
+    <div class="section-tab tab-books" data-section="books">
+      <span class="tab-emoji">📚</span>
+      <span class="tab-name">Book Words</span>
+    </div>
+    <div class="section-tab tab-advanced" data-section="advanced">
+      <span class="tab-emoji">💼</span>
+      <span class="tab-name">Advanced</span>
+    </div>
+    <div class="section-tab tab-emotions" data-section="emotions">
+      <span class="tab-emoji">😊</span>
+      <span class="tab-name">Emotions</span>
+    </div>
+  </div>
+</div>
+
+<div class="sentence-wrap">
+
+  <!-- ===================== DAILY USE WORDS (1-100) ===================== -->
+  <div class="sentence-group active" id="group-daily">
+    <div class="group-heading">🌟 Daily Use Essential Words</div>
+
+    <div class="word-card"><div class="word-num">1</div><div class="word-content"><span class="word-en">Always</span><span class="word-pos">(adv)</span><div class="word-hi">हमेशा / सदैव</div></div></div>
+    <div class="word-card"><div class="word-num">2</div><div class="word-content"><span class="word-en">Never</span><span class="word-pos">(adv)</span><div class="word-hi">कभी नहीं</div></div></div>
+    <div class="word-card"><div class="word-num">3</div><div class="word-content"><span class="word-en">Sometimes</span><span class="word-pos">(adv)</span><div class="word-hi">कभी-कभी</div></div></div>
+    <div class="word-card"><div class="word-num">4</div><div class="word-content"><span class="word-en">Often</span><span class="word-pos">(adv)</span><div class="word-hi">अक्सर / बार-बार</div></div></div>
+    <div class="word-card"><div class="word-num">5</div><div class="word-content"><span class="word-en">Usually</span><span class="word-pos">(adv)</span><div class="word-hi">आमतौर पर</div></div></div>
+    <div class="word-card"><div class="word-num">6</div><div class="word-content"><span class="word-en">Rarely</span><span class="word-pos">(adv)</span><div class="word-hi">शायद ही कभी</div></div></div>
+    <div class="word-card"><div class="word-num">7</div><div class="word-content"><span class="word-en">Almost</span><span class="word-pos">(adv)</span><div class="word-hi">लगभग / करीब-करीब</div></div></div>
+    <div class="word-card"><div class="word-num">8</div><div class="word-content"><span class="word-en">Already</span><span class="word-pos">(adv)</span><div class="word-hi">पहले से ही</div></div></div>
+    <div class="word-card"><div class="word-num">9</div><div class="word-content"><span class="word-en">Recently</span><span class="word-pos">(adv)</span><div class="word-hi">हाल ही में</div></div></div>
+    <div class="word-card"><div class="word-num">10</div><div class="word-content"><span class="word-en">Suddenly</span><span class="word-pos">(adv)</span><div class="word-hi">अचानक से</div></div></div>
+    <div class="word-card"><div class="word-num">11</div><div class="word-content"><span class="word-en">Gradually</span><span class="word-pos">(adv)</span><div class="word-hi">धीरे-धीरे</div></div></div>
+    <div class="word-card"><div class="word-num">12</div><div class="word-content"><span class="word-en">Actually</span><span class="word-pos">(adv)</span><div class="word-hi">वास्तव में / सच में</div></div></div>
+    <div class="word-card"><div class="word-num">13</div><div class="word-content"><span class="word-en">Basically</span><span class="word-pos">(adv)</span><div class="word-hi">मूल रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">14</div><div class="word-content"><span class="word-en">Especially</span><span class="word-pos">(adv)</span><div class="word-hi">खासकर</div></div></div>
+    <div class="word-card"><div class="word-num">15</div><div class="word-content"><span class="word-en">Probably</span><span class="word-pos">(adv)</span><div class="word-hi">शायद / संभवतः</div></div></div>
+    <div class="word-card"><div class="word-num">16</div><div class="word-content"><span class="word-en">Definitely</span><span class="word-pos">(adv)</span><div class="word-hi">निश्चित रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">17</div><div class="word-content"><span class="word-en">Exactly</span><span class="word-pos">(adv)</span><div class="word-hi">बिल्कुल सही</div></div></div>
+    <div class="word-card"><div class="word-num">18</div><div class="word-content"><span class="word-en">Carefully</span><span class="word-pos">(adv)</span><div class="word-hi">ध्यान से</div></div></div>
+    <div class="word-card"><div class="word-num">19</div><div class="word-content"><span class="word-en">Quietly</span><span class="word-pos">(adv)</span><div class="word-hi">शांति से / चुपचाप</div></div></div>
+    <div class="word-card"><div class="word-num">20</div><div class="word-content"><span class="word-en">Quickly</span><span class="word-pos">(adv)</span><div class="word-hi">जल्दी से</div></div></div>
+    <div class="word-card"><div class="word-num">21</div><div class="word-content"><span class="word-en">Slowly</span><span class="word-pos">(adv)</span><div class="word-hi">धीरे से</div></div></div>
+    <div class="word-card"><div class="word-num">22</div><div class="word-content"><span class="word-en">Easily</span><span class="word-pos">(adv)</span><div class="word-hi">आसानी से</div></div></div>
+    <div class="word-card"><div class="word-num">23</div><div class="word-content"><span class="word-en">Hardly</span><span class="word-pos">(adv)</span><div class="word-hi">मुश्किल से</div></div></div>
+    <div class="word-card"><div class="word-num">24</div><div class="word-content"><span class="word-en">Perhaps</span><span class="word-pos">(adv)</span><div class="word-hi">शायद</div></div></div>
+    <div class="word-card"><div class="word-num">25</div><div class="word-content"><span class="word-en">Anyhow</span><span class="word-pos">(adv)</span><div class="word-hi">जैसे-तैसे / किसी भी तरह</div></div></div>
+    <div class="word-card"><div class="word-num">26</div><div class="word-content"><span class="word-en">Somehow</span><span class="word-pos">(adv)</span><div class="word-hi">किसी न किसी तरह</div></div></div>
+    <div class="word-card"><div class="word-num">27</div><div class="word-content"><span class="word-en">Anytime</span><span class="word-pos">(adv)</span><div class="word-hi">कभी भी</div></div></div>
+    <div class="word-card"><div class="word-num">28</div><div class="word-content"><span class="word-en">Anywhere</span><span class="word-pos">(adv)</span><div class="word-hi">कहीं भी</div></div></div>
+    <div class="word-card"><div class="word-num">29</div><div class="word-content"><span class="word-en">Everywhere</span><span class="word-pos">(adv)</span><div class="word-hi">हर जगह</div></div></div>
+    <div class="word-card"><div class="word-num">30</div><div class="word-content"><span class="word-en">Nowhere</span><span class="word-pos">(adv)</span><div class="word-hi">कहीं नहीं</div></div></div>
+    <div class="word-card"><div class="word-num">31</div><div class="word-content"><span class="word-en">Otherwise</span><span class="word-pos">(conj)</span><div class="word-hi">वरना / नहीं तो</div></div></div>
+    <div class="word-card"><div class="word-num">32</div><div class="word-content"><span class="word-en">Therefore</span><span class="word-pos">(conj)</span><div class="word-hi">इसलिए</div></div></div>
+    <div class="word-card"><div class="word-num">33</div><div class="word-content"><span class="word-en">Although</span><span class="word-pos">(conj)</span><div class="word-hi">हालाँकि / यद्यपि</div></div></div>
+    <div class="word-card"><div class="word-num">34</div><div class="word-content"><span class="word-en">However</span><span class="word-pos">(conj)</span><div class="word-hi">फिर भी / हालाँकि</div></div></div>
+    <div class="word-card"><div class="word-num">35</div><div class="word-content"><span class="word-en">Instead</span><span class="word-pos">(adv)</span><div class="word-hi">इसके बजाय</div></div></div>
+    <div class="word-card"><div class="word-num">36</div><div class="word-content"><span class="word-en">Besides</span><span class="word-pos">(prep)</span><div class="word-hi">के अलावा</div></div></div>
+    <div class="word-card"><div class="word-num">37</div><div class="word-content"><span class="word-en">Except</span><span class="word-pos">(prep)</span><div class="word-hi">को छोड़कर</div></div></div>
+    <div class="word-card"><div class="word-num">38</div><div class="word-content"><span class="word-en">According to</span><span class="word-pos">(prep)</span><div class="word-hi">के अनुसार</div></div></div>
+    <div class="word-card"><div class="word-num">39</div><div class="word-content"><span class="word-en">Because of</span><span class="word-pos">(prep)</span><div class="word-hi">के कारण</div></div></div>
+    <div class="word-card"><div class="word-num">40</div><div class="word-content"><span class="word-en">Due to</span><span class="word-pos">(prep)</span><div class="word-hi">के कारण / वजह से</div></div></div>
+    <div class="word-card"><div class="word-num">41</div><div class="word-content"><span class="word-en">In front of</span><span class="word-pos">(prep)</span><div class="word-hi">के सामने</div></div></div>
+    <div class="word-card"><div class="word-num">42</div><div class="word-content"><span class="word-en">Behind</span><span class="word-pos">(prep)</span><div class="word-hi">के पीछे</div></div></div>
+    <div class="word-card"><div class="word-num">43</div><div class="word-content"><span class="word-en">Beside</span><span class="word-pos">(prep)</span><div class="word-hi">के बगल में</div></div></div>
+    <div class="word-card"><div class="word-num">44</div><div class="word-content"><span class="word-en">Between</span><span class="word-pos">(prep)</span><div class="word-hi">दो के बीच में</div></div></div>
+    <div class="word-card"><div class="word-num">45</div><div class="word-content"><span class="word-en">Among</span><span class="word-pos">(prep)</span><div class="word-hi">दो से अधिक के बीच में</div></div></div>
+    <div class="word-card"><div class="word-num">46</div><div class="word-content"><span class="word-en">Above</span><span class="word-pos">(prep)</span><div class="word-hi">ऊपर</div></div></div>
+    <div class="word-card"><div class="word-num">47</div><div class="word-content"><span class="word-en">Below</span><span class="word-pos">(prep)</span><div class="word-hi">नीचे</div></div></div>
+    <div class="word-card"><div class="word-num">48</div><div class="word-content"><span class="word-en">Under</span><span class="word-pos">(prep)</span><div class="word-hi">के नीचे (ढका हुआ)</div></div></div>
+    <div class="word-card"><div class="word-num">49</div><div class="word-content"><span class="word-en">Through</span><span class="word-pos">(prep)</span><div class="word-hi">के ज़रिए / में से</div></div></div>
+    <div class="word-card"><div class="word-num">50</div><div class="word-content"><span class="word-en">Towards</span><span class="word-pos">(prep)</span><div class="word-hi">की तरफ</div></div></div>
+    <div class="word-card"><div class="word-num">51</div><div class="word-content"><span class="word-en">Against</span><span class="word-pos">(prep)</span><div class="word-hi">के खिलाफ</div></div></div>
+    <div class="word-card"><div class="word-num">52</div><div class="word-content"><span class="word-en">Without</span><span class="word-pos">(prep)</span><div class="word-hi">के बिना</div></div></div>
+    <div class="word-card"><div class="word-num">53</div><div class="word-content"><span class="word-en">Within</span><span class="word-pos">(prep)</span><div class="word-hi">के भीतर</div></div></div>
+    <div class="word-card"><div class="word-num">54</div><div class="word-content"><span class="word-en">Beyond</span><span class="word-pos">(prep)</span><div class="word-hi">के परे / आगे</div></div></div>
+    <div class="word-card"><div class="word-num">55</div><div class="word-content"><span class="word-en">Across</span><span class="word-pos">(prep)</span><div class="word-hi">पार</div></div></div>
+    <div class="word-card"><div class="word-num">56</div><div class="word-content"><span class="word-en">Along</span><span class="word-pos">(prep)</span><div class="word-hi">के साथ-साथ</div></div></div>
+    <div class="word-card"><div class="word-num">57</div><div class="word-content"><span class="word-en">Around</span><span class="word-pos">(prep)</span><div class="word-hi">चारों तरफ</div></div></div>
+    <div class="word-card"><div class="word-num">58</div><div class="word-content"><span class="word-en">Inside</span><span class="word-pos">(prep)</span><div class="word-hi">अंदर</div></div></div>
+    <div class="word-num">59</div><div class="word-content"><span class="word-en">Outside</span><span class="word-pos">(prep)</span><div class="word-hi">बाहर</div></div></>
+    <div class="word-card"><div class="word-num">60</div><div class="word-content"><span class="word-en">Until</span><span class="word-pos">(conj)</span><div class="word-hi">जब तक नहीं</div></div></div>
+    <div class="word-card"><div class="word-num">61</div><div class="word-content"><span class="word-en">Since</span><span class="word-pos">(prep)</span><div class="word-hi">तब से / चूँकि</div></div></div>
+    <div class="word-card"><div class="word-num">62</div><div class="word-content"><span class="word-en">While</span><span class="word-pos">(conj)</span><div class="word-hi">जबकि / के दौरान</div></div></div>
+    <div class="word-card"><div class="word-num">63</div><div class="word-content"><span class="word-en">During</span><span class="word-pos">(prep)</span><div class="word-hi">के दौरान</div></div></div>
+    <div class="word-card"><div class="word-num">64</div><div class="word-content"><span class="word-en">Whether</span><span class="word-pos">(conj)</span><div class="word-hi">चाहे / या</div></div></div>
+    <div class="word-card"><div class="word-num">65</div><div class="word-content"><span class="word-en">Unless</span><span class="word-pos">(conj)</span><div class="word-hi">जब तक कि</div></div></div>
+    <div class="word-card"><div class="word-num">66</div><div class="word-content"><span class="word-en">Although</span><span class="word-pos">(conj)</span><div class="word-hi">भले ही</div></div></div>
+    <div class="word-card"><div class="word-num">67</div><div class="word-content"><span class="word-en">Either</span><span class="word-pos">(pron)</span><div class="word-hi">दोनों में से कोई एक</div></div></div>
+    <div class="word-card"><div class="word-num">68</div><div class="word-content"><span class="word-en">Neither</span><span class="word-pos">(pron)</span><div class="word-hi">दोनों में से कोई नहीं</div></div></div>
+    <div class="word-card"><div class="word-num">69</div><div class="word-content"><span class="word-en">All together</span><span class="word-pos">(adv)</span><div class="word-hi">सब एक साथ</div></div></div>
+    <div class="word-card"><div class="word-num">70</div><div class="word-content"><span class="word-en">Altogether</span><span class="word-pos">(adv)</span><div class="word-hi">कुल मिलाकर</div></div></div>
+    <div class="word-card"><div class="word-num">71</div><div class="word-content"><span class="word-en">Gently</span><span class="word-pos">(adv)</span><div class="word-hi">कोमलता से / धीरे से</div></div></div>
+    <div class="word-card"><div class="word-num">72</div><div class="word-content"><span class="word-en">Politely</span><span class="word-pos">(adv)</span><div class="word-hi">विनम्रता से</div></div></div>
+    <div class="word-card"><div class="word-num">73</div><div class="word-content"><span class="word-en">Rudely</span><span class="word-pos">(adv)</span><div class="word-hi">बदतमीजी से</div></div></div>
+    <div class="word-card"><div class="word-num">74</div><div class="word-content"><span class="word-en">Boldly</span><span class="word-pos">(adv)</span><div class="word-hi">निडरता से</div></div></div>
+    <div class="word-card"><div class="word-num">75</div><div class="word-content"><span class="word-en">Bravely</span><span class="word-pos">(adv)</span><div class="word-hi">बहादुरी से</div></div></div>
+    <div class="word-card"><div class="word-num">76</div><div class="word-content"><span class="word-en">Wisely</span><span class="word-pos">(adv)</span><div class="word-hi">बुद्धिमानी से</div></div></div>
+    <div class="word-card"><div class="word-num">77</div><div class="word-content"><span class="word-en">Foolishly</span><span class="word-pos">(adv)</span><div class="word-hi">मूर्खता से</div></div></div>
+    <div class="word-card"><div class="word-num">78</div><div class="word-content"><span class="word-en">Eagerly</span><span class="word-pos">(adv)</span><div class="word-hi">उत्सुकता से</div></div></div>
+    <div class="word-card"><div class="word-num">79</div><div class="word-content"><span class="word-en">Gladly</span><span class="word-pos">(adv)</span><div class="word-hi">खुशी-खुशी</div></div></div>
+    <div class="word-card"><div class="word-num">80</div><div class="word-content"><span class="word-en">Sadly</span><span class="word-pos">(adv)</span><div class="word-hi">दुख के साथ</div></div></div>
+    <div class="word-card"><div class="word-num">81</div><div class="word-content"><span class="word-en">Anxiously</span><span class="word-pos">(adv)</span><div class="word-hi">चिंतापूर्वक</div></div></div>
+    <div class="word-card"><div class="word-num">82</div><div class="word-content"><span class="word-en">Calmly</span><span class="word-pos">(adv)</span><div class="word-hi">शांत होकर</div></div></div>
+    <div class="word-card"><div class="word-num">83</div><div class="word-content"><span class="word-en">Fairly</span><span class="word-pos">(adv)</span><div class="word-hi">निष्पक्ष रूप से / काफी</div></div></div>
+    <div class="word-card"><div class="word-num">84</div><div class="word-content"><span class="word-en">Barely</span><span class="word-pos">(adv)</span><div class="word-hi">मुश्किल से ही</div></div></div>
+    <div class="word-card"><div class="word-num">85</div><div class="word-content"><span class="word-en">Simply</span><span class="word-pos">(adv)</span><div class="word-hi">बस / सादगी से</div></div></div>
+    <div class="word-card"><div class="word-num">86</div><div class="word-content"><span class="word-en">Truly</span><span class="word-pos">(adv)</span><div class="word-hi">सचमुच</div></div></div>
+    <div class="word-card"><div class="word-num">87</div><div class="word-content"><span class="word-en">Surely</span><span class="word-pos">(adv)</span><div class="word-hi">निश्चित रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">88</div><div class="word-content"><span class="word-en">Clearly</span><span class="word-pos">(adv)</span><div class="word-hi">स्पष्ट रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">89</div><div class="word-content"><span class="word-en">Deeply</span><span class="word-pos">(adv)</span><div class="word-hi">गहराई से</div></div></div>
+    <div class="word-card"><div class="word-num">90</div><div class="word-content"><span class="word-en">Highly</span><span class="word-pos">(adv)</span><div class="word-hi">अत्यधिक</div></div></div>
+    <div class="word-card"><div class="word-num">91</div><div class="word-content"><span class="word-en">Mainly</span><span class="word-pos">(adv)</span><div class="word-hi">मुख्य रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">92</div><div class="word-content"><span class="word-en">Mostly</span><span class="word-pos">(adv)</span><div class="word-hi">ज़्यादातर</div></div></div>
+    <div class="word-card"><div class="word-num">93</div><div class="word-content"><span class="word-en">Partly</span><span class="word-pos">(adv)</span><div class="word-hi">आंशिक रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">94</div><div class="word-content"><span class="word-en">Totally</span><span class="word-pos">(adv)</span><div class="word-hi">पूरी तरह से</div></div></div>
+    <div class="word-card"><div class="word-num">95</div><div class="word-content"><span class="word-en">Completely</span><span class="word-pos">(adv)</span><div class="word-hi">पूर्ण रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">96</div><div class="word-content"><span class="word-en">Slightly</span><span class="word-pos">(adv)</span><div class="word-hi">थोड़ा सा</div></div></div>
+    <div class="word-card"><div class="word-num">97</div><div class="word-content"><span class="word-en">Extremely</span><span class="word-pos">(adv)</span><div class="word-hi">बेहद / अत्यंत</div></div></div>
+    <div class="word-card"><div class="word-num">98</div><div class="word-content"><span class="word-en">Directly</span><span class="word-pos">(adv)</span><div class="word-hi">सीधे</div></div></div>
+    <div class="word-card"><div class="word-num">99</div><div class="word-content"><span class="word-en">Indirectly</span><span class="word-pos">(adv)</span><div class="word-hi">अप्रत्यक्ष रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">100</div><div class="word-content"><span class="word-en">Eventually</span><span class="word-pos">(adv)</span><div class="word-hi">अंततः / आखिर में</div></div></div>
+  </div>
+      <!-- ===================== NATURE & WEATHER ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🌿 Nature & Weather Words</div>
+    <div class="word-card"><div class="word-num">101</div><div class="word-content"><span class="word-en">Sky</span><span class="word-pos">(n)</span><div class="word-hi">आसमान / आकाश</div></div></div>
+    <div class="word-card"><div class="word-num">102</div><div class="word-content"><span class="word-en">Cloud</span><span class="word-pos">(n)</span><div class="word-hi">बादल</div></div></div>
+    <div class="word-card"><div class="word-num">103</div><div class="word-content"><span class="word-en">Rain</span><span class="word-pos">(n)</span><div class="word-hi">वर्षा / बारिश</div></div></div>
+    <div class="word-card"><div class="word-num">104</div><div class="word-content"><span class="word-en">Wind / Breeze</span><span class="word-pos">(n)</span><div class="word-hi">हवा / मंद पवन</div></div></div>
+    <div class="word-card"><div class="word-num">105</div><div class="word-content"><span class="word-en">Storm</span><span class="word-pos">(n)</span><div class="word-hi">तूफान</div></div></div>
+    <div class="word-card"><div class="word-num">106</div><div class="word-content"><span class="word-en">Lightning</span><span class="word-pos">(n)</span><div class="word-hi">आकाशीय बिजली</div></div></div>
+    <div class="word-card"><div class="word-num">107</div><div class="word-content"><span class="word-en">Rainbow</span><span class="word-pos">(n)</span><div class="word-hi">इन्द्रधनुष</div></div></div>
+    <div class="word-card"><div class="word-num">108</div><div class="word-content"><span class="word-en">Sunlight</span><span class="word-pos">(n)</span><div class="word-hi">धूप / सूर्य प्रकाश</div></div></div>
+    <div class="word-card"><div class="word-num">109</div><div class="word-content"><span class="word-en">Shadow</span><span class="word-pos">(n)</span><div class="word-hi">परछाई</div></div></div>
+    <div class="word-card"><div class="word-num">110</div><div class="word-content"><span class="word-en">Fog / Mist</span><span class="word-pos">(n)</span><div class="word-hi">कोहरा / धुंध</div></div></div>
+
+    <!-- ===================== ANIMALS NAME ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🦁 Animals Name</div>
+    <div class="word-card"><div class="word-num">111</div><div class="word-content"><span class="word-en">Lion</span><span class="word-pos">(n)</span><div class="word-hi">शेर</div></div></div>
+    <div class="word-card"><div class="word-num">112</div><div class="word-content"><span class="word-en">Tiger</span><span class="word-pos">(n)</span><div class="word-hi">बाघ</div></div></div>
+    <div class="word-card"><div class="word-num">113</div><div class="word-content"><span class="word-en">Elephant</span><span class="word-pos">(n)</span><div class="word-hi">हाथी</div></div></div>
+    <div class="word-card"><div class="word-num">114</div><div class="word-content"><span class="word-en">Monkey</span><span class="word-pos">(n)</span><div class="word-hi">बंदर</div></div></div>
+    <div class="word-card"><div class="word-num">115</div><div class="word-content"><span class="word-en">Bear</span><span class="word-pos">(n)</span><div class="word-hi">भालू</div></div></div>
+    <div class="word-card"><div class="word-num">116</div><div class="word-content"><span class="word-en">Deer</span><span class="word-pos">(n)</span><div class="word-hi">हिरण</div></div></div>
+    <div class="word-card"><div class="word-num">117</div><div class="word-content"><span class="word-en">Rabbit</span><span class="word-pos">(n)</span><div class="word-hi">खरगोश</div></div></div>
+    <div class="word-card"><div class="word-num">118</div><div class="word-content"><span class="word-en">Fox</span><span class="word-pos">(n)</span><div class="word-hi">लोमड़ी</div></div></div>
+    <div class="word-card"><div class="word-num">119</div><div class="word-content"><span class="word-en">Wolf</span><span class="word-pos">(n)</span><div class="word-hi">भेड़िया</div></div></div>
+    <div class="word-card"><div class="word-num">120</div><div class="word-content"><span class="word-en">Squirrel</span><span class="word-pos">(n)</span><div class="word-hi">गिलहरी</div></div></div>
+
+    <!-- ===================== BIRDS NAME ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🦜 Birds Name</div>
+    <div class="word-card"><div class="word-num">121</div><div class="word-content"><span class="word-en">Parrot</span><span class="word-pos">(n)</span><div class="word-hi">तोता</div></div></div>
+    <div class="word-card"><div class="word-num">122</div><div class="word-content"><span class="word-en">Peacock</span><span class="word-pos">(n)</span><div class="word-hi">मोर</div></div></div>
+    <div class="word-card"><div class="word-num">123</div><div class="word-content"><span class="word-en">Pigeon</span><span class="word-pos">(n)</span><div class="word-hi">कबूतर</div></div></div>
+    <div class="word-card"><div class="word-num">124</div><div class="word-content"><span class="word-en">Crow</span><span class="word-pos">(n)</span><div class="word-hi">कौआ</div></div></div>
+    <div class="word-card"><div class="word-num">125</div><div class="word-content"><span class="word-en">Sparrow</span><span class="word-pos">(n)</span><div class="word-hi">गौरैया</div></div></div>
+    <div class="word-card"><div class="word-num">126</div><div class="word-content"><span class="word-en">Eagle</span><span class="word-pos">(n)</span><div class="word-hi">चील / गरुड़</div></div></div>
+    <div class="word-card"><div class="word-num">127</div><div class="word-content"><span class="word-en">Owl</span><span class="word-pos">(n)</span><div class="word-hi">उल्लू</div></div></div>
+    <div class="word-card"><div class="word-num">128</div><div class="word-content"><span class="word-en">Swan</span><span class="word-pos">(n)</span><div class="word-hi">हंस</div></div></div>
+    <div class="word-card"><div class="word-num">129</div><div class="word-content"><span class="word-en">Duck</span><span class="word-pos">(n)</span><div class="word-hi">बत्तख</div></div></div>
+    <div class="word-card"><div class="word-num">130</div><div class="word-content"><span class="word-en">Kingfisher</span><span class="word-pos">(n)</span><div class="word-hi">रामचिरैया</div></div></div>
+
+    <!-- ===================== SEA ANIMALS ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🐋 Sea Animals Name</div>
+    <div class="word-card"><div class="word-num">131</div><div class="word-content"><span class="word-en">Whale</span><span class="word-pos">(n)</span><div class="word-hi">ह्वेल मछली</div></div></div>
+    <div class="word-card"><div class="word-num">132</div><div class="word-content"><span class="word-en">Shark</span><span class="word-pos">(n)</span><div class="word-hi">शार्क</div></div></div>
+    <div class="word-card"><div class="word-num">133</div><div class="word-content"><span class="word-en">Dolphin</span><span class="word-pos">(n)</span><div class="word-hi">डॉलफिन</div></div></div>
+    <div class="word-card"><div class="word-num">134</div><div class="word-content"><span class="word-en">Octopus</span><span class="word-pos">(n)</span><div class="word-hi">अष्टबाहु / ऑक्टोपस</div></div></div>
+    <div class="word-card"><div class="word-num">135</div><div class="word-content"><span class="word-en">Turtle</span><span class="word-pos">(n)</span><div class="word-hi">कछुआ</div></div></div>
+    <div class="word-card"><div class="word-num">136</div><div class="word-content"><span class="word-en">Crocodile</span><span class="word-pos">(n)</span><div class="word-hi">मगरमच्छ</div></div></div>
+    <div class="word-card"><div class="word-num">137</div><div class="word-content"><span class="word-en">Crab</span><span class="word-pos">(n)</span><div class="word-hi">केकड़ा</div></div></div>
+    <div class="word-card"><div class="word-num">138</div><div class="word-content"><span class="word-en">Starfish</span><span class="word-pos">(n)</span><div class="word-hi">तारा मछली</div></div></div>
+    <div class="word-card"><div class="word-num">139</div><div class="word-content"><span class="word-en">Jellyfish</span><span class="word-pos">(n)</span><div class="word-hi">जेलीफिश</div></div></div>
+    <div class="word-card"><div class="word-num">140</div><div class="word-content"><span class="word-en">Seahorse</span><span class="word-pos">(n)</span><div class="word-hi">समुद्री घोड़ा</div></div></div>
+    <!-- ===================== NATURE & WEATHER (More Words) ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🌿 Nature & Weather (Part 2)</div>
+    <div class="word-card"><div class="word-num">191</div><div class="word-content"><span class="word-en">River</span><span class="word-pos">(n)</span><div class="word-hi">नदी</div></div></div>
+    <div class="word-card"><div class="word-num">192</div><div class="word-content"><span class="word-en">Ocean / Sea</span><span class="word-pos">(n)</span><div class="word-hi">महासागर / समुद्र</div></div></div>
+    <div class="word-card"><div class="word-num">193</div><div class="word-content"><span class="word-en">Mountain</span><span class="word-pos">(n)</span><div class="word-hi">पहाड़ / पर्वत</div></div></div>
+    <div class="word-card"><div class="word-num">194</div><div class="word-content"><span class="word-en">Valley</span><span class="word-pos">(n)</span><div class="word-hi">घाटी</div></div></div>
+    <div class="word-card"><div class="word-num">195</div><div class="word-content"><span class="word-en">Waterfall</span><span class="word-pos">(n)</span><div class="word-hi">झरना</div></div></div>
+    <div class="word-card"><div class="word-num">196</div><div class="word-content"><span class="word-en">Desert</span><span class="word-pos">(n)</span><div class="word-hi">रेगिस्तान</div></div></div>
+    <div class="word-card"><div class="word-num">197</div><div class="word-content"><span class="word-en">Island</span><span class="word-pos">(n)</span><div class="word-hi">द्वीप / टापू</div></div></div>
+    <div class="word-card"><div class="word-num">198</div><div class="word-content"><span class="word-en">Volcano</span><span class="word-pos">(n)</span><div class="word-hi">ज्वालामुखी</div></div></div>
+    <div class="word-card"><div class="word-num">199</div><div class="word-content"><span class="word-en">Earthquake</span><span class="word-pos">(n)</span><div class="word-hi">भूकंप</div></div></div>
+    <div class="word-card"><div class="word-num">200</div><div class="word-content"><span class="word-en">Wave</span><span class="word-pos">(n)</span><div class="word-hi">लहर / तरंग</div></div></div>
+
+    <!-- ===================== ANIMALS (More Words) ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🦁 Animals (Part 2)</div>
+    <div class="word-card"><div class="word-num">201</div><div class="word-content"><span class="word-en">Giraffe</span><span class="word-pos">(n)</span><div class="word-hi">जिराफ</div></div></div>
+    <div class="word-card"><div class="word-num">202</div><div class="word-content"><span class="word-en">Zebra</span><span class="word-pos">(n)</span><div class="word-hi">जेब्रा</div></div></div>
+    <div class="word-card"><div class="word-num">203</div><div class="word-content"><span class="word-en">Kangaroo</span><span class="word-pos">(n)</span><div class="word-hi">कंगारू</div></div></div>
+    <div class="word-card"><div class="word-num">204</div><div class="word-content"><span class="word-en">Hippopotamus</span><span class="word-pos">(n)</span><div class="word-hi">दरियाई घोड़ा</div></div></div>
+    <div class="word-card"><div class="word-num">205</div><div class="word-content"><span class="word-en">Rhinoceros</span><span class="word-pos">(n)</span><div class="word-hi">गैंडा</div></div></div>
+    <div class="word-card"><div class="word-num">206</div><div class="word-content"><span class="word-en">Leopard</span><span class="word-pos">(n)</span><div class="word-hi">तेंदुआ</div></div></div>
+    <div class="word-card"><div class="word-num">207</div><div class="word-content"><span class="word-en">Cheetah</span><span class="word-pos">(n)</span><div class="word-hi">चीता</div></div></div>
+    <div class="word-card"><div class="word-num">208</div><div class="word-content"><span class="word-en">Gorilla</span><span class="word-pos">(n)</span><div class="word-hi">गोरिल्ला</div></div></div>
+    <div class="word-card"><div class="word-num">209</div><div class="word-content"><span class="word-en">Donkey</span><span class="word-pos">(n)</span><div class="word-hi">गधा</div></div></div>
+    <div class="word-card"><div class="word-num">210</div><div class="word-content"><span class="word-en">Goat</span><span class="word-pos">(n)</span><div class="word-hi">बकरी</div></div></div>
+
+    <!-- ===================== BIRDS (More Words) ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🦜 Birds (Part 2)</div>
+    <div class="word-card"><div class="word-num">211</div><div class="word-content"><span class="word-en">Vulture</span><span class="word-pos">(n)</span><div class="word-hi">गिद्ध</div></div></div>
+    <div class="word-card"><div class="word-num">212</div><div class="word-content"><span class="word-en">Flamingo</span><span class="word-pos">(n)</span><div class="word-hi">राजहंस</div></div></div>
+    <div class="word-card"><div class="word-num">213</div><div class="word-content"><span class="word-en">Penguin</span><span class="word-pos">(n)</span><div class="word-hi">पेंगुइन</div></div></div>
+    <div class="word-card"><div class="word-num">214</div><div class="word-content"><span class="word-en">Ostrich</span><span class="word-pos">(n)</span><div class="word-hi">शुतुरमुर्ग</div></div></div>
+    <div class="word-card"><div class="word-num">215</div><div class="word-content"><span class="word-en">Stork</span><span class="word-pos">(n)</span><div class="word-hi">सारस</div></div></div>
+    <div class="word-card"><div class="word-num">216</div><div class="word-content"><span class="word-en">Cuckoo</span><span class="word-pos">(n)</span><div class="word-hi">कोयल</div></div></div>
+    <div class="word-card"><div class="word-num">217</div><div class="word-content"><span class="word-en">Hawk</span><span class="word-pos">(n)</span><div class="word-hi">बाज</div></div></div>
+    <div class="word-card"><div class="word-num">218</div><div class="word-content"><span class="word-en">Heron</span><span class="word-pos">(n)</span><div class="word-hi">बगुला</div></div></div>
+    <div class="word-card"><div class="word-num">219</div><div class="word-content"><span class="word-en">Bat</span><span class="word-pos">(n)</span><div class="word-hi">चमगादड़</div></div></div>
+    <div class="word-card"><div class="word-num">220</div><div class="word-content"><span class="word-en">Hen / Rooster</span><span class="word-pos">(n)</span><div class="word-hi">मुर्गी / मुर्गा</div></div></div>
+
+    <!-- ===================== SEA ANIMALS (More Words) ===================== -->
+    <div class="group-heading" style="margin-top:25px;">🐋 Sea Animals (Part 2)</div>
+    <div class="word-card"><div class="word-num">221</div><div class="word-content"><span class="word-en">Seal</span><span class="word-pos">(n)</span><div class="word-hi">सील (समुद्री जीव)</div></div></div>
+    <div class="word-card"><div class="word-num">222</div><div class="word-content"><span class="word-en">Walrus</span><span class="word-pos">(n)</span><div class="word-hi">वॉलरस</div></div></div>
+    <div class="word-card"><div class="word-num">223</div><div class="word-content"><span class="word-en">Lobster</span><span class="word-pos">(n)</span><div class="word-hi">झींगा मछली</div></div></div>
+    <div class="word-card"><div class="word-num">224</div><div class="word-content"><span class="word-en">Squid</span><span class="word-pos">(n)</span><div class="word-hi">स्क्विड</div></div></div>
+    <div class="word-card"><div class="word-num">225</div><div class="word-content"><span class="word-en">Stingray</span><span class="word-pos">(n)</span><div class="word-hi">स्टिंग्रे मछली</div></div></div>
+    <div class="word-card"><div class="word-num">226</div><div class="word-content"><span class="word-en">Eel</span><span class="word-pos">(n)</span><div class="word-hi">बाम मछली / ईल</div></div></div>
+    <div class="word-card"><div class="word-num">227</div><div class="word-content"><span class="word-en">Otter</span><span class="word-pos">(n)</span><div class="word-hi">ऊदबिलाव</div></div></div>
+    <div class="word-card"><div class="word-num">228</div><div class="word-content"><span class="word-en">Coral</span><span class="word-pos">(n)</span><div class="word-hi">मूंगा / प्रवाल</div></div></div>
+    <div class="word-card"><div class="word-num">229</div><div class="word-content"><span class="word-en">Clam</span><span class="word-pos">(n)</span><div class="word-hi">सीप / घोंघा</div></div></div>
+    <div class="word-card"><div class="word-num">230</div><div class="word-content"><span class="word-en">Penguin</span><span class="word-pos">(n)</span><div class="word-hi">समुद्री पेंगुइन</div></div></div>
+
+    <!-- ===================== BODY PARTS (More Words) ===================== -->
+    <div class="group-heading" style="margin-top:25px;">👁️ Body Parts (Part 2)</div>
+    <div class="word-card"><div class="word-num">231</div><div class="word-content"><span class="word-en">Brain</span><span class="word-pos">(n)</span><div class="word-hi">दिमाग / मस्तिष्क</div></div></div>
+    <div class="word-card"><div class="word-num">232</div><div class="word-content"><span class="word-en">Stomach</span><span class="word-pos">(n)</span><div class="word-hi">पेट</div></div></div>
+    <div class="word-card"><div class="word-num">233</div><div class="word-content"><span class="word-en">Liver</span><span class="word-pos">(n)</span><div class="word-hi">जिगर / यकृत</div></div></div>
+    <div class="word-card"><div class="word-num">234</div><div class="word-content"><span class="word-en">Kidney</span><span class="word-pos">(n)</span><div class="word-hi">गुर्दा / किड्नी</div></div></div>
+    <div class="word-card"><div class="word-num">235</div><div class="word-content"><span class="word-en">Lungs</span><span class="word-pos">(n)</span><div class="word-hi">फेफड़े</div></div></div>
+    <div class="word-card"><div class="word-num">236</div><div class="word-content"><span class="word-en">Shoulder</span><span class="word-pos">(n)</span><div class="word-hi">कंधा</div></div></div>
+    <div class="word-card"><div class="word-num">237</div><div class="word-content"><span class="word-en">Chest / Breast</span><span class="word-pos">(n)</span><div class="word-hi">छाती / सीना</div></div></div>
+    <div class="word-card"><div class="word-num">238</div><div class="word-content"><span class="word-en">Elbow</span><span class="word-pos">(n)</span><div class="word-hi">कोहनी</div></div></div>
+    <div class="word-card"><div class="word-num">239</div><div class="word-content"><span class="word-en">Knee</span><span class="word-pos">(n)</span><div class="word-hi">घुटना</div></div></div>
+    <div class="word-card"><div class="word-num">240</div><div class="word-content"><span class="word-en">Skin</span><span class="word-pos">(n)</span><div class="word-hi">त्वचा / चमड़ी</div></div></div>
+
+  
+    
+      <!-- ===================== BOOK & READING WORDS (101-140) ===================== -->
+  <div class="sentence-group" id="group-books">
+    <div class="group-heading">📚 Books & Academic Words</div>
+
+    <div class="word-card"><div class="word-num">241</div><div class="word-content"><span class="word-en">Acquire</span><span class="word-pos">(v)</span><div class="word-hi">प्राप्त करना / हासिल करना</div></div></div>
+    <div class="word-card"><div class="word-num">242</div><div class="word-content"><span class="word-en">Advocate</span><span class="word-pos">(v/n)</span><div class="word-hi">समर्थन करना / वकील</div></div></div>
+    <div class="word-card"><div class="word-num">243</div><div class="word-content"><span class="word-en">Analyze</span><span class="word-pos">(v)</span><div class="word-hi">विश्लेषण करना</div></div></div>
+    <div class="word-card"><div class="word-num">2444</div><div class="word-content"><span class="word-en">Apparent</span><span class="word-pos">(adj)</span><div class="word-hi">स्पष्ट / प्रत्यक्ष</div></div></div>
+    <div class="word-card"><div class="word-num">2455</div><div class="word-content"><span class="word-en">Approach</span><span class="word-pos">(n/v)</span><div class="word-hi">दृष्टिकोण / पहुँचना</div></div></div>
+    <div class="word-card"><div class="word-num">246</div><div class="word-content"><span class="word-en">Assert</span><span class="word-pos">(v)</span><div class="word-hi">दावा करना / जोर देना</div></div></div>
+    <div class="word-card"><div class="word-num">247</div><div class="word-content"><span class="word-en">Assume</span><span class="word-pos">(v)</span><div class="word-hi">मान लेना / मान कर चलना</div></div></div>
+    <div class="word-card"><div class="word-num">248</div><div class="word-content"><span class="word-en">Attain</span><span class="word-pos">(v)</span><div class="word-hi">पाना / हासिल करना</div></div></div>
+    <div class="word-card"><div class="word-num">249</div><div class="word-content"><span class="word-en">Attribute</span><span class="word-pos">(v/n)</span><div class="word-hi">श्रेय देना / गुण</div></div></div>
+    <div class="word-card"><div class="word-num">250</div><div class="word-content"><span class="word-en">Brief</span><span class="word-pos">(adj)</span><div class="word-hi">संक्षिप्त / छोटा</div></div></div>
+    <div class="word-card"><div class="word-num">251</div><div class="word-content"><span class="word-en">Clarify</span><span class="word-pos">(v)</span><div class="word-hi">स्पष्ट करना</div></div></div>
+    <div class="word-card"><div class="word-num">252</div><div class="word-content"><span class="word-en">Coincide</span><span class="word-pos">(v)</span><div class="word-hi">एक ही समय पर होना</div></div></div>
+    <div class="word-card"><div class="word-num">253</div><div class="word-content"><span class="word-en">Compel</span><span class="word-pos">(v)</span><div class="word-hi">मजबूर करना</div></div></div>
+    <div class="word-card"><div class="word-num">254</div><div class="word-content"><span class="word-en">Comprehend</span><span class="word-pos">(v)</span><div class="word-hi">अच्छी तरह समझना</div></div></div>
+    <div class="word-card"><div class="word-num">255</div><div class="word-content"><span class="word-en">Concede</span><span class="word-pos">(v)</span><div class="word-hi">स्वीकार करना / मानना</div></div></div>
+    <div class="word-card"><div class="word-num">256</div><div class="word-content"><span class="word-en">Conclude</span><span class="word-pos">(v)</span><div class="word-hi">निष्कर्ष निकालना / समाप्त करना</div></div></div>
+    <div class="word-card"><div class="word-num">257</div><div class="word-content"><span class="word-en">Conduct</span><span class="word-pos">(v/n)</span><div class="word-hi">संचालन करना / आचरण</div></div></div>
+    <div class="word-card"><div class="word-num">258</div><div class="word-content"><span class="word-en">Constitute</span><span class="word-pos">(v)</span><div class="word-hi">गठन करना / बनाना</div></div></div>
+    <div class="word-card"><div class="word-num">259</div><div class="word-content"><span class="word-en">Constrain</span><span class="word-pos">(v)</span><div class="word-hi">प्रतिबंधित करना / रोकना</div></div></div>
+    <div class="word-card"><div class="word-num">260</div><div class="word-content"><span class="word-en">Context</span><span class="word-pos">(n)</span><div class="word-hi">संदर्भ / परिस्थिति</div></div></div>
+    <div class="word-card"><div class="word-num">261</div><div class="word-content"><span class="word-en">Contradict</span><span class="word-pos">(v)</span><div class="word-hi">खंडन करना / विरोध करना</div></div></div>
+    <div class="word-card"><div class="word-num">262</div><div class="word-content"><span class="word-en">Crucial</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यंत महत्वपूर्ण</div></div></div>
+    <div class="word-card"><div class="word-num">263</div><div class="word-content"><span class="word-en">Deduce</span><span class="word-pos">(v)</span><div class="word-hi">अंदाज़ा लगाना / निष्कर्ष निकालना</div></div></div>
+    <div class="word-card"><div class="word-num">264</div><div class="word-content"><span class="word-en">Define</span><span class="word-pos">(v)</span><div class="word-hi">परिभाषित करना</div></div></div>
+    <div class="word-card"><div class="word-num">265</div><div class="word-content"><span class="word-en">Demonstrate</span><span class="word-pos">(v)</span><div class="word-hi">प्रदर्शन करना / साबित करना</div></div></div>
+    <div class="word-card"><div class="word-num">266</div><div class="word-content"><span class="word-en">Depict</span><span class="word-pos">(v)</span><div class="word-hi">चित्रित करना / दर्शाना</div></div></div>
+    <div class="word-card"><div class="word-num">267</div><div class="word-content"><span class="word-en">Derive</span><span class="word-pos">(v)</span><div class="word-hi">प्राप्त करना / निकलना</div></div></div>
+    <div class="word-card"><div class="word-num">268</div><div class="word-content"><span class="word-en">Determine</span><span class="word-pos">(v)</span><div class="word-hi">तय करना / निर्धारित करना</div></div></div>
+    <div class="word-card"><div class="word-num">269</div><div class="word-content"><span class="word-en">Deviate</span><span class="word-pos">(v)</span><div class="word-hi">भटकना / रास्ते से हटना</div></div></div>
+    <div class="word-card"><div class="word-num">270</div><div class="word-content"><span class="word-en">Distinguish</span><span class="word-pos">(v)</span><div class="word-hi">अंतर करना / पहचानना</div></div></div>
+    <div class="word-card"><div class="word-num">271</div><div class="word-content"><span class="word-en">Dominant</span><span class="word-pos">(adj)</span><div class="word-hi">हावी / प्रभावशाली</div></div></div>
+    <div class="word-card"><div class="word-num">272</div><div class="word-content"><span class="word-en">Elaborate</span><span class="word-pos">(v/adj)</span><div class="word-hi">विस्तार से बताना / विस्तृत</div></div></div>
+    <div class="word-card"><div class="word-num">273</div><div class="word-content"><span class="word-en">Emerging</span><span class="word-pos">(adj)</span><div class="word-hi">उभरता हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">274</div><div class="word-content"><span class="word-en">Emphasis</span><span class="word-pos">(n)</span><div class="word-hi">जोर / महत्व</div></div></div>
+    <div class="word-card"><div class="word-num">275</div><div class="word-content"><span class="word-en">Encounter</span><span class="word-pos">(v/n)</span><div class="word-hi">सामना होना / मुठभेड़</div></div></div>
+    <div class="word-card"><div class="word-num">276</div><div class="word-content"><span class="word-en">Enhance</span><span class="word-pos">(v)</span><div class="word-hi">बढ़ाना / सुधारना</div></div></div>
+    <div class="word-card"><div class="word-num">277</div><div class="word-content"><span class="word-en">Entity</span><span class="word-pos">(n)</span><div class="word-hi">सत्ता / अस्तित्व</div></div></div>
+    <div class="word-card"><div class="word-num">278</div><div class="word-content"><span class="word-en">Equate</span><span class="word-pos">(v)</span><div class="word-hi">बराबर मानना</div></div></div>
+    <div class="word-card"><div class="word-num">279</div><div class="word-content"><span class="word-en">Essential</span><span class="word-pos">(adj)</span><div class="word-hi">आवश्यक / अनिवार्य</div></div></div>
+    <div class="word-card"><div class="word-num">280</div><div class="word-content"><span class="word-en">Establish</span><span class="word-pos">(v)</span><div class="word-hi">स्थापित करना</div></div></div>
+    <div class="word-card"><div class="word-num">281</div><div class="word-content"><span class="word-en">Evaluate</span><span class="word-pos">(v)</span><div class="word-hi">मूल्यांकन करना</div></div></div>
+    <div class="word-card"><div class="word-num">282</div><div class="word-content"><span class="word-en">Evident</span><span class="word-pos">(adj)</span><div class="word-hi">प्रत्यक्ष / साफ़ दिखने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">283</div><div class="word-content"><span class="word-en">Examine</span><span class="word-pos">(v)</span><div class="word-hi">जाँच करना / परीक्षण करना</div></div></div>
+    <div class="word-card"><div class="word-num">284</div><div class="word-content"><span class="word-en">Explicit</span><span class="word-pos">(adj)</span><div class="word-hi">सुस्पष्ट / साफ़-साफ़</div></div></div>
+    <div class="word-card"><div class="word-num">285</div><div class="word-content"><span class="word-en">Expose</span><span class="word-pos">(v)</span><div class="word-hi">खुलासा करना / बेनकाब करना</div></div></div>
+    <div class="word-card"><div class="word-num">286</div><div class="word-content"><span class="word-en">Extract</span><span class="word-pos">(v/n)</span><div class="word-hi">निकालना / निचोड़</div></div></div>
+    <div class="word-card"><div class="word-num">287</div><div class="word-content"><span class="word-en">Facilitate</span><span class="word-pos">(v)</span><div class="word-hi">आसान बनाना / सुविधा देना</div></div></div>
+    <div class="word-card"><div class="word-num">288</div><div class="word-content"><span class="word-en">Factor</span><span class="word-pos">(n)</span><div class="word-hi">कारक / वजह</div></div></div>
+    <div class="word-card"><div class="word-num">289</div><div class="word-content"><span class="word-en">Fundamental</span><span class="word-pos">(adj)</span><div class="word-hi">मौलिक / बुनियादी</div></div></div>
+    <div class="word-card"><div class="word-num">290</div><div class="word-content"><span class="word-en">Generate</span><span class="word-pos">(v)</span><div class="word-hi">उत्पादित करना / पैदा करना</div></div></div>
+    <div class="word-card"><div class="word-num">291</div><div class="word-content"><span class="word-en">Hypothesis</span><span class="word-pos">(n)</span><div class="word-hi">परिकल्पना / अनुमान</div></div></div>
+    <div class="word-card"><div class="word-num">292</div><div class="word-content"><span class="word-en">Identify</span><span class="word-pos">(v)</span><div class="word-hi">पहचान करना</div></div></div>
+    <div class="word-card"><div class="word-num">293</div><div class="word-content"><span class="word-en">Illustrate</span><span class="word-pos">(v)</span><div class="word-hi">उदाहरण देकर समझाना</div></div></div>
+    <div class="word-card"><div class="word-num">294</div><div class="word-content"><span class="word-en">Impact</span><span class="word-pos">(n/v)</span><div class="word-hi">प्रभाव / असर डालना</div></div></div>
+    <div class="word-card"><div class="word-num">295</div><div class="word-content"><span class="word-en">Implicit</span><span class="word-pos">(adj)</span><div class="word-hi">अप्रत्यक्ष / अंतर्निहित</div></div></div>
+    <div class="word-card"><div class="word-num">296</div><div class="word-content"><span class="word-en">Imply</span><span class="word-pos">(v)</span><div class="word-hi">संकेत देना / मतलब होना</div></div></div>
+    <div class="word-card"><div class="word-num">297</div><div class="word-content"><span class="word-en">Incorporate</span><span class="word-pos">(v)</span><div class="word-hi">शामिल करना</div></div></div>
+    <div class="word-card"><div class="word-num">298</div><div class="word-content"><span class="word-en">Indicate</span><span class="word-pos">(v)</span><div class="word-hi">दर्शाना / इशारा करना</div></div></div>
+    <div class="word-card"><div class="word-num">299</div><div class="word-content"><span class="word-en">Individual</span><span class="word-pos">(n/adj)</span><div class="word-hi">व्यक्तिगत / व्यक्ति</div></div></div>
+    <div class="word-card"><div class="word-num">300</div><div class="word-content"><span class="word-en">Infer</span><span class="word-pos">(v)</span><div class="word-hi">निष्कर्ष निकालना</div></div></div>
+    <div class="word-card"><div class="word-num">301</div><div class="word-content"><span class="word-en">Inherent</span><span class="word-pos">(adj)</span><div class="word-hi">जन्मजात / अंतर्निहित</div></div></div>
+    <div class="word-card"><div class="word-num">302</div><div class="word-content"><span class="word-en">Initial</span><span class="word-pos">(adj)</span><div class="word-hi">शुरुआती / प्रारंभिक</div></div></div>
+    <div class="word-card"><div class="word-num">303</div><div class="word-content"><span class="word-en">Insight</span><span class="word-pos">(n)</span><div class="word-hi">अंतर्दृष्टि / गहरी समझ</div></div></div>
+    <div class="word-card"><div class="word-num">304</div><div class="word-content"><span class="word-en">Instance</span><span class="word-pos">(n)</span><div class="word-hi">उदाहरण / मामला</div></div></div>
+    <div class="word-card"><div class="word-num">305</div><div class="word-content"><span class="word-en">Institute</span><span class="word-pos">(n/v)</span><div class="word-hi">संस्थान / शुरू करना</div></div></div>
+    <div class="word-card"><div class="word-num">306</div><div class="word-content"><span class="word-en">Integrate</span><span class="word-pos">(v)</span><div class="word-hi">जोड़ना / एकीकृत करना</div></div></div>
+    <div class="word-card"><div class="word-num">307</div><div class="word-content"><span class="word-en">Intense</span><span class="word-pos">(adj)</span><div class="word-hi">तीव्र / अत्यधिक</div></div></div>
+    <div class="word-card"><div class="word-num">308</div><div class="word-content"><span class="word-en">Interpret</span><span class="word-pos">(v)</span><div class="word-hi">व्याख्या करना / अर्थ निकालना</div></div></div>
+    <div class="word-card"><div class="word-num">309</div><div class="word-content"><span class="word-en">Intervene</span><span class="word-pos">(v)</span><div class="word-hi">हस्तक्षेप करना / बीच में आना</div></div></div>
+    <div class="word-card"><div class="word-num">310</div><div class="word-content"><span class="word-en">Investigate</span><span class="word-pos">(v)</span><div class="word-hi">छानबीन करना</div></div></div>
+    <div class="word-card"><div class="word-num">311</div><div class="word-content"><span class="word-en">Justify</span><span class="word-pos">(v)</span><div class="word-hi">सही ठहराना</div></div></div>
+    <div class="word-card"><div class="word-num">312</div><div class="word-content"><span class="word-en">Maintain</span><span class="word-pos">(v)</span><div class="word-hi">बनाए रखना</div></div></div>
+    <div class="word-card"><div class="word-num">313</div><div class="word-content"><span class="word-en">Manifest</span><span class="word-pos">(v/adj)</span><div class="word-hi">प्रकट करना / स्पष्ट</div></div></div>
+    <div class="word-card"><div class="word-num">314</div><div class="word-content"><span class="word-en">Methodology</span><span class="word-pos">(n)</span><div class="word-hi">कार्यप्रणाली</div></div></div>
+    <div class="word-card"><div class="word-num">315</div><div class="word-content"><span class="word-en">Modify</span><span class="word-pos">(v)</span><div class="word-hi">बदलाव करना / संशोधन करना</div></div></div>
+    <div class="word-card"><div class="word-num">316</div><div class="word-content"><span class="word-en">Obtain</span><span class="word-pos">(v)</span><div class="word-hi">प्राप्त करना</div></div></div>
+    <div class="word-card"><div class="word-num">317</div><div class="word-content"><span class="word-en">Obvious</span><span class="word-pos">(adj)</span><div class="word-hi">ज़ाहिर / स्पष्ट</div></div></div>
+    <div class="word-card"><div class="word-num">318</div><div class="word-content"><span class="word-en">Occur</span><span class="word-pos">(v)</span><div class="word-hi">घटित होना / होना</div></div></div>
+    <div class="word-card"><div class="word-num">319</div><div class="word-content"><span class="word-en">Outcome</span><span class="word-pos">(n)</span><div class="word-hi">परिणाम / नतीजा</div></div></div>
+    <div class="word-card"><div class="word-num">320</div><div class="word-content"><span class="word-en">Perceive</span><span class="word-pos">(v)</span><div class="word-hi">महसूस करना / समझना</div></div></div>
+    <div class="word-card"><div class="word-num">321</div><div class="word-content"><span class="word-en">Persist</span><span class="word-pos">(v)</span><div class="word-hi">कायम रहना / डटे रहना</div></div></div>
+    <div class="word-card"><div class="word-num">322</div><div class="word-content"><span class="word-en">Perspective</span><span class="word-pos">(n)</span><div class="word-hi">दृष्टिकोण / परिप्रेक्ष्य</div></div></div>
+    <div class="word-card"><div class="word-num">323</div><div class="word-content"><span class="word-en">Phenomenon</span><span class="word-pos">(n)</span><div class="word-hi">घटना / चमत्कार</div></div></div>
+    <div class="word-card"><div class="word-num">324</div><div class="word-content"><span class="word-en">Potential</span><span class="word-pos">(adj/n)</span><div class="word-hi">संभावित / क्षमता</div></div></div>
+    <div class="word-card"><div class="word-num">325</div><div class="word-content"><span class="word-en">Precede</span><span class="word-pos">(v)</span><div class="word-hi">से पहले आना</div></div></div>
+    <div class="word-card"><div class="word-num">326</div><div class="word-content"><span class="word-en">Precise</span><span class="word-pos">(adj)</span><div class="word-hi">सटीक / बिल्कुल सही</div></div></div>
+    <div class="word-card"><div class="word-num">327</div><div class="word-content"><span class="word-en">Predict</span><span class="word-pos">(v)</span><div class="word-hi">भविष्यवाणी करना</div></div></div>
+    <div class="word-card"><div class="word-num">328</div><div class="word-content"><span class="word-en">Predominant</span><span class="word-pos">(adj)</span><div class="word-hi">मुख्य / सर्वोपरि</div></div></div>
+    <div class="word-card"><div class="word-num">329</div><div class="word-content"><span class="word-en">Principle</span><span class="word-pos">(n)</span><div class="word-hi">सिद्धांत / नियम</div></div></div>
+    <div class="word-card"><div class="word-num">330</div><div class="word-content"><span class="word-en">Proceed</span><span class="word-pos">(v)</span><div class="word-hi">आगे बढ़ना / जारी रखना</div></div></div>
+    <div class="word-card"><div class="word-num">331</div><div class="word-content"><span class="word-en">Proportion</span><span class="word-pos">(n)</span><div class="word-hi">अनुपात / हिस्सा</div></div></div>
+    <div class="word-card"><div class="word-num">332</div><div class="word-content"><span class="word-en">Prospect</span><span class="word-pos">(n)</span><div class="word-hi">संभावना / उम्मीद</div></div></div>
+    <div class="word-card"><div class="word-num">333</div><div class="word-content"><span class="word-en">Pursue</span><span class="word-pos">(v)</span><div class="word-hi">पीछा करना / लक्ष्य पाना</div></div></div>
+    <div class="word-card"><div class="word-num">334</div><div class="word-content"><span class="word-en">Rational</span><span class="word-pos">(adj)</span><div class="word-hi">तर्कसंगत / समझदार</div></div></div>
+    <div class="word-card"><div class="word-num">335</div><div class="word-content"><span class="word-en">Refine</span><span class="word-pos">(v)</span><div class="word-hi">सुधारना / परिष्कृत करना</div></div></div>
+    <div class="word-card"><div class="word-num">336</div><div class="word-content"><span class="word-en">Relevant</span><span class="word-pos">(adj)</span><div class="word-hi">प्रासंगिक / विषय से जुड़ा</div></div></div>
+    <div class="word-card"><div class="word-num">337</div><div class="word-content"><span class="word-en">Reluctant</span><span class="word-pos">(adj)</span><div class="word-hi">अनिच्छुक / हिचकिचाने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">338</div><div class="word-content"><span class="word-en">Require</span><span class="word-pos">(v)</span><div class="word-hi">आवश्यकता होना</div></div></div>
+    <div class="word-card"><div class="word-num">339</div><div class="word-content"><span class="word-en">Retain</span><span class="word-pos">(v)</span><div class="word-hi">बनाए रखना / याद रखना</div></div></div>
+    <div class="word-card"><div class="word-num">340</div><div class="word-content"><span class="word-en">Significant</span><span class="word-pos">(adj)</span><div class="word-hi">महत्वपूर्ण / बड़ा</div></div></div>
+  </div>
+
+  <!-- ===================== ADVANCED & PROFESSIONAL (341-441) ===================== -->
+  <div class="sentence-group" id="group-advanced">
+    <div class="group-heading">💼 Advanced & Professional Words</div>
+
+    <div class="word-card"><div class="word-num">341</div><div class="word-content"><span class="word-en">Ambiguous</span><span class="word-pos">(adj)</span><div class="word-hi">अस्पष्ट / जिसके दो अर्थ हों</div></div></div>
+    <div class="word-card"><div class="word-num">342</div><div class="word-content"><span class="word-en">Anomalous</span><span class="word-pos">(adj)</span><div class="word-hi">असामान्य / नियम के विरुद्ध</div></div></div>
+    <div class="word-card"><div class="word-num">343</div><div class="word-content"><span class="word-en">Anticipate</span><span class="word-pos">(v)</span><div class="word-hi">पूर्वानुमान लगाना / आशा करना</div></div></div>
+    <div class="word-card"><div class="word-num">344</div><div class="word-content"><span class="word-en">Benchmark</span><span class="word-pos">(n)</span><div class="word-hi">मानक / कसौटी</div></div></div>
+    <div class="word-card"><div class="word-num">345</div><div class="word-content"><span class="word-en">Collaborate</span><span class="word-pos">(v)</span><div class="word-hi">सहयोग करना / मिलकर काम करना</div></div></div>
+    <div class="word-card"><div class="word-num">346</div><div class="word-content"><span class="word-en">Consensus</span><span class="word-pos">(n)</span><div class="word-hi">सर्वसम्मति / आम सहमति</div></div></div>
+    <div class="word-card"><div class="word-num">2
+      347</div><div class="word-content"><span class="word-en">Discrepancy</span><span class="word-pos">(n)</span><div class="word-hi">विसंगति / अंतर</div></div></div>
+    <div class="word-card"><div class="word-num">348</div><div class="word-content"><span class="word-en">Diverse</span><span class="word-pos">(adj)</span><div class="word-hi">विविध / भिन्न-भिन्न</div></div></div>
+    <div class="word-card"><div class="word-num">349</div><div class="word-content"><span class="word-en">Efficiency</span><span class="word-pos">(n)</span><div class="word-hi">कार्यकुशलता / दक्षता</div></div></div>
+    <div class="word-card"><div class="word-num">350</div><div class="word-content"><span class="word-en">Feasible</span><span class="word-pos">(adj)</span><div class="word-hi">संभव / व्यावहारिक</div></div></div>
+    <div class="word-card"><div class="word-num">351</div><div class="word-content"><span class="word-en">Fluctuate</span><span class="word-pos">(v)</span><div class="word-hi">उतार-चढ़ाव होना</div></div></div>
+    <div class="word-card"><div class="word-num">352</div><div class="word-content"><span class="word-en">Hierarchy</span><span class="word-pos">(n)</span><div class="word-hi">पदानुक्रम / श्रेणीक्रम</div></div></div>
+    <div class="word-card"><div class="word-num">353</div><div class="word-content"><span class="word-en">Implement</span><span class="word-pos">(v)</span><div class="word-hi">लागू करना / कार्यान्वित करना</div></div></div>
+    <div class="word-card"><div class="word-num">354</div><div class="word-content"><span class="word-en">Incentive</span><span class="word-pos">(n)</span><div class="word-hi">प्रोत्साहन / प्रेरणा</div></div></div>
+    <div class="word-card"><div class="word-num">355</div><div class="word-content"><span class="word-en">Innovative</span><span class="word-pos">(adj)</span><div class="word-hi">नवोन्मेषी / नया विचार लाने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">356</div><div class="word-content"><span class="word-en">Leverage</span><span class="word-pos">(v/n)</span><div class="word-hi">लाभ उठाना / क्षमता</div></div></div>
+    <div class="word-card"><div class="word-num">357</div><div class="word-content"><span class="word-en">Mitigate</span><span class="word-pos">(v)</span><div class="word-hi">कम करना / तीव्रता घटाना</div></div></div>
+    <div class="word-card"><div class="word-num">358</div><div class="word-content"><span class="word-en">Negotiate</span><span class="word-pos">(v)</span><div class="word-hi">बातचीत से हल निकालना / मोलभाव</div></div></div>
+    <div class="word-card"><div class="word-num">359</div><div class="word-content"><span class="word-en">Objective</span><span class="word-pos">(n/adj)</span><div class="word-hi">लक्ष्य / निष्पक्ष</div></div></div>
+    <div class="word-card"><div class="word-num">360</div><div class="word-content"><span class="word-en">Optimize</span><span class="word-pos">(v)</span><div class="word-hi">सर्वोत्तम उपयोग करना</div></div></div>
+    <div class="word-card"><div class="word-num">2
+      361</div><div class="word-content"><span class="word-en">Paradigm</span><span class="word-pos">(n)</span><div class="word-hi">मिसाल / नमूना</div></div></div>
+    <div class="word-card"><div class="word-num">362</div><div class="word-content"><span class="word-en">Pragmatic</span><span class="word-pos">(adj)</span><div class="word-hi">व्यावहारिक / तर्कसंगत</div></div></div>
+    <div class="word-card"><div class="word-num">363</div><div class="word-content"><span class="word-en">Prioritize</span><span class="word-pos">(v)</span><div class="word-hi">प्राथमिकता देना</div></div></div>
+    <div class="word-card"><div class="word-num">364</div><div class="word-content"><span class="word-en">Proactive</span><span class="word-pos">(adj)</span><div class="word-hi">सक्रिय / अग्रसक्रिय</div></div></div>
+    <div class="word-card"><div class="word-num">365</div><div class="word-content"><span class="word-en">Redundant</span><span class="word-pos">(adj)</span><div class="word-hi">अनावश्यक / जिसकी ज़रूरत न हो</div></div></div>
+    <div class="word-card"><div class="word-num">366</div><div class="word-content"><span class="word-en">Scrutinize</span><span class="word-pos">(v)</span><div class="word-hi">बारीकी से जाँच करना</div></div></div>
+    <div class="word-card"><div class="word-num">367</div><div class="word-content"><span class="word-en">Strategy</span><span class="word-pos">(n)</span><div class="word-hi">रणनीति</div></div></div>
+    <div class="word-card"><div class="word-num">368</div><div class="word-content"><span class="word-en">Substantial</span><span class="word-pos">(adj)</span><div class="word-hi">काफी बड़ा / महत्वपूर्ण</div></div></div>
+    <div class="word-card"><div class="word-num">369</div><div class="word-content"><span class="word-en">Sustainable</span><span class="word-pos">(adj)</span><div class="word-hi">टिकाऊ / लंबे समय तक चलने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">370</div><div class="word-content"><span class="word-en">Synergy</span><span class="word-pos">(n)</span><div class="word-hi">सहयोग की शक्ति</div></div></div>
+    <div class="word-card"><div class="word-num">371</div><div class="word-content"><span class="word-en">Tactical</span><span class="word-pos">(adj)</span><div class="word-hi">सामरिक / रणनीतिक</div></div></div>
+    <div class="word-card"><div class="word-num">372</div><div class="word-content"><span class="word-en">Tangible</span><span class="word-pos">(adj)</span><div class="word-hi">ठोस / जिसे छुआ जा सके</div></div></div>
+    <div class="word-card"><div class="word-num">373</div><div class="word-content"><span class="word-en">Unprecedented</span><span class="word-pos">(adj)</span><div class="word-hi">अभूतपूर्व / जो पहले कभी न हुआ हो</div></div></div>
+    <div class="word-card"><div class="word-num">374</div><div class="word-content"><span class="word-en">Viable</span><span class="word-pos">(adj)</span><div class="word-hi">व्यावहारिक / सफल होने योग्य</div></div></div>
+    <div class="word-card"><div class="word-num">375</div><div class="word-content"><span class="word-en">Vulnerable</span><span class="word-pos">(adj)</span><div class="word-hi">असुरक्षित / जिसे आसानी से चोट पहुँचे</div></div></div>
+    <div class="word-card"><div class="word-num">376</div><div class="word-content"><span class="word-en">Yield</span><span class="word-pos">(v/n)</span><div class="word-hi">उत्पादन करना / समर्पण करना</div></div></div>
+    <div class="word-card"><div class="word-num">377</div><div class="word-content"><span class="word-en">Acumen</span><span class="word-pos">(n)</span><div class="word-hi">कुशाग्रता / सूझ-बूझ</div></div></div>
+    <div class="word-card"><div class="word-num">378</div><div class="word-content"><span class="word-en">Alleviate</span><span class="word-pos">(v)</span><div class="word-hi">कम करना / राहत देना</div></div></div>
+    <div class="word-card"><div class="word-num">379</div><div class="word-content"><span class="word-en">Benevolent</span><span class="word-pos">(adj)</span><div class="word-hi">दयालु / परोपकारी</div></div></div>
+    <div class="word-card"><div class="word-num">380</div><div class="word-content"><span class="word-en">Candid</span><span class="word-pos">(adj)</span><div class="word-hi">स्पष्टवादी / ईमानदार</div></div></div>
+    <div class="word-card"><div class="word-num">381</div><div class="word-content"><span class="word-en">Diligent</span><span class="word-pos">(adj)</span><div class="word-hi">मेहनती / परिश्रमशील</div></div></div>
+    <div class="word-card"><div class="word-num">382</div><div class="word-content"><span class="word-en">Eloquence</span><span class="word-pos">(n)</span><div class="word-hi">वाक्पटुता / सुभाषण</div></div></div>
+    <div class="word-card"><div class="word-num">383</div><div class="word-content"><span class="word-en">Empathy</span><span class="word-pos">(n)</span><div class="word-hi">सहानुभूति / दूसरे का दुख महसूस करना</div></div></div>
+    <div class="word-card"><div class="word-num">384</div><div class="word-content"><span class="word-en">Frugal</span><span class="word-pos">(adj)</span><div class="word-hi">किफायती / सोच-समझकर खर्च करने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">385</div><div class="word-content"><span class="word-en">Gregarious</span><span class="word-pos">(adj)</span><div class="word-hi">मिलनसार</div></div></div>
+    <div class="word-card"><div class="word-num">386</div><div class="word-content"><span class="word-en">Impeccable</span><span class="word-pos">(adj)</span><div class="word-hi">त्रुटिहीन / बेदाग</div></div></div>
+    <div class="word-card"><div class="word-num">387</div><div class="word-content"><span class="word-en">Meticulous</span><span class="word-pos">(adj)</span><div class="word-hi">अति-सावधान / बारीक ध्यान देने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">388</div><div class="word-content"><span class="word-en">Nostalgia</span><span class="word-pos">(n)</span><div class="word-hi">पुरानी यादों की तड़प</div></div></div>
+    <div class="word-card"><div class="word-num">389</div><div class="word-content"><span class="word-en">Optimistic</span><span class="word-pos">(adj)</span><div class="word-hi">आशावादी</div></div></div>
+    <div class="word-card"><div class="word-num">390</div><div class="word-content"><span class="word-en">Pessimistic</span><span class="word-pos">(adj)</span><div class="word-hi">निराशावादी</div></div></div>
+    <div class="word-card"><div class="word-num">391</div><div class="word-content"><span class="word-en">Resilient</span><span class="word-pos">(adj)</span><div class="word-hi">लचीला / मुश्किलों से उबरने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">392</div><div class="word-content"><span class="word-en">Scrupulous</span><span class="word-pos">(adj)</span><div class="word-hi">ईमानदार / नियम का पक्का</div></div></div>
+    <div class="word-card"><div class="word-num">393</div><div class="word-content"><span class="word-en">Tenacious</span><span class="word-pos">(adj)</span><div class="word-hi">दृढ़ / जिद्दी / न हार मानने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">394</div><div class="word-content"><span class="word-en">Versatile</span><span class="word-pos">(adj)</span><div class="word-hi">बहुमुखी प्रतिभा वाला</div></div></div>
+    <div class="word-card"><div class="word-num">395</div><div class="word-content"><span class="word-en">Zealous</span><span class="word-pos">(adj)</span><div class="word-hi">उत्साही / कट्टर</div></div></div>
+    <div class="word-card"><div class="word-num">396</div><div class="word-content"><span class="word-en">Affable</span><span class="word-pos">(adj)</span><div class="word-hi">सौम्य / मित्रवत</div></div></div>
+    <div class="word-card"><div class="word-num">397</div><div class="word-content"><span class="word-en">Aesthetic</span><span class="word-pos">(adj)</span><div class="word-hi">सौंदर्य संबंधी</div></div></div>
+    <div class="word-card"><div class="word-num">398</div><div class="word-content"><span class="word-en">Audacious</span><span class="word-pos">(adj)</span><div class="word-hi">साहसी / दुःसाहसी</div></div></div>
+    <div class="word-card"><div class="word-num">399</div><div class="word-content"><span class="word-en">Complacent</span><span class="word-pos">(adj)</span><div class="word-hi">आत्मसंतुष्ट</div></div></div>
+    <div class="word-card"><div class="word-num">400</div><div class="word-content"><span class="word-en">Discreet</span><span class="word-pos">(adj)</span><div class="word-hi">विचारशील / सावधान</div></div></div>
+    <div class="word-card"><div class="word-num">401</div><div class="word-content"><span class="word-en">Eccentric</span><span class="word-pos">(adj)</span><div class="word-hi">सनकी / अजीब</div></div></div>
+    <div class="word-card"><div class="word-num">402</div><div class="word-content"><span class="word-en">Elusive</span><span class="word-pos">(adj)</span><div class="word-hi">पकड़ में न आने वाला / कठिन</div></div></div>
+    <div class="word-card"><div class="word-num">403</div><div class="word-content"><span class="word-en">Empirical</span><span class="word-pos">(adj)</span><div class="word-hi">प्रयोगसिद्ध / अनुभवजन्य</div></div></div>
+    <div class="word-card"><div class="word-num">404</div><div class="word-content"><span class="word-en">Ephemeral</span><span class="word-pos">(adj)</span><div class="word-hi">क्षणभंगुर / अल्पकालिक</div></div></div>
+    <div class="word-card"><div class="word-num">405</div><div class="word-content"><span class="word-en">Equanimity</span><span class="word-pos">(n)</span><div class="word-hi">धैर्य / मानसिक संतुलन</div></div></div>
+    <div class="word-card"><div class="word-num">406</div><div class="word-content"><span class="word-en">Fastidious</span><span class="word-pos">(adj)</span><div class="word-hi">नखरेबाज़ / तुनकमिज़ाज</div></div></div>
+    <div class="word-card"><div class="word-num">407</div><div class="word-content"><span class="word-en">Fortuitous</span><span class="word-pos">(adj)</span><div class="word-hi">आकस्मिक / भाग्यशाली</div></div></div>
+    <div class="word-card"><div class="word-num">408</div><div class="word-content"><span class="word-en">Inadvertent</span><span class="word-pos">(adj)</span><div class="word-hi">अनजाने में हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">409</div><div class="word-content"><span class="word-en">Indispensable</span><span class="word-pos">(adj)</span><div class="word-hi">अपरिहार्य / जिसके बिना काम न चले</div></div></div>
+    <div class="word-card"><div class="word-num">410</div><div class="word-content"><span class="word-en">Inevitably</span><span class="word-pos">(adv)</span><div class="word-hi">अनिवार्य रूप से / निश्चित रूप से</div></div></div>
+    <div class="word-card"><div class="word-num">411</div><div class="word-content"><span class="word-en">Inquisitive</span><span class="word-pos">(adj)</span><div class="word-hi">जिज्ञासु / उत्सुक</div></div></div>
+    <div class="word-card"><div class="word-num">412</div><div class="word-content"><span class="word-en">Inscrutable</span><span class="word-pos">(adj)</span><div class="word-hi">रहस्यमय / जो समझ में न आए</div></div></div>
+    <div class="word-card"><div class="word-num">413</div><div class="word-content"><span class="word-en">Lucid</span><span class="word-pos">(adj)</span><div class="word-hi">स्पष्ट / सुबोध</div></div></div>
+    <div class="word-card"><div class="word-num">414</div><div class="word-content"><span class="word-en">Magnanimous</span><span class="word-pos">(adj)</span><div class="word-hi">उदार / महान हृदय वाला</div></div></div>
+    <div class="word-card"><div class="word-num">415</div><div class="word-content"><span class="word-en">Nonchalant</span><span class="word-pos">(adj)</span><div class="word-hi">बेपरवाह / शांत</div></div></div>
+    <div class="word-card"><div class="word-num">416</div><div class="word-content"><span class="word-en">Oblivious</span><span class="word-pos">(adj)</span><div class="word-hi">बेखबर / बेध्यान</div></div></div>
+    <div class="word-card"><div class="word-num">417</div><div class="word-content"><span class="word-en">Ostentatious</span><span class="word-pos">(adj)</span><div class="word-hi">आडंबरी / दिखावटी</div></div></div>
+    <div class="word-card"><div class="word-num">418</div><div class="word-content"><span class="word-en">Plethora</span><span class="word-pos">(n)</span><div class="word-hi">अधिकता / अतिशयता</div></div></div>
+    <div class="word-card"><div class="word-num">419</div><div class="word-content"><span class="word-en">Prudent</span><span class="word-pos">(adj)</span><div class="word-hi">विवेकी / बुद्धिमान</div></div></div>
+    <div class="word-card"><div class="word-num">420</div><div class="word-content"><span class="word-en">Quintessential</span><span class="word-pos">(adj)</span><div class="word-hi">सर्वोत्कृष्ट उदाहरण</div></div></div>
+    <div class="word-card"><div class="word-num">421</div><div class="word-content"><span class="word-en">Reconcile</span><span class="word-pos">(v)</span><div class="word-hi">मेल-मिलाप करना / समाधान करना</div></div></div>
+    <div class="word-card"><div class="word-num">422</div><div class="word-content"><span class="word-en">Serendipity</span><span class="word-pos">(n)</span><div class="word-hi">अचानक मिला शुभ लाभ</div></div></div>
+    <div class="word-card"><div class="word-num">423</div><div class="word-content"><span class="word-en">Superfluous</span><span class="word-pos">(adj)</span><div class="word-hi">अतिरिक्त / आवश्यकता से अधिक</div></div></div>
+    <div class="word-card"><div class="word-num">424</div><div class="word-content"><span class="word-en">Tacit</span><span class="word-pos">(adj)</span><div class="word-hi">मौन / बिना कहे माना गया</div></div></div>
+    <div class="word-card"><div class="word-num">425</div><div class="word-content"><span class="word-en">Ubiquitous</span><span class="word-pos">(adj)</span><div class="word-hi">सर्वव्यापी / हर जगह मौजूद</div></div></div>
+    <div class="word-card"><div class="word-num">426</div><div class="word-content"><span class="word-en">Venerable</span><span class="word-pos">(adj)</span><div class="word-hi">आदरणीय / पूज्य</div></div></div>
+    <div class="word-card"><div class="word-num">427</div><div class="word-content"><span class="word-en">Vindicatory</span><span class="word-pos">(adj)</span><div class="word-hi">साक्ष्य प्रस्तुत करने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">428</div><div class="word-content"><span class="word-en">Witty</span><span class="word-pos">(adj)</span><div class="word-hi">चतुर / वाक्पटु</div></div></div>
+    <div class="word-card"><div class="word-num">429</div><div class="word-content"><span class="word-en">Apathy</span><span class="word-pos">(n)</span><div class="word-hi">उदासीनता / बेपरवाही</div></div></div>
+    <div class="word-card"><div class="word-num">430</div><div class="word-content"><span class="word-en">Brevity</span><span class="word-pos">(n)</span><div class="word-hi">संक्षिप्तता / छोटापन</div></div></div>
+    <div class="word-card"><div class="word-num">431</div><div class="word-content"><span class="word-en">Candor</span><span class="word-pos">(n)</span><div class="word-hi">निष्कपटता / स्पष्टवादिता</div></div></div>
+    <div class="word-card"><div class="word-num">432</div><div class="word-content"><span class="word-en">Deferential</span><span class="word-pos">(adj)</span><div class="word-hi">आदरसूचक / विनम्र</div></div></div>
+    <div class="word-card"><div class="word-num">433</div><div class="word-content"><span class="word-en">Enigma</span><span class="word-pos">(n)</span><div class="word-hi">पहेली / रहस्य</div></div></div>
+    <div class="word-card"><div class="word-num">434</div><div class="word-content"><span class="word-en">Fervent</span><span class="word-pos">(adj)</span><div class="word-hi">उत्साही / तीव्र</div></div></div>
+    <div class="word-card"><div class="word-num">435</div><div class="word-content"><span class="word-en">Gratitude</span><span class="word-pos">(n)</span><div class="word-hi">कृतज्ञता / आभार</div></div></div>
+    <div class="word-card"><div class="word-num">436</div><div class="word-content"><span class="word-en">Harmony</span><span class="word-pos">(n)</span><div class="word-hi">सामंजस्य / तालमेल</div></div></div>
+    <div class="word-card"><div class="word-num">437</div><div class="word-content"><span class="word-en">Ingenuity</span><span class="word-pos">(n)</span><div class="word-hi">चतुरता / सरलता</div></div></div>
+    <div class="word-card"><div class="word-num">438</div><div class="word-content"><span class="word-en">Jubilant</span><span class="word-pos">(adj)</span><div class="word-hi">उल्लसित / आनंदित</div></div></div>
+    <div class="word-card"><div class="word-num">439</div><div class="word-content"><span class="word-en">Kinship</span><span class="word-pos">(n)</span><div class="word-hi">नातेदारी / भाईचारा</div></div></div>
+    <div class="word-card"><div class="word-num">440</div><div class="word-content"><span class="word-en">Luminous</span><span class="word-pos">(adj)</span><div class="word-hi">चमकीला / प्रकाशमान</div></div></div>
+  </div>
+    <!-- ===================== EMOTIONS & PERSONALITY (441-540) ===================== -->
+  <div class="sentence-group" id="group-emotions">
+    <div class="group-heading">😊 Emotions & Personality Words</div>
+
+    <div class="word-card"><div class="word-num">441</div><div class="word-content"><span class="word-en">Agitated</span><span class="word-pos">(adj)</span><div class="word-hi">उत्तेजित / अशांत</div></div></div>
+    <div class="word-card"><div class="word-num">442</div><div class="word-content"><span class="word-en">Apprehensive</span><span class="word-pos">(adj)</span><div class="word-hi">आशंकित / भयभीत</div></div></div>
+    <div class="word-card"><div class="word-num">443</div><div class="word-content"><span class="word-en">Astonished</span><span class="word-pos">(adj)</span><div class="word-hi">आश्चर्यचकित / हक्का-बक्का</div></div></div>
+    <div class="word-card"><div class="word-num">444</div><div class="word-content"><span class="word-en">Bewildered</span><span class="word-pos">(adj)</span><div class="word-hi">चकराया हुआ / उलझन में</div></div></div>
+    <div class="word-card"><div class="word-num">445</div><div class="word-content"><span class="word-en">Blissful</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यंत आनंदित</div></div></div>
+    <div class="word-card"><div class="word-num">446</div><div class="word-content"><span class="word-en">Compassionate</span><span class="word-pos">(adj)</span><div class="word-hi">दयालु / सहानुभूतिपूर्ण</div></div></div>
+    <div class="word-card"><div class="word-num">447</div><div class="word-content"><span class="word-en">Contemplative</span><span class="word-pos">(adj)</span><div class="word-hi">विचारशील / चिंतनशील</div></div></div>
+    <div class="word-card"><div class="word-num">448</div><div class="word-content"><span class="word-en">Cynical</span><span class="word-pos">(adj)</span><div class="word-hi">निंदक / दूसरों की नीयत पर शक करने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">449</div><div class="word-content"><span class="word-en">Dejected</span><span class="word-pos">(adj)</span><div class="word-hi">हताश / उदास</div></div></div>
+    <div class="word-card"><div class="word-num">450</div><div class="word-content"><span class="word-en">Delighted</span><span class="word-pos">(adj)</span><div class="word-hi">प्रसन्न / बहुत खुश</div></div></div>
+    <div class="word-card"><div class="word-num">451</div><div class="word-content"><span class="word-en">Desperate</span><span class="word-pos">(adj)</span><div class="word-hi">बेकरार / निराशाजनक</div></div></div>
+    <div class="word-card"><div class="word-num">452</div><div class="word-content"><span class="word-en">Despondent</span><span class="word-pos">(adj)</span><div class="word-hi">निराश / हतोत्साहित</div></div></div>
+    <div class="word-card"><div class="word-num">453</div><div class="word-content"><span class="word-en">Ecstatic</span><span class="word-pos">(adj)</span><div class="word-hi">अतिआनंदित / उमंग से भरा</div></div></div>
+    <div class="word-card"><div class="word-num">454</div><div class="word-content"><span class="word-en">Elated</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यधिक प्रसन्न</div></div></div>
+    <div class="word-card"><div class="word-num">455</div><div class="word-content"><span class="word-en">Embarrassed</span><span class="word-pos">(adj)</span><div class="word-hi">शर्मिंदा / लज्जित</div></div></div>
+    <div class="word-card"><div class="word-num">456</div><div class="word-content"><span class="word-en">Enthusiastic</span><span class="word-pos">(adj)</span><div class="word-hi">उत्साही / जोशीला</div></div></div>
+    <div class="word-card"><div class="word-num">457</div><div class="word-content"><span class="word-en">Exasperated</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यंत चिढ़ाया हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">458</div><div class="word-content"><span class="word-en">Exhilarated</span><span class="word-pos">(adj)</span><div class="word-hi">रोमांचित / प्रसन्नचित्त</div></div></div>
+    <div class="word-card"><div class="word-num">459</div><div class="word-content"><span class="word-en">Flustered</span><span class="word-pos">(adj)</span><div class="word-hi">घबराया हुआ / घबराहट में</div></div></div>
+    <div class="word-card"><div class="word-num">460</div><div class="word-content"><span class="word-en">Frustrated</span><span class="word-pos">(adj)</span><div class="word-hi">निराश / हताश</div></div></div>
+    <div class="word-card"><div class="word-num">461</div><div class="word-content"><span class="word-en">Gloomy</span><span class="word-pos">(adj)</span><div class="word-hi">उदास / अंधकारमय</div></div></div>
+    <div class="word-card"><div class="word-num">462</div><div class="word-content"><span class="word-en">Grumpy</span><span class="word-pos">(adj)</span><div class="word-hi">चिड़चिड़ा / बदमिजाज</div></div></div>
+    <div class="word-card"><div class="word-num">463</div><div class="word-content"><span class="word-en">Gullible</span><span class="word-pos">(adj)</span><div class="word-hi">आसानी से धोखा खाने वाला / सीधा-साधा</div></div></div>
+    <div class="word-card"><div class="word-num">464</div><div class="word-content"><span class="word-en">Haughty</span><span class="word-pos">(adj)</span><div class="word-hi">घमंडी / मग़रूर</div></div></div>
+    <div class="word-card"><div class="word-num">465</div><div class="word-content"><span class="word-en">Hesitant</span><span class="word-pos">(adj)</span><div class="word-hi">हिचकिचाने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">466</div><div class="word-content"><span class="word-en">Humble</span><span class="word-pos">(adj)</span><div class="word-hi">विनम्र / नम्र</div></div></div>
+    <div class="word-card"><div class="word-num">467</div><div class="word-content"><span class="word-en">Hysterical</span><span class="word-pos">(adj)</span><div class="word-hi">बेकाबू / उन्मादी</div></div></div>
+    <div class="word-card"><div class="word-num">468</div><div class="word-content"><span class="word-en">Indifferent</span><span class="word-pos">(adj)</span><div class="word-hi">उदासीन / जिसे कोई फ़र्क न पड़े</div></div></div>
+    <div class="word-card"><div class="word-num">469</div><div class="word-content"><span class="word-en">Infuriated</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यंत क्रुद्ध / बहुत गुस्सा</div></div></div>
+    <div class="word-card"><div class="word-num">470</div><div class="word-content"><span class="word-en">Insecure</span><span class="word-pos">(adj)</span><div class="word-hi">असुरक्षित / आत्मविश्वासी न होना</div></div></div>
+    <div class="word-card"><div class="word-num">471</div><div class="word-content"><span class="word-en">Intimidated</span><span class="word-pos">(adj)</span><div class="word-hi">डरा हुआ / सहमा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">472</div><div class="word-content"><span class="word-en">Introverted</span><span class="word-pos">(adj)</span><div class="word-hi">अन्तर्मुखी / कम बोलने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">473</div><div class="word-content"><span class="word-en">Extroverted</span><span class="word-pos">(adj)</span><div class="word-hi">बहिर्मुखी / मिलनसार और खुलकर बोलने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">474</div><div class="word-content"><span class="word-en">Irritated</span><span class="word-pos">(adj)</span><div class="word-hi">चिड़ा हुआ / झुंझलाया हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">475</div><div class="word-content"><span class="word-en">Jovial</span><span class="word-pos">(adj)</span><div class="word-hi">उल्लासपूर्ण / हंसमुख</div></div></div>
+    <div class="word-card"><div class="word-num">476</div><div class="word-content"><span class="word-en">Lethargic</span><span class="word-pos">(adj)</span><div class="word-hi">सुस्त / आलसी</div></div></div>
+    <div class="word-card"><div class="word-num">477</div><div class="word-content"><span class="word-en">Melancholy</span><span class="word-pos">(adj/n)</span><div class="word-hi">उदासी / गहरी निराशा</div></div></div>
+    <div class="word-card"><div class="word-num">478</div><div class="word-content"><span class="word-en">Mischievous</span><span class="word-pos">(adj)</span><div class="word-hi">नटखट / शरारती</div></div></div>
+    <div class="word-card"><div class="word-num">479</div><div class="word-content"><span class="word-en">Morose</span><span class="word-pos">(adj)</span><div class="word-hi">उदास / बदमिज़ाज</div></div></div>
+    <div class="word-card"><div class="word-num">480</div><div class="word-content"><span class="word-en">Naive</span><span class="word-pos">(adj)</span><div class="word-hi">भोला-भाला / सीधा</div></div></div>
+        <div class="word-card"><div class="word-num">481</div><div class="word-content"><span class="word-en">Nervous</span><span class="word-pos">(adj)</span><div class="word-hi">घबराया हुआ / बेचैन</div></div></div>
+    <div class="word-card"><div class="word-num">482</div><div class="word-content"><span class="word-en">Obsessive</span><span class="word-pos">(adj)</span><div class="word-hi">धुनी / सनकी</div></div></div>
+    <div class="word-card"><div class="word-num">483</div><div class="word-content"><span class="word-en">Outraged</span><span class="word-pos">(adj)</span><div class="word-hi">आक्रोशित / बहुत गुस्सा</div></div></div>
+    <div class="word-card"><div class="word-num">484</div><div class="word-content"><span class="word-en">Overwhelmed</span><span class="word-pos">(adj)</span><div class="word-hi">अभिभूत / भावनाओं से भरा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">485</div><div class="word-content"><span class="word-en">Paranoid</span><span class="word-pos">(adj)</span><div class="word-hi">अति-शक्की / बिना वजह डरने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">486</div><div class="word-content"><span class="word-en">Passionate</span><span class="word-pos">(adj)</span><div class="word-hi">जोशीला / जुनूनी</div></div></div>
+    <div class="word-card"><div class="word-num">487</div><div class="word-content"><span class="word-en">Pensive</span><span class="word-pos">(adj)</span><div class="word-hi">चिंताग्रस्त / विचारमग्न</div></div></div>
+    <div class="word-card"><div class="word-num">488</div><div class="word-content"><span class="word-en">Perplexed</span><span class="word-pos">(adj)</span><div class="word-hi">हैरान / उलझन में पड़ना</div></div></div>
+    <div class="word-card"><div class="word-num">489</div><div class="word-content"><span class="word-en">Petrified</span><span class="word-pos">(adj)</span><div class="word-hi">सुन्न पड़ गया / डर से जमा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">490</div><div class="word-content"><span class="word-en">Possessive</span><span class="word-pos">(adj)</span><div class="word-hi">अधिकार जताने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">491</div><div class="word-content"><span class="word-en">Prejudiced</span><span class="word-pos">(adj)</span><div class="word-hi">पक्षपाती / पूर्वाग्रही</div></div></div>
+    <div class="word-card"><div class="word-num">492</div><div class="word-content"><span class="word-en">Preoccupied</span><span class="word-pos">(adj)</span><div class="word-hi">चिंताओं में खोया हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">493</div><div class="word-content"><span class="word-en">Proud</span><span class="word-pos">(adj)</span><div class="word-hi">गर्वित / स्वाभिमानी</div></div></div>
+    <div class="word-card"><div class="word-num">494</div><div class="word-content"><span class="word-en">Relieved</span><span class="word-pos">(adj)</span><div class="word-hi">चैन की साँस लेने वाला / तसल्ली मिला हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">495</div><div class="word-content"><span class="word-en">Remorseful</span><span class="word-pos">(adj)</span><div class="word-hi">पछतावे से भरा</div></div></div>
+    <div class="word-card"><div class="word-num">496</div><div class="word-content"><span class="word-en">Resigned</span><span class="word-pos">(adj)</span><div class="word-hi">परिस्थिति को स्वीकार कर चुका</div></div></div>
+    <div class="word-card"><div class="word-num">497</div><div class="word-content"><span class="word-en">Restless</span><span class="word-pos">(adj)</span><div class="word-hi">बेचैन / अशांत</div></div></div>
+    <div class="word-card"><div class="word-num">498</div><div class="word-content"><span class="word-en">Reverent</span><span class="word-pos">(adj)</span><div class="word-hi">श्रद्धालु / आदरपूर्ण</div></div></div>
+    <div class="word-card"><div class="word-num">499</div><div class="word-content"><span class="word-en">Sarcastic</span><span class="word-pos">(adj)</span><div class="word-hi">व्यंग्यात्मक / ताना मारने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">500</div><div class="word-content"><span class="word-en">Sensible</span><span class="word-pos">(adj)</span><div class="word-hi">समझदार / व्यावहारिक</div></div></div>
+    <div class="word-card"><div class="word-num">501</div><div class="word-content"><span class="word-en">Sensitive</span><span class="word-pos">(adj)</span><div class="word-hi">संवेदनशील / भावुक</div></div></div>
+    <div class="word-card"><div class="word-num">502</div><div class="word-content"><span class="word-en">Serene</span><span class="word-pos">(adj)</span><div class="word-hi">शांत / निर्मल</div></div></div>
+    <div class="word-card"><div class="word-num">503</div><div class="word-content"><span class="word-en">Skeptical</span><span class="word-pos">(adj)</span><div class="word-hi">शक्की / संदेह करने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">504</div><div class="word-content"><span class="word-en">Solitary</span><span class="word-pos">(adj)</span><div class="word-hi">अकेला / एकांतप्रिय</div></div></div>
+    <div class="word-card"><div class="word-num">505</div><div class="word-content"><span class="word-en">Somber</span><span class="word-pos">(adj)</span><div class="word-hi">गंभीर / उदास</div></div></div>
+    <div class="word-card"><div class="word-num">506</div><div class="word-content"><span class="word-en">Stubborn</span><span class="word-pos">(adj)</span><div class="word-hi">जिद्दी / अड़ियल</div></div></div>
+    <div class="word-card"><div class="word-num">507</div><div class="word-content"><span class="word-en">Submissive</span><span class="word-pos">(adj)</span><div class="word-hi">दब्बू / आज्ञाकारी</div></div></div>
+    <div class="word-card"><div class="word-num">508</div><div class="word-content"><span class="word-en">Sullen</span><span class="word-pos">(adj)</span><div class="word-hi">उदासीन / मुँह फुलाया हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">509</div><div class="word-content"><span class="word-en">Sympathetic</span><span class="word-pos">(adj)</span><div class="word-hi">सहानुभूति रखने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">510</div><div class="word-content"><span class="word-en">Tense</span><span class="word-pos">(adj)</span><div class="word-hi">तनावग्रस्त / खिंचा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">511</div><div class="word-content"><span class="word-en">Terrified</span><span class="word-pos">(adj)</span><div class="word-hi">अत्यंत भयभीत / डरा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">512</div><div class="word-content"><span class="word-en">Timid</span><span class="word-pos">(adj)</span><div class="word-hi">डरपोक / शर्मीला</div></div></div>
+    <div class="word-card"><div class="word-num">513</div><div class="word-content"><span class="word-en">Tolerant</span><span class="word-pos">(adj)</span><div class="word-hi">सहनशील / सहन करने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">514</div><div class="word-content"><span class="word-en">Tranquil</span><span class="word-pos">(adj)</span><div class="word-hi">शांत / प्रशांत</div></div></div>
+    <div class="word-card"><div class="word-num">515</div><div class="word-content"><span class="word-en">Traumatized</span><span class="word-pos">(adj)</span><div class="word-hi">मानसिक आघात पहुँचा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">516</div><div class="word-content"><span class="word-en">Troubled</span><span class="word-pos">(adj)</span><div class="word-hi">परेशान / चिंतित</div></div></div>
+    <div class="word-card"><div class="word-num">517</div><div class="word-content"><span class="word-en">Uncertain</span><span class="word-pos">(adj)</span><div class="word-hi">अनिश्चित / असमंजस में</div></div></div>
+    <div class="word-card"><div class="word-num">518</div><div class="word-content"><span class="word-en">Uneasy</span><span class="word-pos">(adj)</span><div class="word-hi">बेचैन / असहज</div></div></div>
+    <div class="word-card"><div class="word-num">519</div><div class="word-content"><span class="word-en">Vain</span><span class="word-pos">(adj)</span><div class="word-hi">घमंडी / व्यर्थ</div></div></div>
+    <div class="word-card"><div class="word-num">520</div><div class="word-content"><span class="word-en">Vengeful</span><span class="word-pos">(adj)</span><div class="word-hi">प्रतिशोध लेने वाला / बदला लेने की भावना रखने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">521</div><div class="word-content"><span class="word-en">Vexed</span><span class="word-pos">(adj)</span><div class="word-hi">तंग / खिझा हुआ</div></div></div>
+    <div class="word-card"><div class="word-num">522</div><div class="word-content"><span class="word-en">Vibrant</span><span class="word-pos">(adj)</span><div class="word-hi">जीवंत / ऊर्जावान</div></div></div>
+    <div class="word-card"><div class="word-num">523</div><div class="word-content"><span class="word-en">Vigilant</span><span class="word-pos">(adj)</span><div class="word-hi">सतर्क / चौकस</div></div></div>
+    <div class="word-card"><div class="word-num">524</div><div class="word-content"><span class="word-en">Vindictive</span><span class="word-pos">(adj)</span><div class="word-hi">बदले की भावना रखने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">525</div><div class="word-content"><span class="word-en">Vivacious</span><span class="word-pos">(adj)</span><div class="word-hi">जिंदादिल / प्रसन्नचित्त</div></div></div>
+    <div class="word-card"><div class="word-num">526</div><div class="word-content"><span class="word-en">Warmhearted</span><span class="word-pos">(adj)</span><div class="word-hi">सहृदय / दयालु</div></div></div>
+    <div class="word-card"><div class="word-num">527</div><div class="word-content"><span class="word-en">Wary</span><span class="word-pos">(adj)</span><div class="word-hi">सावधान / चौकन्ना</div></div></div>
+    <div class="word-card"><div class="word-num">528</div><div class="word-content"><span class="word-en">Weary</span><span class="word-pos">(adj)</span><div class="word-hi">थका हुआ / बेज़ार</div></div></div>
+    <div class="word-card"><div class="word-num">529</div><div class="word-content"><span class="word-en">Whimsical</span><span class="word-pos">(adj)</span><div class="word-hi">सनकी / मनमौजी</div></div></div>
+    <div class="word-card"><div class="word-num">530</div><div class="word-content"><span class="word-en">Wicked</span><span class="word-pos">(adj)</span><div class="word-hi">दुष्ट / पापी</div></div></div>
+    <div class="word-card"><div class="word-num">531</div><div class="word-content"><span class="word-en">Wishful</span><span class="word-pos">(adj)</span><div class="word-hi">इच्छापूर्ण / अभिलाषी</div></div></div>
+    <div class="word-card"><div class="word-num">532</div><div class="word-content"><span class="word-en">Wistful</span><span class="word-pos">(adj)</span><div class="word-hi">इच्छा से भरा / उदास लालसा वाला</div></div></div>
+    <div class="word-card"><div class="word-num">533</div><div class="word-content"><span class="word-en">Withdrawn</span><span class="word-pos">(adj)</span><div class="word-hi">अकेला रहने वाला / गुमसुम</div></div></div>
+    <div class="word-card"><div class="word-num">534</div><div class="word-content"><span class="word-en">Woeful</span><span class="word-pos">(adj)</span><div class="word-hi">शोकाकुल / दुखी</div></div></div>
+    <div class="word-card"><div class="word-num">535</div><div class="word-content"><span class="word-en">Wonderstruck</span><span class="word-pos">(adj)</span><div class="word-hi">आश्चर्यचकित</div></div></div>
+    <div class="word-card"><div class="word-num">536</div><div class="word-content"><span class="word-en">Worried</span><span class="word-pos">(adj)</span><div class="word-hi">चिंतित / परेशान</div></div></div>
+    <div class="word-card"><div class="word-num">537</div><div class="word-content"><span class="word-en">Wretched</span><span class="word-pos">(adj)</span><div class="word-hi">हतभाग्य / अभागा</div></div></div>
+    <div class="word-card"><div class="word-num">538</div><div class="word-content"><span class="word-en">Yearning</span><span class="word-pos">(n/adj)</span><div class="word-hi">तीव्र इच्छा / लालसा</div></div></div>
+    <div class="word-card"><div class="word-num">539</div><div class="word-content"><span class="word-en">Yielding</span><span class="word-pos">(adj)</span><div class="word-hi">कोमल / मान जाने वाला</div></div></div>
+    <div class="word-card"><div class="word-num">540</div><div class="word-content"><span class="word-en">Zestful</span><span class="word-pos">(adj)</span><div class="word-hi">उत्साही / आनंदमयी</div></div></div>
+  </div>
+
+
+  <div class="source-note">
+    💡 Tip:रोज‌ 5-10 new Word याद‌ करें। और‌ अपनी‌ मजबुत करें।.
+  </div>
+
+</div>
+
+<script>
+  // Hide Loader Screen on Load
+  window.addEventListener('load', function(){
+    var loader = document.getElementById('loaderScreen');
+    if(loader){
+      loader.classList.add('hidden');
+    }
+  });
+
+  // Theme Toggle Functionality
+  var themeToggleBtn = document.getElementById('themeToggle');
+  themeToggleBtn.addEventListener('click', function(){
+    var currentTheme = document.documentElement.getAttribute('data-theme');
+    if(currentTheme === 'dark'){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('nkStudyLabTheme', 'light');
+      themeToggleBtn.textContent = '🌙';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('nkStudyLabTheme', 'dark');
+      themeToggleBtn.textContent = '☀️';
+    }
+  });
+
+  // Init Theme Icon on Load
+  if(document.documentElement.getAttribute('data-theme') === 'dark'){
+    themeToggleBtn.textContent = '☀️';
+  }
+
+  // Tab Switcher Functionality
+  var tabs = document.querySelectorAll('.section-tab');
+  var groups = document.querySelectorAll('.sentence-group');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var section = this.getAttribute('data-section');
+
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      groups.forEach(function(g){ g.classList.remove('active'); g.style.display = 'none'; });
+
+      this.classList.add('active');
+      var activeGroup = document.getElementById('group-' + section);
+      if(activeGroup){
+        activeGroup.classList.add('active');
+        activeGroup.style.display = 'block';
+      }
+    });
+  });
+
+  // Live Search Functionality
+  var searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function(){
+    var query = this.value.toLowerCase().trim();
+    var cards = document.querySelectorAll('.word-card');
+
+    cards.forEach(function(card){
+      var text = card.textContent.toLowerCase();
+      if(text.includes(query)){
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
+

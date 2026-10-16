@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Use Sentences (Basics) - Nk Study Lab</title>
+    <!-- Google Fonts matching the exact monospace typography from screenshot -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #ffffff;
+            --bg-nav: #ffffff;
+            --bg-card: #ffffff;
+            --border-card: #e2e8f0;
+            --text-main: #1e293b;
+            --text-sub: #475569;
+            --text-muted: #64748b;
+            --blue-primary: #1d6bf3;
+            --blue-dark: #1550b8;
+            --blue-light: #eff6ff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --font-mono: 'Space Mono', 'Courier New', monospace;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .dark-theme {
+            --bg-body: #0f172a;
+            --bg-nav: #0f172a;
+            --bg-card: #1e293b;
+            --border-card: #334155;
+            --text-main: #f8fafc;
+            --text-sub: #cbd5e1;
+            --text-muted: #94a3b8;
+            --blue-primary: #2563eb;
+            --blue-light: #1e293b;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 60px;
+        }
+
+        /* Navbar Header (Matching screenshot style) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            background-color: var(--bg-nav);
+            border-bottom: 1px solid var(--border-card);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .dark-theme .nav-btn {
+            background-color: #334155;
+            border-color: #475569;
+            color: #f8fafc;
+        }
+
+        .logo-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+        }
+
+        /* Hero Banner Block (Exact Screenshot Match) */
+        .hero-banner {
+            background-color: var(--blue-primary);
+            color: #ffffff;
+            padding: 28px 20px;
+            text-align: left;
+        }
+
+        .hero-banner h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+        }
+
+        .hero-banner p {
+            font-size: 15px;
+            opacity: 0.92;
+            font-family: var(--font-sans);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Container */
+        .main-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* Category Label Header */
+        .category-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        /* Search Input */
+        .search-box {
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--border-card);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            font-size: 15px;
+            font-family: var(--font-sans);
+            outline: none;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-box:focus {
+            border-color: var(--blue-primary);
+        }
+
+        /* Sentence Cards List */
+        .sentence-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sentence-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-left: 5px solid var(--blue-primary);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sentence-number {
+            background-color: var(--blue-primary);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+        }
+
+        .sentence-content {
+            flex-grow: 1;
+        }
+
+        .english-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--blue-primary);
+            margin-bottom: 4px;
+            font-family: var(--font-sans);
+        }
+
+        .hindi-text {
+            font-size: 15px;
+            color: var(--text-sub);
+            font-family: var(--font-sans);
+        }
+
+        .speak-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 22px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speak-btn:hover {
+            color: var(--blue-primary);
+            background-color: var(--blue-light);
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="navbar">
+        <button class="nav-btn" onclick="handleBack()" title="Peeche jayein">←</button>
+        <div class="logo-title">Nk Study Lab</div>
+        <button class="nav-btn" id="themeToggle" onclick="toggleTheme()" title="Dark/Light Mode">🌙</button>
+    </header>
+
+    <!-- Hero Banner (Matching Screenshot Header) -->
+    <section class="hero-banner">
+        <h1>Daily Use Sentences (Basics)</h1>
+        <p>100 roz bole jaane wale aasan vakya (Hindi-English)</p>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+        
+        <!-- Search Filter -->
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Khoje (Search 100 sentences)..." onkeyup="filterSentences()">
+
+        <div class="category-header">
+            📁 BASIC SENTENCES (1 - 100)
+        </div>
+
+        <!-- 100 Sentences List -->
+        <div class="sentence-list" id="sentencesList"></div>
+
+    </main>
+
+    <script>
+        // Exact 100 daily use basic sentences array (English & Hindi)
+        const sentences100 = [
+            { en: "Hello!", hi: "नमस्ते!" },
+            { en: "How are you?", hi: "आप कैसे हैं?" },
+            { en: "I am fine.", hi: "मैं ठीक हूँ।" },
+            { en: "What is your name?", hi: "आपका नाम क्या है?" },
+            { en: "My name is Rahul.", hi: "मेरा नाम राहुल है।" },
+            { en: "Nice to meet you.", hi: "आपसे मिलकर अच्छा लगा।" },
+            { en: "Where are you from?", hi: "आप कहाँ से हैं?" },
+            { en: "I am from India.", hi: "मैं भारत से हूँ।" },
+            { en: "What do you do?", hi: "आप क्या करते हैं?" },
+            { en: "I am a student.", hi: "मैं एक छात्र हूँ।" },
+            { en: "Good morning.", hi: "सुप्रभात।" },
+            { en: "Good evening.", hi: "शुभ संध्या।" },
+            { en: "Good night.", hi: "शुभ रात्रि।" },
+            { en: "Thank you very much.", hi: "आपका बहुत-बहुत धन्यवाद।" },
+            { en: "You're welcome.", hi: "आपका स्वागत है।" },
+            { en: "Excuse me.", hi: "क्षमा करें / सुनिए।" },
+            { en: "I am sorry.", hi: "मुझे खेद है / माफ कीजिये।" },
+            { en: "No problem.", hi: "कोई बात नहीं।" },
+            { en: "Yes, please.", hi: "हाँ, कृपया।" },
+            { en: "No, thank you.", hi: "नहीं, धन्यवाद।" },
+            { en: "Do you speak English?", hi: "क्या आप अंग्रेजी बोलते हैं?" },
+            { en: "I speak a little English.", hi: "मैं थोड़ी अंग्रेजी बोलता हूँ।" },
+            { en: "I don't understand.", hi: "मुझे समझ नहीं आया।" },
+            { en: "Please speak slowly.", hi: "कृपया धीरे बोलें।" },
+            { en: "Could you repeat that?", hi: "क्या आप इसे दोहरा सकते हैं?" },
+            { en: "What time is it?", hi: "कितने बजे हैं?" },
+            { en: "Where is the bathroom?", hi: "शौचालय कहाँ है?" },
+            { en: "How much is this?", hi: "यह कितने का है?" },
+            { en: "Help me, please.", hi: "कृपया मेरी मदद करें।" },
+            { en: "See you later.", hi: "बाद में मिलते हैं।" },
+            { en: "See you tomorrow.", hi: "कल मिलते हैं।" },
+            { en: "Goodbye!", hi: "अलविदा!" },
+            { en: "Have a nice day!", hi: "आपका दिन शुभ हो!" },
+            { en: "What are you doing?", hi: "आप क्या कर रहे हैं?" },
+            { en: "I am working.", hi: "मैं काम कर रहा हूँ।" },
+            { en: "I am learning English.", hi: "मैं अंग्रेजी सीख रहा हूँ।" },
+            { en: "Where do you live?", hi: "आप कहाँ रहते हैं?" },
+            { en: "I live in Delhi.", hi: "मैं दिल्ली में रहता हूँ।" },
+            { en: "How old are you?", hi: "आपकी उम्र क्या है?" },
+            { en: "I am 20 years old.", hi: "मैं 20 साल का हूँ।" },
+            { en: "Are you ready?", hi: "क्या आप तैयार हैं?" },
+            { en: "Yes, I am ready.", hi: "हाँ, मैं तैयार हूँ।" },
+            { en: "Wait a minute.", hi: "एक मिनट रुकिए।" },
+            { en: "Come here.", hi: "यहाँ आओ।" },
+            { en: "Go there.", hi: "वहाँ जाओ।" },
+            { en: "Sit down.", hi: "बैठ जाओ।" },
+            { en: "Stand up.", hi: "खड़े हो जाओ।" },
+            { en: "Listen to me.", hi: "मेरी बात सुनो।" },
+            { en: "Look at this.", hi: "इसे देखो।" },
+            { en: "Don't worry.", hi: "चिंता मत करो।" },
+            { en: "Everything is fine.", hi: "सब कुछ ठीक है।" },
+            { en: "I am hungry.", hi: "मुझे भूख लगी है।" },
+            { en: "I am thirsty.", hi: "मुझे प्यास लगी है।" },
+            { en: "I am tired.", hi: "मैं थक गया हूँ।" },
+            { en: "I am busy right now.", hi: "मैं अभी व्यस्त हूँ।" },
+            { en: "What happened?", hi: "क्या हुआ?" },
+            { en: "Nothing happened.", hi: "कुछ नहीं हुआ।" },
+            { en: "Are you sure?", hi: "क्या आपको यकीन है?" },
+            { en: "I am sure.", hi: "मुझे पूरा यकीन है।" },
+            { en: "I don't know.", hi: "मुझे नहीं पता।" },
+            { en: "I know.", hi: "मुझे पता है।" },
+            { en: "Call me later.", hi: "मुझे बाद में कॉल करना।" },
+            { en: "Let's go.", hi: "चलो चलते हैं।" },
+            { en: "Shut up.", hi: "चुप रहो।" },
+            { en: "Be quiet.", hi: "शांत रहो।" },
+            { en: "Hurry up!", hi: "जल्दी करो!" },
+            { en: "Take care.", hi: "अपना ख्याल रखना।" },
+            { en: "Forget it.", hi: "इसे भूल जाओ।" },
+            { en: "Never mind.", hi: "कोई बात नहीं।" },
+            { en: "It doesn't matter.", hi: "इससे कोई फर्क नहीं पड़ता।" },
+            { en: "I agree with you.", hi: "मैं आपसे सहमत हूँ।" },
+            { en: "I don't agree.", hi: "मैं सहमत नहीं हूँ।" },
+            { en: "That's great!", hi: "यह तो बहुत अच्छी बात है!" },
+            { en: "Congratulations!", hi: "बधाई हो!" },
+            { en: "Happy birthday!", hi: "जन्मदिन की शुभकामनाएँ!" },
+            { en: "Best of luck!", hi: "शुभकामनाएँ!" },
+            { en: "What's wrong?", hi: "क्या गड़बड़ है?" },
+            { en: "Who is that?", hi: "वह कौन है?" },
+            { en: "This is my friend.", hi: "यह मेरा दोस्त है।" },
+            { en: "Where is the market?", hi: "बाजार कहाँ है?" },
+            { en: "It is nearby.", hi: "यह पास में ही है।" },
+            { en: "It is too far.", hi: "यह बहुत दूर है।" },
+            { en: "Turn left.", hi: "बाएं मुड़ें।" },
+            { en: "Turn right.", hi: "दाएं मुड़ें।" },
+            { en: "Go straight.", hi: "सीधे जाएं।" },
+            { en: "Stop here.", hi: "यहाँ रुकिए।" },
+            { en: "I need help.", hi: "मुझे मदद चाहिए।" },
+            { en: "Can you help me?", hi: "क्या आप मेरी मदद कर सकते हैं?" },
+            { en: "Of course.", hi: "बिल्कुल।" },
+            { en: "Not at all.", hi: "बिल्कुल नहीं।" },
+            { en: "I am feeling sick.", hi: "मेरी तबीयत ठीक नहीं लग रही है।" },
+            { en: "Take this medicine.", hi: "यह दवा लें।" },
+            { en: "Are you feeling better?", hi: "क्या आप बेहतर महसूस कर रहे हैं?" },
+            { en: "Yes, much better.", hi: "हाँ, काफी बेहतर।" },
+            { en: "What's new?", hi: "क्या नया है?" },
+            { en: "Nothing much.", hi: "कुछ ख़ास नहीं।" },
+            { en: "How was your day?", hi: "आपका दिन कैसा रहा?" },
+            { en: "It was good.", hi: "अच्छा था।" },
+            { en: "I am late.", hi: "मुझे देर हो गई है।" },
+            { en: "Don't be late.", hi: "देर मत करना।" }
+        ];
+
+        // Render Sentences
+        function renderSentences(data) {
+            const container = document.getElementById('sentencesList');
+            if (data.length === 0) {
+                container.innerHTML = `<div class="no-result">Koi vakya nahi mila (No matching sentence found)</div>`;
+                return;
+            }
+
+            container.innerHTML = data.map((item, index) => `
+                <div class="sentence-card">
+                    <div class="sentence-number">${index + 1}</div>
+                    <div class="sentence-content">
+                        <div class="english-text">${item.en}</div>
+                        <div class="hindi-text">${item.hi}</div>
+                    </div>
+                    <button class="speak-btn" onclick="speakSentence('${item.en.replace(/'/g, "\\'")}')" title="Pronunciation sunein">🔊</button>
+                </div>
+            `).join('');
+        }
+
+        // Live Search Filter
+        function filterSentences() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = sentences100.filter(s => 
+                s.en.toLowerCase().includes(query) || s.hi.toLowerCase().includes(query)
+            );
+            renderSentences(filtered);
+        }
+
+        // Text-to-Speech API
+        function speakSentence(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Dark / Light Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // Back Button Handler
+        function handleBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '#';
+            }
+        }
+
+        // On Page Load
+        window.onload = () => {
+            renderSentences(sentences100);
+        };
+    </script>
+</body>
+</html>
+```

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math All Formulas — Nk Study Lab</title>
+  <meta name="description" content="All Important Math Formulas in Hindi at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --math-color: #2563EB;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --math-color: #3B82F6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #8105f7, #881bfb); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Intro Content Box */
+    .intro-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--text); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* Section Category Box */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .category-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--math-color); margin-bottom: 1rem; border-bottom: 2px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+
+    /* Formula Card Design */
+    .formula-card {
+      background: var(--bg);
+      border: 2px dashed var(--math-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--math-color);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+    .formula-list {
+      display: flex; flex-direction: column; gap: 0.6rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--text);
+    }
+    .formula-item {
+      background: var(--surface); padding: 0.6rem 0.8rem; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .hl-math { font-weight: 700; color: var(--math-color); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="index.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">📐</div>
+    <h1 class="hero-title">Math All Formulas</h1>
+    <p class="hero-sub">गणित के सभी महत्वपूर्ण सूत्र एक ही स्थान पर</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Intro Box -->
+    <div class="intro-box">
+      <div class="box-title">💡 गणित सूत्र संग्रह</div>
+      <p class="para-text">
+      यहाँ बीजगणित (Algebra), क्षेत्रमिति (Mensuration), ज्यामिति (Geometry), और साधारण गणित के सभी ज़रूरी फ़ॉर्मूले एक ही पेज पर दिए गए हैं:
+      </p>
+    </div>
+
+    <!-- Section 1: Algebra (बीजगणित) -->
+    <div class="content-box">
+      <div class="category-title">1. बीजगणित के सूत्र (Algebra Formulas)</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">महत्वपूर्ण वर्ग सूत्र (Square Formulas)</span>
+        <div class="formula-list">
+          <div class="formula-item">(a + b)² = <span class="hl-math">a² + 2ab + b²</span></div>
+          <div class="formula-item">(a - b)² = <span class="hl-math">a² - 2ab + b²</span></div>
+          <div class="formula-item">a² - b² = <span class="hl-math">(a + b)(a - b)</span></div>
+          <div class="formula-item">(a + b + c)² = <span class="hl-math">a² + b² + c² + 2ab + 2bc + 2ca</span></div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">महत्वपूर्ण घन सूत्र (Cube Formulas)</span>
+        <div class="formula-list">
+          <div class="formula-item">(a + b)³ = <span class="hl-math">a³ + b³ + 3ab(a + b)</span></div>
+          <div class="formula-item">(a - b)³ = <span class="hl-math">a³ - b³ - 3ab(a - b)</span></div>
+          <div class="formula-item">a³ + b³ = <span class="hl-math">(a + b)(a² - ab + b²)</span></div>
+          <div class="formula-item">a³ - b³ = <span class="hl-math">(a - b)(a² + ab + b²)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Mensuration 2D (क्षेत्रमिति 2D) -->
+    <div class="content-box">
+      <div class="category-title">2. 2D क्षेत्रमिति (2D Mensuration Formulas)</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">आयत एवं वर्ग (Rectangle & Square)</span>
+        <div class="formula-list">
+          <div class="formula-item">आयत का क्षेत्रफल = <span class="hl-math">लम्बाई × चौड़ाई</span></div>
+          <div class="formula-item">आयत का परिमाप = <span class="hl-math">2 × (लम्बाई + चौड़ाई)</span></div>
+          <div class="formula-item">वर्ग का क्षेत्रफल = <span class="hl-math">(भुजा)²</span></div>
+          <div class="formula-item">वर्ग का परिमाप = <span class="hl-math">4 × भुजा</span></div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">वृत्त एवं त्रिभुज (Circle & Triangle)</span>
+        <div class="formula-list">
+          <div class="formula-item">वृत्त का क्षेत्रफल = <span class="hl-math">πr²</span></div>
+          <div class="formula-item">वृत्त की परिधि = <span class="hl-math">2πr</span></div>
+          <div class="formula-item">त्रिभुज का क्षेत्रफल = <span class="hl-math">½ × आधार × ऊँचाई</span></div>
+          <div class="formula-item">समबाहु त्रिभुज का क्षेत्रफल = <span class="hl-math">(√3 / 4) × (भुजा)²</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Mensuration 3D (क्षेत्रमिति 3D) -->
+    <div class="content-box">
+      <div class="category-title">3. 3D क्षेत्रमिति (3D Mensuration Formulas)</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">घन, घनाभ एवं बेलन (Cube, Cuboid & Cylinder)</span>
+        <div class="formula-list">
+          <div class="formula-item">घनाभ का आयतन = <span class="hl-math">l × b × h</span></div>
+          <div class="formula-item">घन का आयतन = <span class="hl-math">a³</span></div>
+          <div class="formula-item">बेलन का आयतन = <span class="hl-math">πr²h</span></div>
+          <div class="formula-item">बेलन का वक्र पृष्ठ क्षेत्रफल = <span class="hl-math">2πrh</span></div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">शंकु एवं गोला (Cone & Sphere)</span>
+        <div class="formula-list">
+          <div class="formula-item">शंकु का आयतन = <span class="hl-math">⅓ πr²h</span></div>
+          <div class="formula-item">गोले का आयतन = <span class="hl-math">⁴/₃ πr³</span></div>
+          <div class="formula-item">गोले का पृष्ठ क्षेत्रफल = <span class="hl-math">4πr²</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Arithmetic (अंकगणित) -->
+    <div class="content-box">
+      <div class="category-title">4. अंकगणित (Arithmetic Formulas)</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">प्रतिशत, लाभ-हानि एवं ब्याज</span>
+        <div class="formula-list">
+          <div class="formula-item">प्रतिशत (%) = <span class="hl-math">(प्राप्तांक / कुल अंक) × 100</span></div>
+          <div class="formula-item">लाभ = <span class="hl-math">विक्रय मूल्य - क्रय मूल्य</span></div>
+          <div class="formula-item">हानि = <span class="hl-math">क्रय मूल्य - विक्रय मूल्य</span></div>
+          <div class="formula-item">साधारण ब्याज (S.I.) = <span class="hl-math">(मूलधन × दर × समय) / 100</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>वर्ब (Verb) - क्रिया | Nk Study Lab</title>
+  <meta name="description" content="वर्ब (क्रिया) की पूरी जानकारी सरल हिंदी में - परिभाषा, प्रकार और वास्तविक उदाहरण Nk Study Lab पर।">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --green-card: #16A34A;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --green-card: #22C55E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--green-card); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--green-card); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--green-card);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--green-card); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl { color: #16A34A; font-weight: 700; }
+    [data-theme="dark"] .hl { color: #22C55E; }
+
+    /* Types Cards */
+    .type-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+    }
+    .type-title { font-weight: 700; color: var(--green-card); font-size: 1.05rem; margin-bottom: 0.3rem; }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem;
+    }
+    .nav-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      text-decoration: none; padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; transition: transform 0.2s;
+    }
+    .nav-btn.next { background: var(--green-card); color: #FFFFFF; border: none; }
+    .nav-btn:active { transform: scale(0.96); }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="parts-of-speech.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">⚡</div>
+    <h1 class="hero-title">5. वर्ब (Verb) - क्रिया</h1>
+    <p class="hero-sub">काम, घटना या स्थिति बताने वाला सबसे ज़रूरी शब्द!</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Verb Kya Hai -->
+    <div class="content-box">
+      <div class="box-title">💡 एकदम आसान भाषा में समझें</div>
+      <p class="para-text">
+        जरा सोचिए, क्या कोई भी इंसान या जानवर बिना कुछ किए रह सकता है? हम खाते हैं, सोते हैं, पढ़ते हैं, दौड़ते हैं या फिर चुपचाप बैठे रहते हैं।
+      </p>
+      <p class="para-text">
+        बिना <b>वर्ब (Verb)</b> के अंग्रेज़ी का कोई भी वाक्य (Sentence) बन ही नहीं सकता। वर्ब किसी भी वाक्य का दिल (Heart) होता है।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 सीधी बात:</div>
+        <b>जिस शब्द से किसी काम के करने, होने या स्थिति का पता चलता है, उसे वर्ब (Verb - क्रिया) कहते हैं।</b> सरल शब्दों में: खाना, पीना, सोना, पढ़ना, भागना, होना — ये सब वर्ब हैं।
+      </div>
+    </div>
+
+    <!-- Card 2: Daily Use Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 रोज़मर्रा के उदाहरण (Real Life Examples)</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. शारीरिक काम (Physical Action): <span class="hl">दौड़ना</span> (Run), <span class="hl">खाना</span> (Eat)</div>
+          <div class="ex-hi">उदाहरण: रोहन तेज़ <span class="hl">दौड़ता है</span>। (Rohan <span class="hl">runs</span> fast.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. मानसिक काम (Mental Action): <span class="hl">सोचना</span> (Think), <span class="hl">समझना</span> (Understand)</div>
+          <div class="ex-hi">उदाहरण: मैं समस्या को <span class="hl">समझता हूँ</span>। (I <span class="hl">understand</span> the problem.)</div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. स्थिति या होना (State of Being): <span class="hl">है</span> (Is), <span class="hl">था</span> (Was)</div>
+          <div class="ex-hi">उदाहरण: वह एक डॉक्टर <span class="hl">है</span>। (He <span class="hl">is</span> a doctor.)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Card 3: Types of Verb -->
+    <div class="content-box">
+      <div class="box-title">📚 वर्ब के दो मुख्य प्रकार (Types of Verb)</div>
+
+      <!-- Type 1 -->
+      <div class="type-card">
+        <div class="type-title">1. मुख्य क्रिया (Main Verb)</div>
+        <p class="para-text">यह मुख्य काम को दिखाता है जो कर्ता (Subject) कर रहा होता है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Read (पढ़ना), Write (लिखना), Play (खेलना), Sleep (सोना)</div>
+      </div>
+
+      <!-- Type 2 -->
+      <div class="type-card">
+        <div class="type-title">2. सहायक क्रिया (Helping Verb / Auxiliary Verb)</div>
+        <p class="para-text">यह मुख्य क्रिया की मदद करता है और बताता है कि काम कब (वर्तमान, भूत या भविष्य) हो रहा है।</p>
+        <div class="ex-hi"><b>उदाहरण:</b> Is, Am, Are, Was, Were, Has, Have, Will, Can</div>
+      </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <a href="pos-adjective.html" class="nav-btn">← पिछला: एडजेक्टिव (Adjective)</a>
+      <a href="pos-adverb.html" class="nav-btn next">अगला: एडवर्ब (Adverb) →</a>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero Article (Omission) - Nk Study Lab</title>
+  <meta name="description" content="Omission of Articles (Kahan Article nahi lagta) in pure Hindi at Nk Study Lab.">
+  <link rel="icon" type="image/png" href="https://nkfactsstudy-max.github.io/nk-study-lab/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F7F8FA;
+      --border: #E5E8EE;
+      --text: #1A1F2B;
+      --text-dim: #687280;
+      --article-zero: #DC2626;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0E14;
+      --surface: #131A28;
+      --border: #232B3D;
+      --text: #E2E8F0;
+      --text-dim: #8896AC;
+      --article-zero: #EF4444;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding-bottom: 3rem; }
+    
+    /* Header Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); background: var(--bg);
+      position: sticky; top:0; z-index: 100;
+    }
+    .back-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      color: var(--text); font-weight: bold; font-size: 1.1rem;
+    }
+    .site-title { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .theme-toggle {
+      background: var(--surface); border: 1px solid var(--border);
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: var(--article-zero); color: #FFFFFF; text-align: center;
+      padding: 2.2rem 1rem; margin-bottom: 1.5rem;
+    }
+    .hero-icon { font-size: 2.8rem; margin-bottom: 0.4rem; }
+    .hero-title { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* Main Container */
+    .main-container { max-width: 750px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Content Cards */
+    .content-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .box-title {
+      font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--article-zero); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .para-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.7; }
+
+    /* Real Box */
+    .real-box {
+      background: var(--bg); border-left: 4px solid var(--article-zero);
+      padding: 1rem; border-radius: 0 12px 12px 0; font-size: 0.95rem;
+      color: var(--text); margin: 1rem 0; border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .real-box-title { font-weight: 700; color: var(--article-zero); margin-bottom: 0.4rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* Rule Box Design */
+    .formula-card {
+      background: var(--bg);
+      border: 2px dashed var(--article-zero);
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .formula-badge {
+      display: inline-block;
+      background: var(--article-zero);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Example List */
+    .example-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .example-item {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.95rem;
+    }
+    .ex-en { font-weight: 600; color: var(--text); }
+    .ex-hi { color: var(--text-dim); font-size: 0.88rem; margin-top: 3px; }
+
+    .hl-no { color: #DC2626; font-weight: 700; text-decoration: line-through; }
+    [data-theme="dark"] .hl-no { color: #EF4444; }
+    .hl-ok { color: #16A34A; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <a href="articles.html" class="back-btn">←</a>
+    <div class="site-title">Nk Study Lab</div>
+    <div class="theme-toggle" id="themeBtn">🌙</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-icon">🚫</div>
+    <h1 class="hero-title">Zero Article</h1>
+    <p class="hero-sub">Omission of Articles - कहाँ Article का प्रयोग नहीं होता</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- Card 1: Definition & Concept -->
+    <div class="content-box">
+      <div class="box-title">💡 Zero Article क्या है?</div>
+      <p class="para-text">
+        जितना ज़रूरी यह जानना है कि <b>A, An, The</b> कहाँ लगाना है, उससे भी ज्यादा ज़रूरी यह जानना है कि **कहाँ Article का प्रयोग नहीं करना चाहिए**। इसे ही व्याकरण में **Zero Article** या **Omission of Articles** कहते हैं।
+      </p>
+
+      <div class="real-box">
+        <div class="real-box-title">📌 सावधानी:</div>
+        अगर आप गलत जगह Article लगा देंगे, तो पूरा वाक्य गलत हो जाएगा। नीचे दी गई जगहों पर कभी भी Article मत लगाइए।
+      </div>
+    </div>
+
+    <!-- Card 2: Main Rules -->
+    <div class="content-box">
+      <div class="box-title">📐 कहाँ-कहाँ Article नहीं लगता?</div>
+
+      <div class="formula-card">
+        <span class="formula-badge">1. खेलों और भाषाओं के नाम के आगे</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • Cricket, Football, Chess ke aage Article nahi lagta.<br>
+          • Hindi, English, Spanish ke aage bhi Article nahi lagta.
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">2. दिनों, महीनों और त्यौहारों के नाम के आगे</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • Sunday, Monday, January, March, Diwali, Holi etc. ke aage Article use nahi hota.
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <span class="formula-badge">3. प्रॉपर नाउन (इंसानों व आम देशों के नाम)</span>
+        <div class="para-text" style="font-size:0.92rem; margin-bottom:0;">
+          • Kisi vyakti ke naam (e.g. Rahul, Amit) ya aam desh (e.g. India, Japan) ke aage Article nahi lagta.
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Examples -->
+    <div class="content-box">
+      <div class="box-title">🎯 5 आसान उदाहरण (Sahi aur Galat)</div>
+      <div class="example-list">
+        
+        <div class="example-item">
+          <div class="ex-en">1. वह क्रिकेट खेल रहा है।</div>
+          <div class="ex-hi">
+            <span class="hl-no">Galat:</span> He is playing <s>the</s> cricket.<br>
+            <span class="hl-ok">Sahi:</span> He is playing <b>cricket</b>.
+          </div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">2. मैं हिंदी बोलता हूँ।</div>
+          <div class="ex-hi">
+            <span class="hl-no">Galat:</span> I speak <s>a</s> Hindi.<br>
+            <span class="hl-ok">Sahi:</span> I speak <b>Hindi</b>.
+          </div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">3. हम भारत में रहते हैं।</div>
+          <div class="ex-hi">
+            <span class="hl-no">Galat:</span> We live in <s>the</s> India.<br>
+            <span class="hl-ok">Sahi:</span> We live in <b>India</b>.
+          </div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">4. वह सोमवार को आएगा।</div>
+          <div class="ex-hi">
+            <span class="hl-no">Galat:</span> He will come on <s>a</s> Monday.<br>
+            <span class="hl-ok">Sahi:</span> He will come on <b>Monday</b>.
+          </div>
+        </div>
+
+        <div class="example-item">
+          <div class="ex-en">5. वे दीवाली मना रहे हैं।</div>
+          <div class="ex-hi">
+            <span class="hl-no">Galat:</span> They are celebrating <s>the</s> Diwali.<br>
+            <span class="hl-ok">Sahi:</span> They are celebrating <b>Diwali</b>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    let currentTheme = localStorage.getItem('nkStudyLabTheme') || 'light';
+    
+    if(currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('nkStudyLabTheme', 'light');
+        themeBtn.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nkStudyLabTheme', 'dark');
+        themeBtn.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>
