@@ -194,6 +194,46 @@
   .word-pos{ font-size:11px;color:var(--topic);font-weight:600;margin-left:6px; }
   .word-hi{ font-size:13px;color:var(--text-dim);margin-top:2px; }
 
+  /* SEARCH ACROSS ALL TABS */
+  body.searching .sentence-group{ display:block !important; }
+  body.searching .group-heading{ display:none; }
+
+  /* DICTIONARY RESULT */
+  .dict-wrap{ max-width:680px;margin:0 auto;padding:0 18px; }
+  .dict-panel{
+    background:var(--surface);border:1px solid var(--border);
+    border-left:4px solid var(--topic);
+    border-radius:12px;padding:14px 16px;margin:12px 0 4px;
+  }
+  .dict-label{
+    font-size:11px;font-weight:700;color:var(--topic);
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+  }
+  .dict-word{ font-size:20px;font-weight:800;color:var(--text);word-break:break-word; }
+  .dict-phon{ font-size:13px;color:var(--text-dim);margin-left:8px;font-weight:500; }
+  .dict-audio{
+    margin-left:8px;border:1px solid var(--border);background:var(--bg);
+    border-radius:8px;padding:2px 8px;cursor:pointer;font-size:14px;color:var(--text);
+  }
+  .dict-hi{
+    margin:8px 0 4px;padding:8px 12px;border-radius:10px;
+    background:var(--bg);border:1px solid var(--border);
+    font-size:16px;font-weight:700;color:var(--text);
+  }
+  .dict-hi small{ display:block;font-size:11px;font-weight:600;color:var(--text-dim);margin-bottom:2px; }
+  .dict-pos{ margin-top:10px;font-size:12px;font-weight:800;color:var(--topic); }
+  .dict-def{ font-size:13.5px;line-height:1.55;margin:4px 0 0 2px;color:var(--text); }
+  .dict-ex{ font-size:12.5px;color:var(--text-dim);margin:2px 0 0 14px;font-style:italic; }
+  .dict-msg{ font-size:14px;line-height:1.6;color:var(--text); }
+  .dict-msg.dim{ color:var(--text-dim); }
+  .dict-note{ margin-top:10px;font-size:11px;color:var(--text-dim); }
+  .dict-spin{
+    display:inline-block;width:14px;height:14px;border-radius:50%;
+    border:2px solid var(--border);border-top-color:var(--topic);
+    animation:dspin .8s linear infinite;vertical-align:-2px;margin-right:8px;
+  }
+  @keyframes dspin{ to{ transform:rotate(360deg); } }
+
   .source-note{
     margin-top:24px;padding:16px;
     background:var(--surface);border:1px solid var(--border);
@@ -222,7 +262,11 @@
 </div>
 
 <div class="search-wrap">
-  <input type="text" class="search-box" id="searchInput" placeholder="🔍 search any word ...">
+  <input type="search" class="search-box" id="searchInput" placeholder="🔍 search any word ..." aria-label="कोई भी English शब्द खोजो" autocomplete="off" autocapitalize="off" spellcheck="false">
+</div>
+
+<div class="dict-wrap">
+  <div id="dictResult" aria-live="polite"></div>
 </div>
 
 <div class="section-wrap">
@@ -845,18 +889,167 @@
 
   // Live Search Functionality
   var searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', function(){
-    var query = this.value.toLowerCase().trim();
-    var cards = document.querySelectorAll('.word-card');
+  var dictBox = document.getElementById('dictResult');
+  var allCards = document.querySelectorAll('.word-card');
 
-    cards.forEach(function(card){
-      var text = card.textContent.toLowerCase();
-      if(text.includes(query)){
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
+  // ---- 1. Our own cards: search across ALL tabs ----
+  function filterCards(query){
+    var exact = false;
+    allCards.forEach(function(card){
+      var show = !query || card.textContent.toLowerCase().indexOf(query) !== -1;
+      card.style.display = show ? 'flex' : 'none';
+      if(query){
+        var en = card.querySelector('.word-en');
+        if(en && en.textContent.trim().toLowerCase() === query) exact = true;
       }
     });
+    document.body.classList.toggle('searching', !!query);
+    return exact;
+  }
+
+  // ---- 2. Online dictionary (only used when the word is not in our cards) ----
+  var CACHE_KEY = 'nkDictCache';
+  var CACHE_MAX = 40;            // keep storage tiny: only the last 40 searched words
+  var reqId = 0;
+  var debounceTimer = null;
+
+  function esc(t){
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function readCache(){
+    try { return JSON.parse(localStorage.getItem(CACHE_KEY)) || []; } catch(e){ return []; }
+  }
+  function getCached(word){
+    var list = readCache();
+    for(var i = 0; i < list.length; i++){ if(list[i].word === word) return list[i]; }
+    return null;
+  }
+  function saveCache(entry){
+    try {
+      var list = readCache().filter(function(x){ return x.word !== entry.word; });
+      list.push(entry);
+      while(list.length > CACHE_MAX) list.shift();
+      localStorage.setItem(CACHE_KEY, JSON.stringify(list));
+    } catch(e){ /* storage full or blocked: just skip caching */ }
+  }
+  function showMsg(html, cls){
+    dictBox.innerHTML = '<div class="dict-panel"><div class="dict-label">📖 Dictionary</div><div class="dict-msg ' + (cls || '') + '">' + html + '</div></div>';
+  }
+  function clearDict(){ reqId++; dictBox.innerHTML = ''; }
+
+  function render(entry, fromCache){
+    var h = '<div class="dict-panel"><div class="dict-label">📖 Dictionary</div>';
+    h += '<div><span class="dict-word">' + esc(entry.word) + '</span>';
+    if(entry.phonetic) h += '<span class="dict-phon">' + esc(entry.phonetic) + '</span>';
+    if(entry.audio) h += '<button type="button" class="dict-audio" data-audio="' + esc(entry.audio) + '" aria-label="उच्चारण सुनो">🔊</button>';
+    h += '</div>';
+    if(entry.hindi) h += '<div class="dict-hi"><small>हिंदी मतलब</small>' + esc(entry.hindi) + '</div>';
+    (entry.meanings || []).forEach(function(m){
+      h += '<div class="dict-pos">(' + esc(m.pos) + ')</div>';
+      (m.defs || []).forEach(function(d, i){
+        h += '<div class="dict-def">' + (i + 1) + '. ' + esc(d.def) + '</div>';
+        if(d.ex) h += '<div class="dict-ex">“' + esc(d.ex) + '”</div>';
+      });
+    });
+    if(!entry.hindi) h += '<div class="dict-note">हिंदी मतलब अभी नहीं मिल पाया।</div>';
+    if(fromCache) h += '<div class="dict-note">💾 पहले सर्च किया हुआ शब्द (इंटरनेट के बिना भी दिख रहा है)</div>';
+    h += '</div>';
+    dictBox.innerHTML = h;
+  }
+
+  function fetchJson(url, ms){
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, ms || 8000);
+    return fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function(r){
+      clearTimeout(timer);
+      return r.json().then(function(j){ return { status: r.status, data: j }; });
+    }, function(err){ clearTimeout(timer); throw err; });
+  }
+
+  function lookup(word){
+    var myId = ++reqId;
+
+    var cached = getCached(word);
+    if(cached){ render(cached, navigator.onLine === false); return; }
+
+    if(navigator.onLine === false){
+      showMsg('📡 इंटरनेट बंद है।<br><b>कृपया इंटरनेट या वाई-फ़ाई चालू करो</b>, फिर दोबारा सर्च करो।');
+      return;
+    }
+    showMsg('<span class="dict-spin"></span>खोज रहे हैं...', 'dim');
+
+    var enp = fetchJson('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word), 8000);
+    var hip = fetchJson('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(word) + '&langpair=en|hi', 8000)
+      .then(function(r){
+        var t = r.data && r.data.responseData && r.data.responseData.translatedText;
+        if(r.status !== 200 || !t || /MYMEMORY|QUERY LENGTH|INVALID/i.test(t)) return '';
+        t = String(t).trim();
+        return t.toLowerCase() === word ? '' : t;
+      }).catch(function(){ return ''; });
+
+    Promise.all([enp, hip]).then(function(res){
+      if(myId !== reqId) return;               // user typed something newer
+      var en = res[0], hindi = res[1];
+      if(en.status === 404 || !Array.isArray(en.data)){
+        showMsg('😕 <b>“' + esc(word) + '”</b> डिक्शनरी में नहीं मिला। स्पेलिंग जाँच कर दोबारा सर्च करो।', 'dim');
+        return;
+      }
+      var entry = { word: word, phonetic: '', audio: '', hindi: hindi, meanings: [] };
+      en.data.forEach(function(e){
+        if(!entry.phonetic && e.phonetic) entry.phonetic = e.phonetic;
+        (e.phonetics || []).forEach(function(p){
+          if(!entry.phonetic && p.text) entry.phonetic = p.text;
+          if(!entry.audio && p.audio && /^https:\/\//.test(p.audio)) entry.audio = p.audio;
+        });
+        (e.meanings || []).forEach(function(m){
+          if(entry.meanings.length >= 4) return;
+          var defs = (m.definitions || []).slice(0, 2).map(function(d){
+            return { def: d.definition || '', ex: d.example || '' };
+          });
+          if(defs.length) entry.meanings.push({ pos: m.partOfSpeech || '', defs: defs });
+        });
+      });
+      render(entry, false);
+      saveCache(entry);
+    }).catch(function(){
+      if(myId !== reqId) return;
+      showMsg('📡 इंटरनेट से जुड़ नहीं पाए।<br><b>कृपया इंटरनेट या वाई-फ़ाई चालू करो</b> (या नेटवर्क ठीक करो), फिर दोबारा सर्च करो।');
+    });
+  }
+
+  function runSearch(){
+    var raw = searchInput.value.trim();
+    var query = raw.toLowerCase();
+    var exact = filterCards(query);
+    clearTimeout(debounceTimer);
+
+    if(query.length < 2 || exact){ clearDict(); return; }
+    if(!/^[a-z][a-z' -]{0,38}$/.test(query)){
+      showMsg('कृपया सिर्फ़ English शब्द लिखो (अक्षर, - या \' ही चलेंगे)।', 'dim');
+      return;
+    }
+    lookup(query);
+  }
+
+  searchInput.addEventListener('input', function(){
+    var q = this.value.trim();
+    filterCards(q.toLowerCase());
+    clearTimeout(debounceTimer);
+    clearDict();                                  // never leave the previous word's result on screen
+    if(q.length < 2) return;
+    debounceTimer = setTimeout(runSearch, 600);   // wait until the user pauses typing
+  });
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); runSearch(); searchInput.blur(); }
+  });
+
+  // Pronunciation button
+  dictBox.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.dict-audio') : null;
+    if(!btn) return;
+    try { new Audio(btn.getAttribute('data-audio')).play(); } catch(err){}
   });
 </script>
 
