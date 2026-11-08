@@ -174,7 +174,13 @@
     display:inline-flex;align-items:center;gap:4px;
     color:var(--topic);font-size:12px;font-weight:700;margin-top:8px;
   }
-</style>
+
+    /* Home shortcut in header */
+    .hdr-right{display:flex;align-items:center;gap:8px;}
+    .home-btn{background:var(--surface);border:1px solid var(--border);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;line-height:1;color:var(--text);flex-shrink:0;}
+    .home-btn:active{transform:scale(0.92);}
+    .home-btn:focus-visible{outline:2px solid #0D9488;outline-offset:2px;}
+  </style>
 </head>
 <body>
 
@@ -186,7 +192,7 @@
 <div class="topbar">
   <a href="index.html" class="back-btn">←</a>
   <div class="topbar-title">Nk Study Lab</div>
-  <button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button>
+  <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button></div>
 </div>
 
 <div class="topic-banner">

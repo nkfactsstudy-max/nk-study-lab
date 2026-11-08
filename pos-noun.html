@@ -113,6 +113,12 @@
     }
     .nav-btn.next { background: var(--red-card); color: #FFFFFF; border: none; }
     .nav-btn:active { transform: scale(0.96); }
+  
+    /* Home shortcut in header */
+    .hdr-right{display:flex;align-items:center;gap:8px;}
+    .home-btn{background:var(--surface);border:1px solid var(--border);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;line-height:1;color:var(--text);flex-shrink:0;}
+    .home-btn:active{transform:scale(0.92);}
+    .home-btn:focus-visible{outline:2px solid #0D9488;outline-offset:2px;}
   </style>
 </head>
 <body>
@@ -121,7 +127,7 @@
   <header>
     <a href="p%20of%20s.html" class="back-btn">←</a>
     <div class="site-title">Nk Study Lab</div>
-    <div class="theme-toggle" id="themeBtn">🌙</div>
+    <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><div class="theme-toggle" id="themeBtn">🌙</div></div>
   </header>
 
   <!-- Hero Banner -->

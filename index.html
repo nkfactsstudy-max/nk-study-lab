@@ -95,15 +95,50 @@
   .hamburger.open span:nth-child(2){ opacity:0; }
   .hamburger.open span:nth-child(3){ transform:translateY(-7.5px) rotate(-45deg); }
 
+  /* SIDE DRAWER (slides in from the right) */
+  .nav-overlay{
+    position:fixed;inset:0;z-index:250;
+    background:rgba(0,0,0,0.45);
+    opacity:0;visibility:hidden;
+    transition:opacity .25s ease, visibility 0s linear .25s;
+  }
+  .nav-overlay.open{
+    opacity:1;visibility:visible;
+    transition:opacity .25s ease;
+  }
   .nav-menu{
-    max-height:0;overflow:hidden;
+    position:fixed;top:0;right:0;bottom:0;z-index:300;
+    width:min(300px,82vw);
+    display:flex;flex-direction:column;
+    overflow-y:auto;
     background:var(--bg);
-    border-bottom:1px solid transparent;
-    transition:max-height .25s ease, background .25s ease;
+    border-left:1px solid var(--border);
+    box-shadow:-10px 0 30px rgba(0,0,0,0.18);
+    transform:translateX(100%);
+    visibility:hidden;
+    transition:transform .28s ease, visibility 0s linear .28s;
   }
   .nav-menu.open{
-    max-height:340px;
+    transform:translateX(0);
+    visibility:visible;
+    transition:transform .28s ease;
+  }
+  .nav-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;
     border-bottom:1px solid var(--border);
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;
+  }
+  .nav-head .nk{color:#0D9488;}
+  .nav-close{
+    width:38px;height:38px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);border:1px solid var(--border);
+    color:var(--text);font-size:18px;cursor:pointer;
+  }
+  body.menu-open{ overflow:hidden; }
+  @media (prefers-reduced-motion: reduce){
+    .nav-menu, .nav-overlay{ transition:none; }
   }
   .nav-menu a{
     display:flex;align-items:center;gap:12px;
@@ -275,7 +310,12 @@
     </button>
   </div>
 </div>
-<div class="nav-menu" id="navMenu">
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-menu" id="navMenu" aria-label="मुख्य मेन्यू">
+  <div class="nav-head">
+    <span><span class="nk">Nk</span> Study Lab</span>
+    <button type="button" class="nav-close" id="navClose" aria-label="मेन्यू बंद करो">✕</button>
+  </div>
   <a href="#top"><span class="ic">🏠</span> Home</a>
   <a href="#subjects"><span class="ic">📖</span> All Subjects</a>
   <a href="about.html"><span class="ic">👤</span> About Us</a>
@@ -283,7 +323,7 @@
   <a href="https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs" target="_blank" rel="noopener" class="yt-link">
     <span class="ic">▶️</span> Join YouTube
   </a>
-</div>
+</nav>
 
 <header id="top">
   <div class="logo-mark">📚</div>
@@ -339,18 +379,34 @@
   // Hamburger menu toggle
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
+  const navOverlay = document.getElementById('navOverlay');
+  const navClose = document.getElementById('navClose');
+
+  function setMenu(open){
+    navMenu.classList.toggle('open', open);
+    navOverlay.classList.toggle('open', open);
+    hamburger.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    if(open){ navClose.focus(); } else { hamburger.focus(); }
+  }
   hamburger.setAttribute('aria-expanded', 'false');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    const isOpen = navMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(isOpen));
+  hamburger.setAttribute('aria-controls', 'navMenu');
+  hamburger.addEventListener('click', () => setMenu(!navMenu.classList.contains('open')));
+  navClose.addEventListener('click', () => setMenu(false));
+  navOverlay.addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && navMenu.classList.contains('open')) setMenu(false);
   });
 
-  // Close menu when a link is clicked
+  // Close menu when a link is clicked (without stealing focus from the page jump)
   navMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
       navMenu.classList.remove('open');
+      navOverlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      hamburger.setAttribute('aria-expanded', 'false');
     });
   });
 
