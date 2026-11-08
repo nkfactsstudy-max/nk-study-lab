@@ -101,6 +101,11 @@
     .vocab-table th { font-size: 0.85rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
     .vocab-table td.word { font-weight: 600; color: var(--text); }
     .vocab-table td.meaning { color: var(--text-dim); }
+    .vocab-table td { overflow-wrap: anywhere; }
+    @media (max-width: 480px) {
+      .vocab-table th, .vocab-table td { padding: 0.6rem 0.45rem; font-size: 0.88rem; }
+      .vocab-table th { font-size: 0.66rem; letter-spacing: -0.2px; }
+    }
   
     /* Home shortcut in header */
     .hdr-right{display:flex;align-items:center;gap:8px;}
@@ -115,7 +120,7 @@
   <header>
     <a href="english.html" class="back-btn">←</a>
     <div class="site-title">Nk Study Lab</div>
-    <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><div class="theme-toggle" id="themeBtn">🌙</div></div>
+    <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><div class="theme-toggle" id="themeBtn">🌙</div><button type="button" class="nk-menu-btn" data-nk-menu aria-label="मेन्यू खोलो" title="मेन्यू">☰</button></div>
   </header>
 
   <!-- Hero Section -->
@@ -253,5 +258,6 @@
     });
   </script>
 
+<script src="nav.js"></script>
 </body>
 </html>

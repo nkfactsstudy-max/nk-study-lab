@@ -104,6 +104,7 @@
       padding: 3px 10px; border-radius: 20px; font-weight: 700; backdrop-filter: blur(4px);
     }
     .card-title { font-size: 1.4rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+    .card-desc { font-size: 0.9rem; opacity: 0.92; line-height: 1.5; margin-top: 0.3rem; }
     .card-arrow { font-weight: 700; font-size: 0.9rem; margin-top: 0.8rem; display: inline-block; opacity: 0.9; }
 
   
@@ -120,7 +121,7 @@
   <header>
     <a href="Grammar.html" class="back-btn">←</a>
     <div class="site-title">Nk Study Lab</div>
-    <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><div class="theme-toggle" id="themeBtn">🌙</div></div>
+    <div class="hdr-right"><a href="index.html" class="home-btn" aria-label="होम पेज पर जाओ" title="होम">🏠</a><div class="theme-toggle" id="themeBtn">🌙</div><button type="button" class="nk-menu-btn" data-nk-menu aria-label="मेन्यू खोलो" title="मेन्यू">☰</button></div>
   </header>
 
   <!-- Hero Banner -->
@@ -150,7 +151,8 @@
           <span class="card-badge">PART 1</span>
         </div>
         <div class="card-title">1. Indefinite Article (A / An)</div>
-        </span>
+        <div class="card-desc">किसी भी एक चीज़ के लिए। बोलने की आवाज़ व्यंजन (consonant) जैसी हो तो A, स्वर (vowel) जैसी हो तो An।</div>
+        <div class="card-arrow">शुरू करो →</div>
       </a>
 
       <!-- Card 2: The -->
@@ -160,7 +162,8 @@
           <span class="card-badge">PART 2</span>
         </div>
         <div class="card-title">2. Definite Article (The)</div>
-        </span>
+        <div class="card-desc">किसी खास या पहले से पता चीज़ के लिए The का प्रयोग।</div>
+        <div class="card-arrow">शुरू करो →</div>
       </a>
 
       <!-- Card 3: Zero Article -->
@@ -170,7 +173,8 @@
           <span class="card-badge">PART 3</span>
         </div>
         <div class="card-title">3. Omission of Articles (Zero Article)</div>
-        </span>
+        <div class="card-desc">जहाँ कोई Article नहीं लगता, उन जगहों के नियम।</div>
+        <div class="card-arrow">शुरू करो →</div>
       </a>
 
     </div>
@@ -199,5 +203,6 @@
     });
   </script>
 
+<script src="nav.js"></script>
 </body>
 </html>

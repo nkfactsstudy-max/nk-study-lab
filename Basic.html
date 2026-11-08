@@ -244,7 +244,7 @@
     <header class="navbar">
         <button class="nav-btn" onclick="handleBack()" title="Peeche jayein">←</button>
         <div class="logo-title">Nk Study Lab</div>
-        <div style="display:flex;align-items:center;gap:8px"><button class="nav-btn" onclick="location.href='index.html'" aria-label="होम पेज पर जाओ" title="Home">🏠</button><button class="nav-btn" id="themeToggle" onclick="toggleTheme()" title="Dark/Light Mode">🌙</button></div>
+        <div style="display:flex;align-items:center;gap:8px"><button class="nav-btn" onclick="location.href='index.html'" aria-label="होम पेज पर जाओ" title="Home">🏠</button><button class="nav-btn" id="themeToggle" onclick="toggleTheme()" title="Dark/Light Mode">🌙</button><button class="nav-btn" data-nk-menu aria-label="मेन्यू खोलो" title="मेन्यू">☰</button></div>
     </header>
 
     <!-- Hero Banner (Matching Screenshot Header) -->
@@ -434,6 +434,7 @@
             renderSentences(sentences100);
         };
     </script>
+<script src="nav.js"></script>
 </body>
 </html>
 ```
