@@ -228,22 +228,39 @@
   }
   .subj-card{
     display:block;
-    border-radius:16px;
+    border-radius:18px;
     padding:22px 16px;
     position:relative;
     overflow:hidden;
-    border:1px solid rgba(255,255,255,0.15);
-    transition:transform .18s ease, box-shadow .18s ease, opacity .15s ease;
+    border:1px solid rgba(255,255,255,0.18);
+    transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease;
     min-height:118px;
-    box-shadow:0 8px 20px -10px rgba(0,0,0,0.15);
+    /* 3D: glossy top edge + solid darker bottom "thickness" + soft shadow */
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.28),
+      inset 0 -3px 6px rgba(0,0,0,0.18),
+      0 6px 0 var(--edge),
+      0 14px 18px -6px rgba(0,0,0,0.35);
+    margin-bottom:6px;
   }
-  .subj-card:active{ transform:scale(0.97); }
+  .subj-card::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:48%;
+    background:linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0));
+    pointer-events:none;
+  }
+  .subj-card:active{
+    transform:translateY(5px);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.2),
+      inset 0 -2px 4px rgba(0,0,0,0.18),
+      0 1px 0 var(--edge),
+      0 4px 8px -4px rgba(0,0,0,0.35);
+  }
   @media (hover:hover){
-    .subj-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 16px 32px -14px var(--glow);
-    }
+    .subj-card:hover{ transform:translateY(-3px); }
+    .subj-card:active{ transform:translateY(5px); }
   }
+  @media (prefers-reduced-motion:reduce){ .subj-card{ transition:none; } }
   .subj-card.hidden{ display:none; }
   .subj-emoji{
     font-size:30px;
@@ -265,14 +282,15 @@
   }
 
   /* individual colors */
-  .c-english{ background:linear-gradient(135deg,#2563EB,#1D4ED8); --glow:rgba(37,99,235,0.3); }
-  .c-cyber{ background:linear-gradient(135deg,#F5A623,#D9840F); --glow:rgba(245,166,35,0.3); }
-  .c-coding{ background:linear-gradient(135deg,#0D9488,#0F766E); --glow:rgba(13,148,136,0.3); }
-  .c-math{ background:linear-gradient(135deg,#9333EA,#7E22CE); --glow:rgba(147,51,234,0.3); }
-  .c-science{ background:linear-gradient(135deg,#16A34A,#15803D); --glow:rgba(22,163,74,0.3); }
-  .c-cs{ background:linear-gradient(135deg,#DC2626,#B91C1C); --glow:rgba(220,38,38,0.3); }
-  .c-gyan{ background:linear-gradient(135deg,#CA8A04,#A16207); --glow:rgba(202,138,4,0.3); }
-  .c-more{ background:linear-gradient(135deg,#208a02,#389802); --glow:rgba(100,116,139,0.3); }
+  .c-english{ background:linear-gradient(145deg,#1E40AF,#172554); --edge:#0F1B45; }
+  .c-cyber{ background:linear-gradient(145deg,#B45309,#78350F); --edge:#4A2108; }
+  .c-coding{ background:linear-gradient(145deg,#15803D,#14532D); --edge:#0B3A1F; }
+  .c-python{ background:linear-gradient(145deg,#0F766E,#134E4A); --edge:#0A3532; }
+  .c-math{ background:linear-gradient(145deg,#7E22CE,#581C87); --edge:#3B0F5E; }
+  .c-science{ background:linear-gradient(145deg,#15803D,#14532D); --edge:#0B3A1F; }
+  .c-cs{ background:linear-gradient(145deg,#B91C1C,#7F1D1D); --edge:#521212; }
+  .c-gyan{ background:linear-gradient(145deg,#A16207,#713F12); --edge:#472808; }
+  .c-more{ background:linear-gradient(145deg,#15803D,#14532D); --edge:#0B3A1F; }
 
   /* FOOTER */
   footer{
@@ -357,7 +375,7 @@
     <span class="subj-name">Computer Science</span>
     <span class="subj-sub">DSA, Networks, Systems</span>
   </a>
-  <a href="python.html" class="subj-card c-coding" data-name="python programming coding code प्रोग्रामिंग">
+  <a href="python.html" class="subj-card c-python" data-name="python programming coding code प्रोग्रामिंग">
     <span class="subj-emoji">🐍</span>
     <span class="subj-name">Python</span>
     <span class="subj-sub">प्रोग्रामिंग लैंग्वेज</span>
