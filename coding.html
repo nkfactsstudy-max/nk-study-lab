@@ -178,41 +178,67 @@
 <script>
 (function(){
   var BLOG_URL = "https://codeshieldnk.blogspot.com";
-  // Blogger mein is post par "Coding-Post" label lagana zaroori hai
-  var FILTER_LABEL = "Coding-Post";
-  var FALLBACK_URL = "https://codeshieldnk.blogspot.com";
+  // Blogger post shown on this page: it must carry the "Coding" label
+  var FILTER_LABEL = "Coding";
+  var POST_SLUG = "coding-complete-beginner-guide";
+  var FALLBACK_URL = BLOG_URL + "/2026/07/" + POST_SLUG + ".html";
+  // Links inside the post that should open our own pages instead of Blogger
+  var PAGE_LINKS = { "coding-complete-beginner-guide": "coding.html", "python-kya-hai": "python.html" };
+
+  var fallbackLink = '<a href="'+FALLBACK_URL+'" target="_blank" rel="noopener" style="color:var(--topic);font-weight:700">Blogger पर पढ़ो</a>';
 
   function loadPost(){
-    var url = BLOG_URL + "/feeds/posts/default/-/" + encodeURIComponent(FILTER_LABEL) + "?redirect=false&alt=json-in-script&max-results=1&callback=csRenderCodingPost";
+    var url = BLOG_URL + "/feeds/posts/default/-/" + encodeURIComponent(FILTER_LABEL) + "?redirect=false&alt=json-in-script&max-results=50&callback=csRenderCodingPost";
     var script = document.createElement('script');
     script.src = url;
     script.onerror = function(){
-      document.getElementById('postWrap').innerHTML = '<div class="loading-text">पोस्ट लोड नहीं हो पाई। इंटरनेट जाँचकर दोबारा खोलो, या <a href="'+FALLBACK_URL+'" target="_blank" rel="noopener" style="color:var(--topic);font-weight:700">Blogger पर पढ़ो</a>।</div>';
+      document.getElementById('postWrap').innerHTML = '<div class="loading-text">पोस्ट लोड नहीं हो पाई। इंटरनेट जाँचकर दोबारा खोलो, या '+fallbackLink+'।</div>';
     };
     document.body.appendChild(script);
   }
 
+  function altLink(entry){
+    for(var i=0;i<entry.link.length;i++){
+      if(entry.link[i].rel === 'alternate') return entry.link[i].href;
+    }
+    return '';
+  }
+
   window.csRenderCodingPost = function(json){
     var container = document.getElementById('postWrap');
-    if(!json || !json.feed || !json.feed.entry || json.feed.entry.length === 0){
-      container.innerHTML = '<div class="loading-text">यह पोस्ट अभी उपलब्ध नहीं है। थोड़ी देर बाद देखो, या <a href="'+FALLBACK_URL+'" target="_blank" rel="noopener" style="color:var(--topic);font-weight:700">Blogger पर पढ़ो</a>।</div>';
+    var entries = (json && json.feed && json.feed.entry) ? json.feed.entry : [];
+    var entry = null;
+    for(var i=0;i<entries.length;i++){
+      if(altLink(entries[i]).indexOf(POST_SLUG) !== -1){ entry = entries[i]; break; }
+    }
+    if(!entry){
+      container.innerHTML = '<div class="loading-text">यह पोस्ट अभी उपलब्ध नहीं है। थोड़ी देर बाद देखो, या '+fallbackLink+'।</div>';
       return;
     }
 
-    var entry = json.feed.entry[0];
     var title = entry.title.$t;
-    var link = FALLBACK_URL;
-    for(var i=0;i<entry.link.length;i++){
-      if(entry.link[i].rel === 'alternate'){ link = entry.link[i].href; break; }
-    }
+    var link = altLink(entry) || FALLBACK_URL;
     var date = new Date(entry.published.$t).toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
     var content = entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : '');
 
     container.innerHTML =
-      '<div class="post-article-title">'+title+'</div>'
+      '<h2 class="post-article-title">'+title+'</h2>'
       + '<div class="post-article-date">📅 '+date+'</div>'
       + '<div class="post-article-body">'+content+'</div>'
       + '<div class="source-note">यह पोस्ट हमारी <a href="'+link+'" target="_blank" rel="noopener">Blogger वेबसाइट</a> से ली गई है।</div>';
+
+    // Point links to our own posts at our own pages
+    var anchors = container.querySelectorAll('.post-article-body a[href]');
+    for(var j=0;j<anchors.length;j++){
+      var href = anchors[j].getAttribute('href');
+      for(var key in PAGE_LINKS){
+        if(href.indexOf(key) !== -1){
+          anchors[j].setAttribute('href', PAGE_LINKS[key]);
+          anchors[j].removeAttribute('target');
+          break;
+        }
+      }
+    }
   };
 
   loadPost();

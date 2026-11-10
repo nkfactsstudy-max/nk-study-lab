@@ -242,6 +242,15 @@
       + '<div class="post-article-date">📅 '+date+'</div>'
       + '<div class="post-article-body">'+content+'</div>'
       + '<div class="source-note">Ye post humari <a href="'+link+'" target="_blank" rel="noopener">Blogger website</a> se li gayi hai.</div>';
+
+    // Links to our Coding post open our own Coding page
+    var anchors = container.querySelectorAll('.post-article-body a[href]');
+    for(var j=0;j<anchors.length;j++){
+      if(anchors[j].getAttribute('href').indexOf('coding-complete-beginner-guide') !== -1){
+        anchors[j].setAttribute('href', 'coding.html');
+        anchors[j].removeAttribute('target');
+      }
+    }
   };
 
   loadPost();
