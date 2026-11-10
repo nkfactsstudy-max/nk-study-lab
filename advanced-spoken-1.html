@@ -23,4 +23,5 @@ $('pageInfo').textContent=`Page ${pageNo} of ${pages}`;$('prev').disabled=pageNo
 $('search').addEventListener('input',e=>{query=e.target.value;pageNo=1;render()});$('category').addEventListener('change',e=>{selectedCategory=e.target.value;pageNo=1;renderPills();render()});$('prev').onclick=()=>{pageNo--;render();window.scrollTo({top:0,behavior:'smooth'})};$('next').onclick=()=>{pageNo++;render();window.scrollTo({top:0,behavior:'smooth'})};
 $('themeBtn').onclick=()=>{document.body.classList.toggle('dark');$('themeBtn').textContent=document.body.classList.contains('dark')?'☀️':'🌙';localStorage.setItem('nk-theme',document.body.classList.contains('dark')?'dark':'light')};if(localStorage.getItem('nk-theme')==='dark'){document.body.classList.add('dark');$('themeBtn').textContent='☀️'}renderPills();render();
 </script><script src="nav.js"></script>
+<script src="chat.js" defer></script>
 </body></html>
