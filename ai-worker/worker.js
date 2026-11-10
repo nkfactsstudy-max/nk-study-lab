@@ -1,7 +1,7 @@
 // NK Study Lab AI — Cloudflare Worker (proxy to Gemini).
 // The API key is stored as a Worker secret named GEMINI_API_KEY (never in this file).
 
-const MODEL = "gemini-2.5-flash";   // change here if Google renames/retires the model
+const MODEL = "gemini-3.5-flash-lite";   // change here if Google renames/retires the model
 const ALLOWED_ORIGINS = [
   "https://nkfactsstudy-max.github.io"
   // add your own domain here later, e.g. "https://nkstudylab.in"
