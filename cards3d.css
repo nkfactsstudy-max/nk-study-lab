@@ -1,0 +1,42 @@
+/* Shared 3D card style (dark shades) for NK Study Lab inner pages */
+.rect-card,.cat-card,.article-card,.narration-card,.voice-card{
+  --edge:#0F1B45;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.18) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.28),
+    inset 0 -3px 6px rgba(0,0,0,0.18),
+    0 6px 0 var(--edge),
+    0 14px 18px -6px rgba(0,0,0,0.35) !important;
+  margin-bottom:6px;
+  transition:transform .15s ease, box-shadow .15s ease !important;
+}
+.rect-card::before,.cat-card::before,.article-card::before,.narration-card::before,.voice-card::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:48%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0));
+  pointer-events:none;border-radius:inherit;
+}
+.rect-card:active,.cat-card:active,.article-card:active,.narration-card:active,.voice-card:active{
+  transform:translateY(5px) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.2),
+    inset 0 -2px 4px rgba(0,0,0,0.18),
+    0 1px 0 var(--edge),
+    0 4px 8px -4px rgba(0,0,0,0.35) !important;
+}
+/* selected category tab keeps a clear highlight */
+.cat-card.active{ outline:3px solid #fff; outline-offset:-3px; }
+@media (prefers-reduced-motion:reduce){
+  .rect-card,.cat-card,.article-card,.narration-card,.voice-card{ transition:none !important; }
+}
+
+/* colors: slightly dark shades */
+.rect-card,.rect-card.purple,.c-vocab,.c-chemistry,.card-indirect-speech{background:linear-gradient(145deg,#7E22CE,#581C87) !important;--edge:#3B0F5E;}
+.rect-card.blue,.c-grammar,.c-python,.c-physics,.c-jeevan,.card-the,.card-active-voice{background:linear-gradient(145deg,#1E40AF,#172554) !important;--edge:#0F1B45;}
+.rect-card.red,.c-speaking,.c-java,.c-motivation,.card-zero,.card-direct-speech{background:linear-gradient(145deg,#B91C1C,#7F1D1D) !important;--edge:#521212;}
+.rect-card.green,.c-listening,.c-biology,.c-kahani{background:linear-gradient(145deg,#15803D,#14532D) !important;--edge:#0B3A1F;}
+.rect-card.yellow,.rect-card.orange,.c-webdev,.c-general,.c-adhyatmik,.c-js,.card-a-an{background:linear-gradient(145deg,#B45309,#78350F) !important;--edge:#4A2108;}
+.rect-card.teal,.card-passive-voice,.c-cpp{background:linear-gradient(145deg,#0F766E,#134E4A) !important;--edge:#0A3532;}
+.rect-card.pink{background:linear-gradient(145deg,#BE185D,#831843) !important;--edge:#500D28;}
+.rect-card.indigo{background:linear-gradient(145deg,#4338CA,#312E81) !important;--edge:#1E1B4B;}
+.c-more{background:linear-gradient(145deg,#475569,#1E293B) !important;--edge:#0F172A;}
