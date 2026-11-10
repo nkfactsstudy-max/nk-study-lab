@@ -42,6 +42,21 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+    // TEMPORARY diagnostic: open  <worker-url>/?diag=1  in a browser (remove after setup works)
+    if (request.method === "GET" && new URL(request.url).searchParams.get("diag") === "1") {
+      const out = { model: MODEL, hasKey: !!env.GEMINI_API_KEY };
+      try {
+        const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY || "" },
+          body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Say hi in one word" }] }] })
+        });
+        out.status = r.status;
+        const t = await r.text();
+        out.body = t.slice(0, 400).replace(/AIza[0-9A-Za-z_\-]+/g, "[key]");
+      } catch (e) { out.fetchError = String(e).slice(0, 200); }
+      return new Response(JSON.stringify(out, null, 1), { headers: { "Content-Type": "application/json" } });
+    }
     if (request.method !== "POST") return json({ error: "POST only" }, 405, origin);
     if (!ALLOWED_ORIGINS.includes(origin)) return json({ error: "not allowed" }, 403, origin);
 
