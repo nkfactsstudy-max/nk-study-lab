@@ -205,16 +205,8 @@
 <div class="cat-wrap">
   <div class="cat-heading">📂 Category Chuno</div>
 
-  <a href="Grammar.html" style="text-decoration:none; display:block;">
-    <div class="cat-card c-grammar active" data-cat="English-Grammar">
-      <span class="cat-emoji">📖</span>
-      <span class="cat-name">Grammar</span>
-      <span class="cat-sub">Sahi tarike se likho</span>
-    </div>
-  </a>
-
   <a href="Spoken english.html" style="text-decoration:none; display:block;">
-    <div class="cat-card c-speaking" data-cat="English-Speaking">
+    <div class="cat-card c-speaking active" data-cat="English-Speaking">
       <span class="cat-emoji">🗣️</span>
       <span class="cat-name">Speaking</span>
       <span class="cat-sub">Fluently bolna seekho</span>
@@ -237,7 +229,7 @@
 </div>
 
 <div class="posts-wrap">
-  <div class="posts-heading" id="postsHeading">📖 Grammar Posts</div>
+  <div class="posts-heading" id="postsHeading">🗣️ Speaking Posts</div>
   <div class="post-cards" id="postCards">
     <div class="loading-text">Loading posts...</div>
   </div>
@@ -309,7 +301,7 @@
     container.innerHTML = html;
   };
 
-  loadPosts('English-Grammar');
+  loadPosts('English-Speaking');
 
   var catCards = document.querySelectorAll('.cat-card');
   catCards.forEach(function(card){
