@@ -56,6 +56,18 @@
   .nav-links{display:none;align-items:center;gap:4px;}
   .nav-links a{padding:8px 14px;border-radius:10px;font-size:14px;font-weight:600;color:#DCE6FF;}
   .nav-links a:hover{background:rgba(255,255,255,.08);}
+  .dd{position:relative;}
+  .dd-btn{padding:8px 14px;border-radius:10px;font-size:14px;font-weight:600;color:#DCE6FF;background:none;border:0;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;}
+  .dd-btn i{font-style:normal;font-size:11px;opacity:.8;}
+  .dd-btn:hover,.dd.open .dd-btn{background:rgba(255,255,255,.08);}
+  .dd-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;display:none;flex-direction:column;padding:8px;border-radius:14px;
+    background:linear-gradient(180deg,#0B1F57,#081638);border:1px solid rgba(96,165,250,.45);box-shadow:0 18px 40px rgba(0,0,0,.55);}
+  .dd-menu.right{left:auto;right:0;}
+  .dd.open .dd-menu{display:flex;}
+  @media(hover:hover){ .dd:hover .dd-menu{display:flex;} }
+  .dd-menu a{padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#DCE6FF;}
+  .dd-menu a:hover{background:rgba(255,255,255,.09);}
+  .nav-links{gap:2px;}
   .nav-links a.cur{background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;}
   .nav-right{display:flex;align-items:center;gap:10px;}
   .theme-toggle{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
@@ -171,6 +183,12 @@
   .codewin .bar i:nth-child(1){background:#F87171;} .codewin .bar i:nth-child(2){background:#FACC15;} .codewin .bar i:nth-child(3){background:#4ADE80;}
   .codewin pre{font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.8;padding:18px 20px 22px;color:#C7D6FF;white-space:pre-wrap;}
   .codewin .k{color:#F472B6;} .codewin .s{color:#4ADE80;} .codewin .f{color:#38BDF8;} .codewin .c{color:#7F90BA;}
+  .laptop{max-width:420px;margin-left:auto;transform:perspective(1100px) rotateY(-12deg) rotateX(3deg);filter:drop-shadow(0 22px 40px rgba(0,0,0,.55));}
+  .lscreen{aspect-ratio:16/10;border-radius:14px 14px 4px 4px;border:7px solid #16224B;border-bottom-width:9px;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 50% 45%,rgba(56,189,248,.45),transparent 60%),linear-gradient(160deg,#0B1F57,#07102E);
+    box-shadow:0 0 0 1px rgba(96,165,250,.5),0 0 60px rgba(37,99,235,.55);}
+  .lscreen img{width:46%;height:auto;border-radius:50%;box-shadow:0 0 30px rgba(56,189,248,.7);}
+  .lbase{height:14px;width:112%;margin-left:-6%;border-radius:0 0 18px 18px;background:linear-gradient(180deg,#CBD5E1,#64748B);box-shadow:0 8px 0 -2px rgba(0,0,0,.25);}
   .hero-slogan{margin-top:18px;text-align:right;font-style:italic;font-weight:700;font-size:20px;color:#fff;}
   .hero-slogan span{color:#FACC15;}
 
@@ -247,9 +265,32 @@
     </a>
     <nav class="nav-links" aria-label="टॉप लिंक">
       <a href="#top" class="cur">🏠 Home</a>
-      <a href="#subjects">📖 Subjects</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="computer-science.html">🖥️ Computer Science</a>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false">💻 Coding <i>▾</i></button>
+        <div class="dd-menu">
+          <a href="coding.html">💻 Coding क्या है?</a>
+          <a href="python.html">🐍 Python</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false">🗣️ Spoken English <i>▾</i></button>
+        <div class="dd-menu">
+          <a href="english.html">🗣️ Spoken English</a>
+          <a href="Grammar.html">📖 Grammar</a>
+          <a href="voc1.html">📚 Vocabulary</a>
+          <a href="tense.html">🕐 Tense</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false">⋮⋮ More <i>▾</i></button>
+        <div class="dd-menu right">
+          <a href="math.html">➗ Mathematics</a>
+          <a href="about.html">ℹ️ About Us</a>
+          <a href="contact.html">✉️ Contact</a>
+          <a href="https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs" target="_blank" rel="noopener">▶️ YouTube</a>
+        </div>
+      </div>
     </nav>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button>
@@ -273,13 +314,9 @@
       </form>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <div class="codewin">
-        <div class="bar"><i></i><i></i><i></i></div>
-<pre><span class="c"># NK Study Lab</span>
-<span class="k">def</span> <span class="f">your_future</span>():
-    <span class="k">learn</span>()
-    <span class="k">practice</span>()
-    <span class="k">return</span> <span class="s">"Grow"</span></pre>
+      <div class="laptop">
+        <div class="lscreen"><img src="logo.png" alt="" width="150" height="150"></div>
+        <div class="lbase"></div>
       </div>
       <div class="hero-slogan">Build Your Future<br>with <span>NK Study Lab</span></div>
     </div>
@@ -358,6 +395,19 @@
 </footer>
 
 <script>
+  // Top-bar dropdowns (click for touch screens, hover on desktop)
+  document.querySelectorAll('.dd').forEach(dd => {
+    const btn = dd.querySelector('.dd-btn');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !dd.classList.contains('open');
+      document.querySelectorAll('.dd').forEach(x => { x.classList.remove('open'); x.querySelector('.dd-btn').setAttribute('aria-expanded','false'); });
+      dd.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', () => document.querySelectorAll('.dd').forEach(x => x.classList.remove('open')));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') document.querySelectorAll('.dd').forEach(x => x.classList.remove('open')); });
+
   document.getElementById('searchForm').addEventListener('submit', e => { e.preventDefault(); document.getElementById('subjects').scrollIntoView({behavior:'smooth'}); });
 
   // Live search filter
