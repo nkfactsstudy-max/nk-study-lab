@@ -44,19 +44,19 @@
 (function () {
   'use strict';
   var MAIN = [
-    { icon: '🏠', label: 'Home',             href: 'index.html' },
-    { icon: '🖥️', label: 'Computer Science', href: 'computer-science.html' },
-    { icon: '💻', label: 'Coding',           href: 'coding.html' },
-    { icon: '🐍', label: 'Python',           href: 'python.html' },
-    { icon: '🗣️', label: 'Spoken English',   href: 'english.html' },
-    { icon: '📖', label: 'Grammar',          href: 'Grammar.html' },
-    { icon: '➗', label: 'Mathematics',      href: 'math.html' }
+    { icon: '🏠', label: 'Home',             href: 'index.html', c: 'blue' },
+    { icon: '🖥️', label: 'Computer Science', href: 'computer-science.html', c: 'green' },
+    { icon: '💻', label: 'Coding',           href: 'coding.html', c: 'cyan' },
+    { icon: '🐍', label: 'Python',           href: 'python.html', c: 'navy' },
+    { icon: '🗣️', label: 'Spoken English',   href: 'english.html', c: 'purple' },
+    { icon: '📖', label: 'Grammar',          href: 'Grammar.html', c: 'pink' },
+    { icon: '➗', label: 'Mathematics',      href: 'math.html', c: 'orange' }
   ];
   var MORE = [
-    { icon: '📚', label: 'Vocabulary', href: 'voc1.html' },
-    { icon: '🕐', label: 'Tense',      href: 'tense.html' },
-    { icon: 'ℹ️', label: 'About Us',   href: 'about.html' },
-    { icon: '✉️', label: 'Contact',    href: 'contact.html' },
+    { icon: '📚', label: 'Vocabulary', href: 'voc1.html', c: 'indigo' },
+    { icon: '🕐', label: 'Tense',      href: 'tense.html', c: 'amber' },
+    { icon: 'ℹ️', label: 'About Us',   href: 'about.html', c: 'slate' },
+    { icon: '✉️', label: 'Contact',    href: 'contact.html', c: 'teal' },
     { icon: '▶️', label: 'Join YouTube', href: 'https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs', external: true, yt: true }
   ];
 
@@ -83,13 +83,30 @@
     ".nk-dname{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;color:#fff;}",
     '.nk-dname b{color:#38BDF8;}',
     '.nk-dtag{font-size:12.5px;font-style:italic;font-weight:600;color:#FACC15;margin-top:2px;}',
-    '.nk-list{display:flex;flex-direction:column;gap:3px;padding:6px 12px;}',
-    '.nk-drawer a.nk-item{display:flex;align-items:center;gap:13px;padding:11px 14px;border-radius:12px;font-size:14.5px;font-weight:600;',
-    'color:#DCE6FF;text-decoration:none;border:1px solid transparent;}',
-    '.nk-drawer a.nk-item:hover{background:rgba(255,255,255,.07);}',
-    '.nk-drawer a.nk-item .ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}',
-    '.nk-drawer a.nk-item.cur{background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.55);border-color:rgba(255,255,255,.25);}',
-    '.nk-drawer a.nk-item.yt{background:linear-gradient(135deg,#7b2af7,#7010fc);color:#fff;margin-top:4px;}',
+    '.nk-list{display:flex;flex-direction:column;gap:9px;padding:8px 14px;}',
+    '.nk-drawer a.nk-item{position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;padding:11px 14px;border-radius:14px;font-size:14.5px;font-weight:700;',
+    'color:#fff;text-decoration:none;background:var(--g,linear-gradient(135deg,#334155,#1E293B));border:1px solid rgba(255,255,255,.25);',
+    'box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -6px 12px rgba(0,0,0,.15),0 4px 0 var(--edge,#0F172A);text-shadow:0 1px 3px rgba(0,0,0,.3);',
+    'transition:transform .12s ease,box-shadow .12s ease;}',
+    '.nk-drawer a.nk-item::before{content:"";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0));pointer-events:none;}',
+    '.nk-drawer a.nk-item:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 1px 0 var(--edge,#0F172A);}',
+    '.nk-drawer a.nk-item .ic{position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;',
+    'background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:10px;}',
+    '.nk-drawer a.nk-item .tx{position:relative;}',
+    '.nk-drawer a.nk-item.cur{outline:2px solid #fff;outline-offset:1px;}',
+    '.nk-drawer a.nk-item.yt{margin-top:0;}',
+    '.nk-i-blue{--g:linear-gradient(135deg,#3B82F6,#1D4ED8);--edge:#14349A;}',
+    '.nk-i-green{--g:linear-gradient(135deg,#22C55E,#15803D);--edge:#0E4D26;}',
+    '.nk-i-cyan{--g:linear-gradient(135deg,#06B6D4,#0E7490);--edge:#0B4B5E;}',
+    '.nk-i-navy{--g:linear-gradient(135deg,#2563EB,#1E3A8A);--edge:#14275F;}',
+    '.nk-i-purple{--g:linear-gradient(135deg,#A855F7,#7E22CE);--edge:#4C1782;}',
+    '.nk-i-pink{--g:linear-gradient(135deg,#EC4899,#BE185D);--edge:#7A0F3C;}',
+    '.nk-i-orange{--g:linear-gradient(135deg,#FB923C,#EA580C);--edge:#8F3507;}',
+    '.nk-i-indigo{--g:linear-gradient(135deg,#6366F1,#4338CA);--edge:#2A2487;}',
+    '.nk-i-amber{--g:linear-gradient(135deg,#F59E0B,#B45309);--edge:#6B3205;}',
+    '.nk-i-slate{--g:linear-gradient(135deg,#64748B,#334155);--edge:#1B2433;}',
+    '.nk-i-teal{--g:linear-gradient(135deg,#14B8A6,#0F766E);--edge:#094740;}',
+    '.nk-i-yt{--g:linear-gradient(135deg,#8B3DFF,#6D12E8);--edge:#43098F;}',
     '.nk-sep{height:1px;background:rgba(120,160,255,.25);margin:8px 18px;}',
     '.nk-dark{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 26px;font-size:14.5px;font-weight:600;color:#DCE6FF;cursor:pointer;}',
     '.nk-dark span.l{display:flex;align-items:center;gap:13px;}',
@@ -135,13 +152,16 @@
     items.forEach(function (it) {
       var a = document.createElement('a');
       a.href = it.href;
-      a.className = 'nk-item' + (it.yt ? ' yt' : '') + (it.href === here ? ' cur' : '');
+      a.className = 'nk-item nk-i-' + (it.yt ? 'yt' : it.c) + (it.yt ? ' yt' : '') + (it.href === here ? ' cur' : '');
       if (it.external) { a.target = '_blank'; a.rel = 'noopener'; }
       var ic = document.createElement('span');
       ic.className = 'ic';
       ic.textContent = it.icon;
       a.appendChild(ic);
-      a.appendChild(document.createTextNode(it.label));
+      var tx = document.createElement('span');
+      tx.className = 'tx';
+      tx.textContent = it.label;
+      a.appendChild(tx);
       box.appendChild(a);
     });
     return box;
