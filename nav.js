@@ -1,3 +1,43 @@
+/* NK Study Lab - shared top bar look (logo + name + tagline on dark navy) for every inner page. */
+(function () {
+  'use strict';
+  if (document.getElementById('navMenu')) return;           // homepage has its own bar
+  var bar = null, kids = document.body.children;
+  for (var i = 0; i < kids.length; i++) {
+    var el = kids[i];
+    if (el.tagName === 'HEADER' || el.classList.contains('topbar') || el.classList.contains('navbar')) { bar = el; break; }
+  }
+  if (!bar) return;
+  var title = bar.querySelector('.site-title, .topbar-title, .logo-title, .brand');
+  if (!title) return;
+  bar.classList.add('nk-bar');
+  title.classList.add('nk-title');
+  var linkHome = title.tagName === 'A' ? '' : '';
+  title.innerHTML = '<img class="nk-logo" src="logo.png" alt="" width="36" height="36">' +
+    '<span class="nk-ttext"><span class="nk-tname"><b>NK</b> Study Lab</span><span class="nk-ttag">Har Vishay Ek Jagah</span></span>';
+  if (title.tagName !== 'A') {
+    title.style.cursor = 'pointer';
+    title.setAttribute('role', 'link');
+    title.addEventListener('click', function () { location.href = 'index.html'; });
+  }
+  var st = document.createElement('style');
+  st.textContent = [
+    '.nk-bar{background:rgba(7,16,42,.96)!important;border-bottom:1px solid rgba(80,130,255,.28)!important;color:#fff!important;backdrop-filter:blur(12px);}',
+    '.nk-bar .back-btn,.nk-bar .home-btn,.nk-bar .theme-toggle,.nk-bar .nk-menu-btn,.nk-bar .nav-btn,.nk-bar .iconbtn,.nk-bar .back{',
+    'background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.2)!important;color:#fff!important;}',
+    '.nk-bar .back{background:none!important;border:0!important;}',
+    '.nk-title{display:flex!important;align-items:center;gap:8px;min-width:0;overflow:hidden;padding:4px 2px;margin:0 4px!important;text-decoration:none;color:#fff!important;flex:1 1 auto;}',
+    '.nk-logo{width:36px;height:36px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(34,211,238,.35),0 0 14px rgba(37,99,235,.55);}',
+    '.nk-ttext{display:flex;flex-direction:column;line-height:1.15;min-width:0;}',
+    ".nk-tname{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;letter-spacing:-.3px;}",
+    '.nk-tname b{color:#38BDF8;}',
+    '.nk-ttag{font-size:10px;color:#9FB4E8;letter-spacing:.3px;white-space:nowrap;}',
+    '@media (max-width:400px){.nk-ttag{display:none;}.nk-logo{width:32px;height:32px;}.nk-tname{font-size:13px;}}',
+    '@media (max-width:340px){.nk-tname{font-size:13px;}.nk-logo{display:none;}}'
+  ].join('');
+  document.head.appendChild(st);
+})();
+
 /* Nk Study Lab - shared side menu (right-side drawer) for every inner page.
    Each page has a header button with the attribute  data-nk-menu  and loads this file.
    To change the menu items, edit ITEMS below: every page updates at once. */
