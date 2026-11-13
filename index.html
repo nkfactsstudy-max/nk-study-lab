@@ -225,6 +225,38 @@
   .c-coding{--g:linear-gradient(150deg,#06B6D4,#0E7490 60%,#164E63);--edge:#0F3A4A;--glow:rgba(6,182,212,.55);}
   @media(prefers-reduced-motion:reduce){ .subj-card{transition:none;} }
 
+  /* FEATURED VIDEO */
+  .vid{margin:26px auto 6px;max-width:860px;}
+  .vid-label{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .vid-label::before{content:"";width:5px;height:24px;border-radius:3px;background:linear-gradient(180deg,#F87171,#DC2626);}
+  .vid-label h2{font-size:20px;font-weight:800;letter-spacing:-.2px;}
+  .vframe{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 6px 0 #4A0D0D,0 22px 40px -12px rgba(220,38,38,.55);}
+  .vthumb{all:unset;box-sizing:border-box;cursor:pointer;position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5% 5%;color:#fff;
+    background:radial-gradient(70% 90% at 85% 40%,rgba(248,113,113,.55),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(56,189,248,.35),transparent 60%),linear-gradient(135deg,#1B0B3F 0%,#2A0F5E 45%,#7F1D1D 100%);}
+  .vthumb:focus-visible{outline:3px solid #38BDF8;outline-offset:-3px;}
+  .vthumb::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.3;
+    background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px;}
+  .vt-left{position:relative;z-index:1;min-width:0;flex:1;}
+  .vt-badge{display:block;width:max-content;background:#DC2626;color:#fff;font-weight:800;font-size:clamp(9px,2.2vw,13px);letter-spacing:.8px;padding:4px 10px;border-radius:6px;margin-bottom:clamp(6px,1.8vw,14px);box-shadow:0 2px 0 #7F1D1D;}
+  .vt-title{display:block;font-weight:900;line-height:1.12;font-size:clamp(20px,6.4vw,46px);text-shadow:0 3px 0 rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.5);}
+  .vt-title em{font-style:normal;color:#FACC15;display:block;}
+  .vt-sub{margin-top:clamp(6px,1.8vw,14px);font-size:clamp(11px,2.8vw,17px);font-weight:700;color:#FDE68A;}
+  .vt-brand{position:absolute;left:5%;bottom:4.5%;z-index:1;display:flex;align-items:center;gap:7px;font-size:clamp(9px,2.3vw,13px);font-weight:800;color:#E6ECFA;}
+  .vt-brand img{width:clamp(18px,4.4vw,28px);height:auto;border-radius:50%;}
+  .vt-right{position:relative;z-index:1;flex-shrink:0;display:flex;align-items:center;justify-content:center;width:clamp(86px,26vw,230px);aspect-ratio:1;}
+  .vt-emoji{font-size:clamp(64px,19vw,170px);line-height:1;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));}
+  .vt-play{position:absolute;right:-4%;bottom:-2%;width:clamp(46px,12vw,86px);aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#FF3B3B,#D90000);box-shadow:0 5px 0 #7F0000,0 10px 24px rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.7);transition:transform .15s;}
+  .vt-play::after{content:"";margin-left:8%;border-style:solid;border-width:clamp(9px,2.4vw,17px) 0 clamp(9px,2.4vw,17px) clamp(15px,4vw,28px);border-color:transparent transparent transparent #fff;}
+  @media(hover:hover){ .vthumb:hover .vt-play{transform:scale(1.1);} }
+  .vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .vid-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .vid-actions a{font-weight:800;font-size:14px;padding:10px 18px;border-radius:12px;color:#fff;border:1px solid rgba(255,255,255,.3);}
+  .vid-actions .yt{background:linear-gradient(135deg,#FF3B3B,#D90000);box-shadow:0 4px 0 #7F0000;}
+  .vid-actions .sub{background:linear-gradient(135deg,#8B3DFF,#6D12E8);box-shadow:0 4px 0 #43098F;}
+  .vid-actions a:active{transform:translateY(3px);}
+
   /* FEATURES */
   .features{margin:26px 0 8px;display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;
     box-shadow:0 10px 30px -14px rgba(10,30,90,.35);}
@@ -367,6 +399,25 @@
   </div>
   <p class="no-results" id="noResults" role="status">कोई टॉपिक नहीं मिला, कुछ और खोजकर देखो।</p>
 
+  <section class="vid" id="video" aria-label="खास वीडियो">
+    <div class="vid-label"><h2>🎬 यह वीडियो ज़रूर देखो</h2></div>
+    <div class="vframe" id="vframe">
+      <button type="button" class="vthumb" id="vthumb" aria-label="वीडियो चलाओ: पढ़ाई में मन नहीं लगता?">
+        <span class="vt-left">
+          <span class="vt-badge">▶ FULL VIDEO</span>
+          <span class="vt-title">पढ़ाई में<em>मन नहीं लगता?</em></span>
+          <span class="vt-sub" style="display:block">📚 यह वीडियो ज़रूर देखो</span>
+        </span>
+        <span class="vt-right"><span class="vt-emoji" aria-hidden="true">😩</span><span class="vt-play" aria-hidden="true"></span></span>
+        <span class="vt-brand"><img src="logo.png" alt="" width="28" height="28">NK Study Lab</span>
+      </button>
+    </div>
+    <div class="vid-actions">
+      <a class="yt" href="https://youtu.be/Lk7gBmJ-Gn0" target="_blank" rel="noopener">▶ YouTube पर देखो</a>
+      <a class="sub" href="https://youtube.com/@codeshieldnk?sub_confirmation=1" target="_blank" rel="noopener">🔔 चैनल Subscribe करो</a>
+    </div>
+  </section>
+
   <section class="features" aria-label="खासियतें">
     <div class="feat"><span class="fi">🚀</span><div><b>Easy Learning</b><span>स्टेप-बाय-स्टेप</span></div></div>
     <div class="feat"><span class="fi">🇮🇳</span><div><b>हिंदी में</b><span>आसान भाषा, उदाहरण के साथ</span></div></div>
@@ -395,6 +446,21 @@
 </footer>
 
 <script>
+  // Featured video: thumbnail click plays the YouTube video right here
+  (function(){
+    const btn = document.getElementById('vthumb');
+    if(!btn) return;
+    btn.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/Lk7gBmJ-Gn0?autoplay=1&rel=0&modestbranding=1';
+      f.title = 'पढ़ाई में मन नहीं लगता? - NK Study Lab';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      btn.replaceWith(f);
+    });
+  })();
+
   // Top-bar dropdowns (click for touch screens, hover on desktop)
   document.querySelectorAll('.dd').forEach(dd => {
     const btn = dd.querySelector('.dd-btn');
