@@ -1,7 +1,7 @@
 /* NK Study Lab - shared top bar look (logo + name + tagline on dark navy) for every inner page. */
 (function () {
   'use strict';
-  if (document.getElementById('navMenu')) return;           // homepage has its own bar
+  if (document.body.hasAttribute('data-nk-home')) return;   // homepage has its own bar
   var bar = null, kids = document.body.children;
   for (var i = 0; i < kids.length; i++) {
     var el = kids[i];
@@ -38,19 +38,26 @@
   document.head.appendChild(st);
 })();
 
-/* Nk Study Lab - shared side menu (right-side drawer) for every inner page.
-   Each page has a header button with the attribute  data-nk-menu  and loads this file.
-   To change the menu items, edit ITEMS below: every page updates at once. */
+/* NK Study Lab - shared side menu (right-side drawer) for every page incl. homepage.
+   Any button with the attribute  data-nk-menu  opens it.
+   To change the menu items, edit MAIN / MORE below: every page updates at once. */
 (function () {
   'use strict';
-  if (document.getElementById('navMenu')) return;   // homepage has its own drawer
-
-  var ITEMS = [
-    { icon: '🏠', label: 'Home',          href: 'index.html' },
-    { icon: '📖', label: 'All Subjects',  href: 'index.html#subjects' },
-    { icon: '👤', label: 'About Us',      href: 'about.html' },
-    { icon: '✉️', label: 'Contact',       href: 'contact.html' },
-    { icon: '▶️', label: 'Join YouTube',  href: 'https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs', external: true, yt: true }
+  var MAIN = [
+    { icon: '🏠', label: 'Home',             href: 'index.html' },
+    { icon: '🖥️', label: 'Computer Science', href: 'computer-science.html' },
+    { icon: '💻', label: 'Coding',           href: 'coding.html' },
+    { icon: '🐍', label: 'Python',           href: 'python.html' },
+    { icon: '🗣️', label: 'Spoken English',   href: 'english.html' },
+    { icon: '📖', label: 'Grammar',          href: 'Grammar.html' },
+    { icon: '➗', label: 'Mathematics',      href: 'math.html' }
+  ];
+  var MORE = [
+    { icon: '📚', label: 'Vocabulary', href: 'voc1.html' },
+    { icon: '🕐', label: 'Tense',      href: 'tense.html' },
+    { icon: 'ℹ️', label: 'About Us',   href: 'about.html' },
+    { icon: '✉️', label: 'Contact',    href: 'contact.html' },
+    { icon: '▶️', label: 'Join YouTube', href: 'https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs', external: true, yt: true }
   ];
 
   var css = [
@@ -58,28 +65,40 @@
     'background:var(--surface,transparent);border:1px solid var(--border,rgba(128,128,128,.3));color:var(--text,inherit);',
     'font-size:1.15rem;line-height:1;cursor:pointer;flex-shrink:0;padding:0;font-family:inherit;}',
     '.nk-menu-btn:active{transform:scale(.92);}',
-    '[data-nk-menu]:focus-visible{outline:2px solid #0D9488;outline-offset:2px;}',
-    '.nk-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;',
+    '[data-nk-menu]:focus-visible{outline:2px solid #38BDF8;outline-offset:2px;}',
+    '.nk-overlay{position:fixed;inset:0;z-index:2000;background:rgba(2,6,23,.6);opacity:0;visibility:hidden;',
     'transition:opacity .25s ease,visibility 0s linear .25s;}',
     '.nk-overlay.open{opacity:1;visibility:visible;transition:opacity .25s ease;}',
-    '.nk-drawer{position:fixed;top:0;right:0;bottom:0;z-index:2001;width:min(300px,82vw);display:flex;flex-direction:column;',
-    'overflow-y:auto;background:var(--nk-bg,#fff);color:var(--nk-fg,#1A1F2B);',
-    'border-left:1px solid rgba(128,128,128,.28);box-shadow:-10px 0 30px rgba(0,0,0,.18);',
+    '.nk-drawer{position:fixed;top:0;right:0;bottom:0;z-index:2001;width:min(310px,86vw);display:flex;flex-direction:column;',
+    'overflow-y:auto;color:#E6ECFA;',
+    'background:radial-gradient(300px 200px at 100% 0%,rgba(37,99,235,.35),transparent 70%),linear-gradient(180deg,#071030 0%,#081638 60%,#0A1F52 100%);',
+    'border-left:1px solid rgba(80,130,255,.35);box-shadow:-12px 0 40px rgba(0,0,0,.5);',
     'transform:translateX(100%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;',
     "font-family:'Inter',system-ui,sans-serif;}",
     '.nk-drawer.open{transform:translateX(0);visibility:visible;transition:transform .28s ease;}',
-    '.nk-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;',
-    "border-bottom:1px solid rgba(128,128,128,.28);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;}",
-    '.nk-head .nk{color:#0D9488;}',
-    '.nk-close{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;',
-    'background:rgba(128,128,128,.12);border:1px solid rgba(128,128,128,.28);color:inherit;font-size:18px;cursor:pointer;padding:0;}',
-    '.nk-drawer a{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:14px;font-weight:600;',
-    'color:inherit;text-decoration:none;border-bottom:1px solid rgba(128,128,128,.22);}',
-    '.nk-drawer a:last-child{border-bottom:none;}',
-    '.nk-drawer a:hover{background:rgba(128,128,128,.1);}',
-    '.nk-drawer a .ic{width:22px;text-align:center;font-size:16px;}',
-    '.nk-drawer a.yt{background:linear-gradient(135deg,#7b2af7,#7010fc);color:#fff;}',
-    '.nk-drawer a.yt .ic{background:rgba(255,255,255,.2);border-radius:6px;padding:3px;}',
+    '.nk-head{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 16px 14px;}',
+    '.nk-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;',
+    'background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:17px;cursor:pointer;padding:0;}',
+    '.nk-dlogo{width:76px;height:76px;border-radius:50%;box-shadow:0 0 0 2px rgba(34,211,238,.4),0 0 22px rgba(37,99,235,.7);margin-bottom:10px;}',
+    ".nk-dname{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;color:#fff;}",
+    '.nk-dname b{color:#38BDF8;}',
+    '.nk-dtag{font-size:12.5px;font-style:italic;font-weight:600;color:#FACC15;margin-top:2px;}',
+    '.nk-list{display:flex;flex-direction:column;gap:3px;padding:6px 12px;}',
+    '.nk-drawer a.nk-item{display:flex;align-items:center;gap:13px;padding:11px 14px;border-radius:12px;font-size:14.5px;font-weight:600;',
+    'color:#DCE6FF;text-decoration:none;border:1px solid transparent;}',
+    '.nk-drawer a.nk-item:hover{background:rgba(255,255,255,.07);}',
+    '.nk-drawer a.nk-item .ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}',
+    '.nk-drawer a.nk-item.cur{background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.55);border-color:rgba(255,255,255,.25);}',
+    '.nk-drawer a.nk-item.yt{background:linear-gradient(135deg,#7b2af7,#7010fc);color:#fff;margin-top:4px;}',
+    '.nk-sep{height:1px;background:rgba(120,160,255,.25);margin:8px 18px;}',
+    '.nk-dark{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 26px;font-size:14.5px;font-weight:600;color:#DCE6FF;cursor:pointer;}',
+    '.nk-dark span.l{display:flex;align-items:center;gap:13px;}',
+    '.nk-sw{width:44px;height:24px;border-radius:999px;background:rgba(255,255,255,.2);position:relative;flex-shrink:0;transition:background .2s;border:0;padding:0;cursor:pointer;}',
+    '.nk-sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s;}',
+    '.nk-sw.on{background:#2563EB;}.nk-sw.on::after{transform:translateX(20px);}',
+    '.nk-foot{margin:10px 14px 18px;padding:12px 14px;border-radius:14px;display:flex;align-items:center;gap:12px;',
+    'background:rgba(255,255,255,.06);border:1px solid rgba(250,204,21,.45);}',
+    '.nk-foot .t{font-size:22px;}.nk-foot .a{font-size:12.5px;font-weight:700;color:#FACC15;}.nk-foot .b{font-size:12.5px;color:#DCE6FF;}',
     'html.nk-lock,html.nk-lock body{overflow:hidden;}',
     '@media (prefers-reduced-motion:reduce){.nk-drawer,.nk-overlay{transition:none;}}'
   ].join('');
@@ -88,16 +107,20 @@
   style.textContent = css;
   document.head.appendChild(style);
 
+  var here = decodeURIComponent((location.pathname.split('/').pop() || 'index.html'));
+  if (here === '') here = 'index.html';
+
   var overlay = document.createElement('div');
   overlay.className = 'nk-overlay';
-
   var drawer = document.createElement('nav');
   drawer.className = 'nk-drawer';
+  drawer.id = 'nkDrawer';
   drawer.setAttribute('aria-label', 'मुख्य मेन्यू');
 
   var head = document.createElement('div');
   head.className = 'nk-head';
-  head.innerHTML = '<span><span class="nk">Nk</span> Study Lab</span>';
+  head.innerHTML = '<img class="nk-dlogo" src="logo.png" alt="" width="76" height="76">' +
+    '<div class="nk-dname"><b>NK</b> Study Lab</div><div class="nk-dtag">Har Vishay Ek Jagah</div>';
   var closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className = 'nk-close';
@@ -106,42 +129,68 @@
   head.appendChild(closeBtn);
   drawer.appendChild(head);
 
-  ITEMS.forEach(function (it) {
-    var a = document.createElement('a');
-    a.href = it.href;
-    if (it.external) { a.target = '_blank'; a.rel = 'noopener'; }
-    if (it.yt) a.className = 'yt';
-    var ic = document.createElement('span');
-    ic.className = 'ic';
-    ic.textContent = it.icon;
-    a.appendChild(ic);
-    a.appendChild(document.createTextNode(it.label));
-    drawer.appendChild(a);
-  });
+  function buildList(items) {
+    var box = document.createElement('div');
+    box.className = 'nk-list';
+    items.forEach(function (it) {
+      var a = document.createElement('a');
+      a.href = it.href;
+      a.className = 'nk-item' + (it.yt ? ' yt' : '') + (it.href === here ? ' cur' : '');
+      if (it.external) { a.target = '_blank'; a.rel = 'noopener'; }
+      var ic = document.createElement('span');
+      ic.className = 'ic';
+      ic.textContent = it.icon;
+      a.appendChild(ic);
+      a.appendChild(document.createTextNode(it.label));
+      box.appendChild(a);
+    });
+    return box;
+  }
+  drawer.appendChild(buildList(MAIN));
+  var sep = document.createElement('div'); sep.className = 'nk-sep'; drawer.appendChild(sep);
+  drawer.appendChild(buildList(MORE));
+  var sep2 = document.createElement('div'); sep2.className = 'nk-sep'; drawer.appendChild(sep2);
+
+  // Dark mode row: clicks the page's own theme button, so every page keeps working
+  var dark = document.createElement('div');
+  dark.className = 'nk-dark';
+  dark.innerHTML = '<span class="l"><span class="ic" style="font-size:18px;width:28px;text-align:center">🌗</span>Dark Mode</span>';
+  var sw = document.createElement('button');
+  sw.type = 'button'; sw.className = 'nk-sw'; sw.setAttribute('role', 'switch'); sw.setAttribute('aria-label', 'Dark Mode');
+  dark.appendChild(sw);
+  drawer.appendChild(dark);
+
+  var foot = document.createElement('div');
+  foot.className = 'nk-foot';
+  foot.innerHTML = '<span class="t">🏆</span><div><div class="a">Learn • Practice • Grow</div><div class="b">With NK Study Lab</div></div>';
+  drawer.appendChild(foot);
 
   document.body.appendChild(overlay);
   document.body.appendChild(drawer);
 
-  var lastTrigger = null;
-
-  // Use the page's own colours so the drawer matches light and dark themes
-  function matchTheme() {
-    var bg = getComputedStyle(document.body).backgroundColor;
-    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
-      bg = getComputedStyle(document.documentElement).backgroundColor;
-    }
-    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') bg = '#ffffff';
-    drawer.style.setProperty('--nk-bg', bg);
-    drawer.style.setProperty('--nk-fg', getComputedStyle(document.body).color);
+  function isDark() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ||
+      document.body.classList.contains('dark') || document.body.classList.contains('dark-theme');
   }
+  function syncSwitch() {
+    var on = isDark();
+    sw.classList.toggle('on', on);
+    sw.setAttribute('aria-checked', String(on));
+  }
+  function toggleTheme() {
+    var b = document.querySelector('#themeBtn, #themeToggle, .theme-toggle');
+    if (b) { b.click(); setTimeout(syncSwitch, 60); }
+  }
+  dark.addEventListener('click', function (e) { e.preventDefault(); toggleTheme(); });
 
+  var lastTrigger = null;
   function setOpen(open) {
-    if (open) matchTheme();
+    if (open) syncSwitch();
     drawer.classList.toggle('open', open);
     overlay.classList.toggle('open', open);
     document.documentElement.classList.toggle('nk-lock', open);
-    var triggers = document.querySelectorAll('[data-nk-menu]');
-    for (var i = 0; i < triggers.length; i++) triggers[i].setAttribute('aria-expanded', String(open));
+    var tr = document.querySelectorAll('[data-nk-menu]');
+    for (var i = 0; i < tr.length; i++) tr[i].setAttribute('aria-expanded', String(open));
     if (open) { closeBtn.focus(); }
     else if (lastTrigger) { lastTrigger.focus(); }
   }
@@ -158,6 +207,10 @@
   }
   closeBtn.addEventListener('click', function () { setOpen(false); });
   overlay.addEventListener('click', function () { setOpen(false); });
+  drawer.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (a && a.getAttribute('href') && a.getAttribute('href').charAt(0) === '#') setOpen(false);
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && drawer.classList.contains('open')) setOpen(false);
   });

@@ -237,7 +237,7 @@
   a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #38BDF8;outline-offset:2px;}
 </style>
 </head>
-<body>
+<body data-nk-home>
 
 <div class="navbar">
   <div class="wrap">
@@ -253,27 +253,12 @@
     </nav>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Theme Toggle">🌙</button>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" data-nk-menu aria-label="मेन्यू खोलो">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </div>
-<div class="nav-overlay" id="navOverlay"></div>
-<nav class="nav-menu" id="navMenu" aria-label="मुख्य मेन्यू">
-  <div class="nav-head">
-    <span><span class="nk">NK</span> Study Lab</span>
-    <button type="button" class="nav-close" id="navClose" aria-label="मेन्यू बंद करो">✕</button>
-  </div>
-  <a href="#top"><span class="ic">🏠</span> Home</a>
-  <a href="#subjects"><span class="ic">📖</span> All Subjects</a>
-  <a href="about.html"><span class="ic">👤</span> About Us</a>
-  <a href="contact.html"><span class="ic">✉️</span> Contact</a>
-  <a href="https://youtube.com/@codeshieldnk?si=pXhJG2rVXfVX1jNs" target="_blank" rel="noopener" class="yt-link">
-    <span class="ic">▶️</span> Join YouTube
-  </a>
-</nav>
-
 <header class="hero" id="top">
   <div class="wrap">
     <div>
@@ -373,40 +358,6 @@
 </footer>
 
 <script>
-  // Hamburger menu toggle
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('navMenu');
-  const navOverlay = document.getElementById('navOverlay');
-  const navClose = document.getElementById('navClose');
-
-  function setMenu(open){
-    navMenu.classList.toggle('open', open);
-    navOverlay.classList.toggle('open', open);
-    hamburger.classList.toggle('open', open);
-    document.body.classList.toggle('menu-open', open);
-    hamburger.setAttribute('aria-expanded', String(open));
-    if(open){ navClose.focus(); } else { hamburger.focus(); }
-  }
-  hamburger.setAttribute('aria-expanded', 'false');
-  hamburger.setAttribute('aria-controls', 'navMenu');
-  hamburger.addEventListener('click', () => setMenu(!navMenu.classList.contains('open')));
-  navClose.addEventListener('click', () => setMenu(false));
-  navOverlay.addEventListener('click', () => setMenu(false));
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && navMenu.classList.contains('open')) setMenu(false);
-  });
-
-  // Close menu when a link is clicked (without stealing focus from the page jump)
-  navMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      navOverlay.classList.remove('open');
-      hamburger.classList.remove('open');
-      document.body.classList.remove('menu-open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
-  });
-
   document.getElementById('searchForm').addEventListener('submit', e => { e.preventDefault(); document.getElementById('subjects').scrollIntoView({behavior:'smooth'}); });
 
   // Live search filter
@@ -451,6 +402,7 @@
   });
 </script>
 
+<script src="nav.js"></script>
 <script src="chat.js" defer></script>
 </body>
   </html>
