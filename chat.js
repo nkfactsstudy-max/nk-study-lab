@@ -1,6 +1,6 @@
 /* NK Study Lab AI — chat widget. Stays hidden until AI_URL is filled in. */
 (function(){
-  var AI_URL = ""; /* paused until key works: https://nk-study-ai.nkfactsstudy.workers.dev */            // <- paste the Cloudflare Worker URL here when ready
+  var AI_URL = ""; /* paused until key works: https://nk-study-lab.nkfactsstudy.workers.dev */            // <- paste the Cloudflare Worker URL here when ready
   var DAILY_LIMIT = 25;       // questions per browser per day
   if(!AI_URL || window.__nkChat) return;
   window.__nkChat = true;
